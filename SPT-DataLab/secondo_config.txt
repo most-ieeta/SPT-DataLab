@@ -1,0 +1,4 @@
+host=Deti-lei-1.ua.pt
+port=1233
+database_name=MOST
+object_name=moving_region
