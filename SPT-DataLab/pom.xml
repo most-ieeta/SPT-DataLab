@@ -1,18 +1,25 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>ua.ieeta.sptdatalab</groupId>
-        <artifactId>sptdatalab-modules</artifactId>
-        <version>0.9</version>
-    </parent>
+    <groupId>ua.ieeta.sptdatalab</groupId>
+    <artifactId>SPTDataLab</artifactId>
+    <packaging>pom</packaging>
+    <version>0.9</version>
+    <name>SPT_DataLab</name>
     
-    <artifactId>SPT-DataLab</artifactId>
-    <name>SPT-DataLab</name>
-    <packaging>jar</packaging>
+    <url>https://github.com/most-ieeta/SPT-DataLab</url>
+    <description>SPT Data Lab is a tool for the visualization, creation and refinement of Spatio-Temporal Data and for the evaluation of region interpolation methods. It is being developed at IEETA (Institute of Electronics and Informatics Engineering of Aveiro) and DETI (Departament of Electronic, Telecommunications and Informatics) from the University of Aveiro (www.ua.pt)</description>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <geotools.version>22-SNAPSHOT</geotools.version>
+        <jdom-version>2.0.6</jdom-version>
+        <jdom-version>2.0.6</jdom-version>
+        <jump.version>1.2</jump.version>
+        <json-simple-version>1.1.1</json-simple-version>
+        <sde-version>9.1</sde-version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
     </properties>
 
     <dependencies>
@@ -31,6 +38,7 @@
         <dependency>
             <groupId>org.jdom</groupId>
             <artifactId>jdom2</artifactId>
+            <version>${jdom-version}</version>
         </dependency>
         <dependency>
             <groupId>org.jdesktop</groupId>
@@ -144,7 +152,4 @@
             </plugin>
         </plugins>
     </build>
-    <version>0.9</version>
-    <groupId>ua.ieeta.sptdatalab</groupId>
-    <description>SPT Data Lab is a tool for the visualization, creation and refinement of Spatio-Temporal Data and for the evaluation of region interpolation methods</description>
 </project>
