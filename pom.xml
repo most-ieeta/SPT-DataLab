@@ -1,0 +1,155 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ua.ieeta.sptdatalab</groupId>
+    <artifactId>SPTDataLab</artifactId>
+    <packaging>pom</packaging>
+    <version>0.9</version>
+    <name>SPT_DataLab</name>
+    
+    <url>https://github.com/most-ieeta/SPT-DataLab</url>
+    <description>SPT Data Lab is a tool for the visualization, creation and refinement of Spatio-Temporal Data and for the evaluation of region interpolation methods. It is being developed at IEETA (Institute of Electronics and Informatics Engineering of Aveiro) and DETI (Departament of Electronic, Telecommunications and Informatics) from the University of Aveiro (www.ua.pt)</description>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <geotools.version>22-SNAPSHOT</geotools.version>
+        <jdom-version>2.0.6</jdom-version>
+        <jdom-version>2.0.6</jdom-version>
+        <jump.version>1.2</jump.version>
+        <json-simple-version>1.1.1</json-simple-version>
+        <sde-version>9.1</sde-version>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.locationtech.jts</groupId>
+            <artifactId>jts-core</artifactId>
+            <version>1.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.locationtech.jts.io</groupId>
+            <artifactId>jts-io-common</artifactId>
+            <version>1.16.1</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.jdom</groupId>
+            <artifactId>jdom2</artifactId>
+            <version>${jdom-version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jdesktop</groupId>
+            <artifactId>beansbinding</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-shapefile</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-swing</artifactId>
+            <version>${geotools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jfree</groupId>
+            <artifactId>jfreechart</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+
+    </dependencies>
+    
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net repository</name>
+            <url>http://download.java.net/maven/2</url>
+        </repository>
+        <repository>
+            <id>osgeo</id>
+            <name>Open Source Geospatial Foundation Repository</name>
+            <url>http://download.osgeo.org/webdav/geotools/</url>
+        </repository>
+        <repository>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>boundless</id>
+            <name>Boundless Maven Repository</name>
+            <url>http://repo.boundlessgeo.com/main</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>ua.ieeta.sptdatalab.app.SPTDataLab</mainClass>
+                        </manifest>
+                    </archive>
+                    <finalName>SPTDataLab</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <archive>
+                        <manifest>
+                            <mainClass>ua.ieeta.sptdatalab.app.SPTDataLab</mainClass>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                        <manifestEntries>
+                            <Specification-Vendor>Sun Microsystems, Inc.</Specification-Vendor>
+                            <Implementation-Vendor>Sun Microsystems, Inc.</Implementation-Vendor>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>    
+                <executions>
+                    <execution>
+                        <id>copy-dlls</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/SPTDataLab_libraries</outputDirectory>
+                            <resources>          
+                                <resource>
+                                    <directory>${project.parent.parent.basedir}/SPTDataLab_libraries</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>              
+                        </configuration>        
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,2 +1,0 @@
-C:\SourceCode\app\datasets\icebergs\imgIce
-C:\SourceCode\app\datasets\icebergs\ice2-corr
