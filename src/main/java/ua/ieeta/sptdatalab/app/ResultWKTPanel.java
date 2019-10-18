@@ -77,19 +77,6 @@ public class ResultWKTPanel
                         rCopyButton_actionPerformed(e);
                     }
                 });
-        JButton copyToTestButton = SwingUtil.createButton(copyToTestIcon, "Copy Result to new Test",
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SPTDataLabBuilderFrame.instance().copyResultToTest();
-                    }
-                });
-        JButton btnClearResult = SwingUtil.createButton(clearIcon, "Clear Result",
-                new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        SPTDataLabBuilderController.clearResult();
-                    }
-                });
-        
         
         rButtonPanelLayout = new GridLayout(3,1);
         rButtonPanelLayout.setVgap(1);
@@ -97,7 +84,6 @@ public class ResultWKTPanel
         rButtonPanel.setLayout(rButtonPanelLayout);
         rButtonPanel.add(copyButton);
         rButtonPanel.add(copyToTestButton);
-        rButtonPanel.add(btnClearResult);
         
         rPanel.setLayout(rPanelLayout);
         rPanel.add(rButtonPanel, BorderLayout.NORTH);
@@ -207,8 +193,5 @@ jScrollPane1.getViewport().add(txtResult, null);
         tbModel.copyResult(isFormatted);
     }
     
-    void copyToTestButton_actionPerformed(ActionEvent e) {
-        SPTDataLabBuilderFrame.instance().copyResultToTest();
-    }
     
 }

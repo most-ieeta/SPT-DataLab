@@ -265,9 +265,6 @@ public class TestBuilderModel
   public List getCases() {
     return caseList.getCases();
   }
-  public TestCaseList getTestCaseList() {
-    return caseList.tcList;
-  }
   public void addCase(Geometry[] geoms) {
     addCase(geoms, null);
   }
@@ -278,12 +275,6 @@ public class TestBuilderModel
   }
 
 
-  void loadTestCaseList(TestCaseList tcl, PrecisionModel precisionModel) throws Exception {
-    setPrecisionModel(precisionModel);
-    if (tcl != null) {
-      loadEditList(tcl);
-    }
-  }
 
   public void loadEditList(TestCaseList tcl) throws ParseException {
     TestCaseList newTcl = new TestCaseList();

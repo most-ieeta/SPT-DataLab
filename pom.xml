@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>ua.ieeta.sptdatalab</groupId>
     <artifactId>SPTDataLab</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>0.9</version>
     <name>SPT_DataLab</name>
     
