@@ -88,8 +88,6 @@ package sj.lang;
 import java_cup10.runtime.Symbol;
 import sj.lang.JavaListExpr.NLParser;
 import java.io.*;
-import tools.Base64Decoder;
-import java_cup10.runtime.*;
 import tools.Reporter;
 import java.util.Properties;
 import java.util.Iterator;
@@ -1643,14 +1641,6 @@ public int readFromString (String chars) {
   inputReader.close();
  }
  return ListExpr.NO_ERROR_CODE;
-}
-/** Returns an inputstream from which can readed the
-  * decoded data in a text atom. The List must be a text atom and
-  *  must contain base64 coded content
-  **/
-public InputStream decodeText(){
-   Base64Decoder BD = new Base64Decoder(new StringReader(textValue()));
-   return BD.getInputStream();
 }
 /** Returns the byte representation of the contained text.
   **/

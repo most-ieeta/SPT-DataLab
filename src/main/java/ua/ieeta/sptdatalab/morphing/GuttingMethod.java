@@ -1,6 +1,5 @@
 package ua.ieeta.sptdatalab.morphing;
 
-import secondo.communication.optimizer.OptimizerInterface;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,11 +12,7 @@ import sj.lang.IntByReference;
 import sj.lang.ListExpr;
 import ua.ieeta.sptdatalab.app.AppConstants;
 
-/**
- *
- * @author Bruno Silva
- * Allows communication with a remote machine containing a secondo client, where the interpolation is done
- */
+
 public class GuttingMethod implements InterpolationMethod{
     
     //secondo db credentials
@@ -26,7 +21,6 @@ public class GuttingMethod implements InterpolationMethod{
     private String host;
     private int port;
     
-    private static OptimizerInterface OptInt = new OptimizerInterface();
     private static ESInterface Secondointerface = new ESInterface();
     
     private String sourceGeometry;
@@ -54,17 +48,12 @@ public class GuttingMethod implements InterpolationMethod{
         StringBuffer error_message = new StringBuffer();
         
         Secondointerface.secondo(cmd, resultList, error_code, error_pos, error_message);
-        //System.out.println(error_code +", "+ error_pos.value +", "+error_message);
         if(error_code.value != 0)
         {
             JOptionPane.showMessageDialog(null, error_message, "Secondo.", JOptionPane.INFORMATION_MESSAGE);
-            //System.out.println(error_message);
             Secondointerface.terminate();
             return null;
         }
-        /*else{
-            System.out.println("Interpolation success at instant: "+ instant);
-        }*/
         
         cleanDataBase();
         closeDataBase();
@@ -72,7 +61,6 @@ public class GuttingMethod implements InterpolationMethod{
         if(wkt == null || error_code.value != 0)
         {
             JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo.", JOptionPane.INFORMATION_MESSAGE);
-            //System.err.println("ERR_PARSING_TO_WKT.");
             Secondointerface.terminate();
             return null;
         }
@@ -112,16 +100,12 @@ public class GuttingMethod implements InterpolationMethod{
                 Secondointerface.terminate();
                 return null;
             }
-            /*else{
-                System.out.println("Interpolation success at instant: "+ t);
-            }*/
             
             wkts[i] = rlistToWkt(resultList);
             
             if(wkts[i] == null || error_code.value != 0)
             {
                 JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo.", JOptionPane.INFORMATION_MESSAGE);
-                //System.err.println("ERR_PARSING_TO_WKT.");
                 Secondointerface.terminate();
                 return null;
             }
@@ -178,13 +162,6 @@ public class GuttingMethod implements InterpolationMethod{
         }
         
         System.out.println("Connected to Secondo.");
-        OptInt.setHost(host);
-        OptInt.setPort(1235);
-        ok = OptInt.connect();
-        
-        //String name = retrieveDBName();
-        //System.out.print(name);
-        // execute a command
         
        ListExpr resultList = new ListExpr();
        IntByReference erroCode = new IntByReference(0);
@@ -221,9 +198,6 @@ public class GuttingMethod implements InterpolationMethod{
         // Disconnect from Secondo
         Secondointerface.terminate();
         
-        if(OptInt.isConnected()){
-            OptInt.disconnect();
-        }
     }
     
     /**

@@ -56,17 +56,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.util.LinearComponentExtracter;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
-import ua.ieeta.sptdatalab.controller.ResultController;
-import ua.ieeta.sptdatalab.event.SpatialFunctionPanelEvent;
-import ua.ieeta.sptdatalab.event.SpatialFunctionPanelListener;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
 import ua.ieeta.sptdatalab.model.GeometryEvent;
-import ua.ieeta.sptdatalab.model.HtmlWriter;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
 import ua.ieeta.sptdatalab.model.TestCaseEdit;
 
@@ -95,7 +90,6 @@ import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 public class SPTDataLabBuilderFrame extends JFrame
 {
     private static SPTDataLabBuilderFrame singleton = null;
-    private ResultController resultController = new ResultController(this);
     private SPTDataLabBuilderMenuBar tbMenuBar = new SPTDataLabBuilderMenuBar(this);
     private SPTDataLabBuilderToolBar tbToolBar = new SPTDataLabBuilderToolBar(this);
     //---------------------------------------------
@@ -640,16 +634,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         updateTestCaseView();
     }
     
-    public void copyResultToTest()
-    {
-        Object currResult = tbModel.getResult();
-        if (! (currResult instanceof Geometry))
-            return;
-        tbModel.addCase(new Geometry[] { (Geometry) currResult, null },
-                "Result of " + tbModel.getOpName());
-        updateTestCaseView();
-        testListPanel.populateList();
-    }
     
     public void actionExchangeGeoms() {
         currentCase().exchange();
@@ -658,34 +642,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         testCasePanel2.setTestCase(currentCase2());
     }
     
-    void btnDeleteCase_actionPerformed(ActionEvent e) {
-        tbModel.cases().deleteCase();
-        tbModel2.cases().deleteCase();
-        updateTestCaseView();
-        testListPanel.populateList();
-    }
-    
-    /*
-    void menuLoadTestCases_actionPerformed(ActionEvent e) {
-    try {
-    loadTestCasesDlg.show();
-    TestCaseList tcl = loadTestCasesDlg.getList();
-    loadTestCaseList(tcl, new PrecisionModel());
-    refreshNavBar();
-    }
-    catch (Exception x) {
-    reportException(this, x);
-    }
-    }
-    
-    void loadTestCaseList(TestCaseList tcl, PrecisionModel precisionModel) throws Exception {
-    tbModel.setPrecisionModel(precisionModel);
-    if (tcl != null) {
-    loadEditList(tcl);
-    }
-    testListPanel.populateList();
-    }
-    */
     
     void menuExchangeGeom_actionPerformed(ActionEvent e) {
         currentCase().exchange();
@@ -732,47 +688,6 @@ public class SPTDataLabBuilderFrame extends JFrame
     
     
     
-    void menuSaveAsHtml_actionPerformed(ActionEvent e) {
-        try {
-            directoryChooser.setDialogTitle("Select Folder In Which To Save HTML and GIF Files");
-            if (JFileChooser.APPROVE_OPTION == directoryChooser.showSaveDialog(this)) {
-                int choice = JOptionPane.showConfirmDialog(this,
-                        "Would you like the spatial function images "
-                                + "to show the A and B geometries?", "Confirmation",
-                                JOptionPane.YES_NO_CANCEL_OPTION);
-                final HtmlWriter writer = new HtmlWriter();
-                switch (choice) {
-                    case JOptionPane.CANCEL_OPTION:
-                        return;
-                    case JOptionPane.YES_OPTION:
-                        writer.setShowingABwithSpatialFunction(true);
-                        break;
-                    case JOptionPane.NO_OPTION:
-                        writer.setShowingABwithSpatialFunction(false);
-                        break;
-                }
-                final File directory = directoryChooser.getSelectedFile();
-                Assert.isTrue(directory.exists());
-                //        BusyDialog.setOwner(this);
-                //        BusyDialog busyDialog = new BusyDialog();
-                //        writer.setBusyDialog(busyDialog);
-                //        try {
-                //          busyDialog.execute("Saving .html and .gif files", new BusyDialog.Executable() {
-                //            public void execute() throws Exception {
-                writer.write(directory, tbModel.getTestCaseList(), tbModel.getPrecisionModel());
-                //            }
-                //          });
-                //        }
-                //        catch (Exception e2) {
-                //          System.out.println(busyDialog.getStackTrace());
-                //          throw e2;
-                //        }
-            }
-        }
-        catch (Exception x) {
-            SwingUtil.reportException(this, x);
-        }
-    }
     
     void menuSaveAsPNG_actionPerformed(ActionEvent e) {
         initFileChoosers();
@@ -870,12 +785,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         testCasePanel2.getGeometryEditPanel().setCurrentTool(PanTool.getInstance());
     }
     
-    void deleteAllTestCasesMenuItem_actionPerformed(ActionEvent e) {
-        tbModel.cases().init();
-        tbModel2.cases().init();
-        updateTestCaseView();
-        testListPanel.populateList();
-    }
     
     public void setShowingGrid(boolean showGrid) {
         testCasePanel.editPanel.setGridEnabled(showGrid);

@@ -212,9 +212,6 @@ static public byte[] decode(String Data){
          rin.close();
     }
 
-    public InputStream getInputStream(){
-       return new Base64InputStream(this);
-    }
 
 
     private byte[] inbuffer;
@@ -226,33 +223,6 @@ static public byte[] decode(String Data){
     private Reader rin;
 
 
-    private class Base64InputStream extends InputStream{
-        public Base64InputStream(Base64Decoder Dec){
-	   this.Decoder = Dec;
-	}
-	public int read() throws IOException{ return Decoder.getNext();}
-	public void close() throws IOException{ Decoder.close();}
-        
-        public int read(byte[] buffer,int off, int len)throws IOException{
-           int pos = off;
-           if(len>0){
-              int last = Decoder.getNext();
-              while(pos<len && last>=0){
-                  buffer[pos] = (byte) last;
-                  pos++;
-                  last = Decoder.getNext();
-              }
-           }
-           return pos-off;
-        }
-	
-	public int available() throws IOException{
-            int sav = in!=null ? Decoder.in.available(): 1;
-	    int nls = sav /72;
-	    return sav*3/4-nls;
-	}
-        Base64Decoder Decoder;
-    }
 
 
 }
