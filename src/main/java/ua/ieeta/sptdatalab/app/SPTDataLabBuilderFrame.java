@@ -972,7 +972,7 @@ public class SPTDataLabBuilderFrame extends JFrame
         //top panel (top half of window)
         jPanel1.setLayout(new GridLayout(1, 2));
         //jPanel1.setMinimumSize(new Dimension(431, 0));
-        contentPane.setPreferredSize(new Dimension(601, 670));
+        contentPane.setPreferredSize(new Dimension(601, 650));
         //panel with statistics and the buttons to swith statistics
         inputTabbedPane.setTabPlacement(JTabbedPane.LEFT);
         jPanel2.setLayout(borderLayout3);
@@ -1007,21 +1007,13 @@ public class SPTDataLabBuilderFrame extends JFrame
         jPanel2.add(inputTabbedPane, BorderLayout.CENTER);
         jSplitPane1.setBorder(new EmptyBorder(2,2,2,2));
         jSplitPane1.setResizeWeight(0.6);
-        //inputTabbedPane.add(testListPanel, AppStrings.TAB_LABEL_CASES);
         inputTabbedPane.add(wktPanel,  AppStrings.TAB_LABEL_INPUT);
-        //inputTabbedPane.add(resultWKTPanel, AppStrings.TAB_LABEL_RESULT);
-        //inputTabbedPane.add(resultValuePanel, AppStrings.TAB_LABEL_VALUE);
-        //inputTabbedPane.add(inspectPanel,  AppStrings.TAB_LABEL_INSPECT);
-        //inputTabbedPane.add(statsPanel, AppStrings.TAB_LABEL_STATS);
-        //inputTabbedPane.add(logPanel, AppStrings.TAB_LABEL_LOG);
-        //inputTabbedPane.add(layerListPanel, AppStrings.TAB_LABEL_LAYERS);
-        //inputTabbedPane.setSelectedIndex(1);
-        inputTabbedPane.addChangeListener(new ChangeListener() {
+        /*inputTabbedPane.addChangeListener(new ChangeListener() {
             public void stateChanged(ChangeEvent e)
             {
                 //updateStatsPanelIfVisible();
             }
-        });
+        });*/
         
         jSplitPane1.setDividerLocation(500);
         this.setJMenuBar(tbMenuBar.getMenuBar());

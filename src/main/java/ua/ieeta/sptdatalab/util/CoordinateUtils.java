@@ -23,7 +23,7 @@ package ua.ieeta.sptdatalab.util;
 import java.text.DecimalFormat;
 import org.locationtech.jts.geom.Coordinate;
 
-public class CoordinateUtils extends Coordinate{
+public class CoordinateUtils extends CoordinateRounded{
     
     public CoordinateUtils (double x, double y){
         super(x, y);

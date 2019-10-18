@@ -215,8 +215,9 @@ public class GeometryLocationsWriter
     for (Coordinate c : cursorCoordinates){
         int index = AppCorrGeometries.getInstance().getCordIndex(c, isSecondPanel);
         //get current source or target geometry with original scale coordinates and get the coordinate in the index
-        Coordinate originalC = AppCorrGeometries.getInstance().getGeometryInPanelOriginal(!isSecondPanel).getCoordinates()[index];
+        
         if(index > -1){
+            Coordinate originalC = AppCorrGeometries.getInstance().getGeometryInPanelOriginal(!isSecondPanel).getCoordinates()[index];
             buf.append(highlightStart).append("Point Number: ").append(highlightEnd).append(index).append(eol);
             buf.append(originalC.x).append(", ").append(originalC.y).append(eol);
         }

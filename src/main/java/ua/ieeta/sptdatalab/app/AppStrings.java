@@ -73,7 +73,7 @@ public class AppStrings {
     static final String TIP_NEXT = "<html>Next Case<br><br>No Zoom = Ctl-Click</html>";
     static final String TIP_PREV = "<html>Previous Case<br><br>No Zoom = Ctl-Click</html>";
     
-    static final String TIP_PASTE_DATA = "Paste from WKT, WKB, or GML";
+    static final String TIP_PASTE_DATA = "Paste WKT text";
     
     static final String TIP_COPY_DATA = "Copy as WKT (Ctl-click for formatted)";
     

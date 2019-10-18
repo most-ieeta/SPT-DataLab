@@ -703,7 +703,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
             editIndex = -1;
             frame.reloadBothPanels();
             this.isEdited = true;
-            System.out.println("source: after -> "+this.getOriginalScaleSource(this.currentObservationNumber).get(editIndex));
         }
     }
     
