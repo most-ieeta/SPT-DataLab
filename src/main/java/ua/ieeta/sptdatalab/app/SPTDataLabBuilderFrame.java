@@ -56,17 +56,12 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.util.LinearComponentExtracter;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
-import ua.ieeta.sptdatalab.controller.ResultController;
-import ua.ieeta.sptdatalab.event.SpatialFunctionPanelEvent;
-import ua.ieeta.sptdatalab.event.SpatialFunctionPanelListener;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
 import ua.ieeta.sptdatalab.model.GeometryEvent;
-import ua.ieeta.sptdatalab.model.HtmlWriter;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
 import ua.ieeta.sptdatalab.model.TestCaseEdit;
 
@@ -95,7 +90,6 @@ import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 public class SPTDataLabBuilderFrame extends JFrame
 {
     private static SPTDataLabBuilderFrame singleton = null;
-    private ResultController resultController = new ResultController(this);
     private SPTDataLabBuilderMenuBar tbMenuBar = new SPTDataLabBuilderMenuBar(this);
     private SPTDataLabBuilderToolBar tbToolBar = new SPTDataLabBuilderToolBar(this);
     //---------------------------------------------

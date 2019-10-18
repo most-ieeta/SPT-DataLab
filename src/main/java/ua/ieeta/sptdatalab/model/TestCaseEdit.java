@@ -26,13 +26,7 @@ import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.ParseException;
 import ua.ieeta.sptdatalab.test.TestCase;
 import ua.ieeta.sptdatalab.test.Testable;
-import ua.ieeta.sptdatalab.app.SPTDataLab;
 
-
-
-/**
- * @version 1.7
- */
 public class TestCaseEdit implements Testable {
   private Geometry[] geom = new Geometry[2];
   private Testable testable;

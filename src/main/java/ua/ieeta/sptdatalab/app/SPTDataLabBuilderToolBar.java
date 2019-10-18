@@ -83,7 +83,6 @@ public class SPTDataLabBuilderToolBar {
     private final ImageIcon leftIcon = new ImageIcon(this.getClass().getResource("Left.png"));
     private final ImageIcon rightIcon = new ImageIcon(this.getClass().getResource("Right.png"));
     private final ImageIcon plusIcon = new ImageIcon(this.getClass().getResource("Plus.png"));
-    //private final ImageIcon copyCaseIcon = new ImageIcon(this.getClass().getResource("CopyCase.png"));
     private final ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("save_icon.png"));
     private final ImageIcon saveAllIcon = new ImageIcon(this.getClass().getResource("save_all_icon.png"));
     private final ImageIcon saveAsIcon = new ImageIcon(this.getClass().getResource("save_as_icon.png"));
