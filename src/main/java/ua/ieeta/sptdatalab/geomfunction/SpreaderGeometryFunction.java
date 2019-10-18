@@ -3,8 +3,6 @@ package ua.ieeta.sptdatalab.geomfunction;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.util.GeometryMapper;
 import org.locationtech.jts.geom.util.GeometryMapper.MapOp;
-import ua.ieeta.sptdatalab.function.FunctionsUtil;
-import ua.ieeta.sptdatalab.util.ClassUtil;
 
 public class SpreaderGeometryFunction implements GeometryFunction {
 

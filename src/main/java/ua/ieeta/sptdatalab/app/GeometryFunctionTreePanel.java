@@ -11,7 +11,6 @@
  */
 package ua.ieeta.sptdatalab.app;
 
-import ua.ieeta.sptdatalab.function.DoubleKeyMap;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.*;
@@ -127,27 +126,6 @@ public class GeometryFunctionTreePanel extends JPanel {
 		return getFunctionFromNode(tree.getLastSelectedPathComponent());
 	}
 
-	public void populate(DoubleKeyMap funcs) {
-		tree.setModel(createModel(funcs));
-	}
-
-	private TreeModel createModel(DoubleKeyMap funcMap) {
-		DefaultMutableTreeNode top = new DefaultMutableTreeNode();
-
-		Collection categories = funcMap.keySet();
-		for (Iterator i = categories.iterator(); i.hasNext();) {
-			String category = (String) i.next();
-			DefaultMutableTreeNode catNode = new DefaultMutableTreeNode(category);
-			top.add(catNode);
-
-			Collection funcs = funcMap.values(category);
-			for (Iterator j = funcs.iterator(); j.hasNext();) {
-				Object func = j.next();
-				catNode.add(new DefaultMutableTreeNode(func));
-			}
-		}
-		return new DefaultTreeModel(top);
-	}
 
 	private transient Vector eventListeners;
 

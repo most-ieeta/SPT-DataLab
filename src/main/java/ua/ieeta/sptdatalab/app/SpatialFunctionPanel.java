@@ -36,16 +36,12 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.operation.buffer.BufferParameters;
 import org.locationtech.jts.util.Stopwatch;
 import ua.ieeta.sptdatalab.geomfunction.BaseGeometryFunction;
 import ua.ieeta.sptdatalab.geomfunction.GeometryFunction;
-import ua.ieeta.sptdatalab.geomfunction.RepeaterGeometryFunction;
 import ua.ieeta.sptdatalab.geomfunction.SpreaderGeometryFunction;
 import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
-import ua.ieeta.sptdatalab.event.GeometryFunctionEvent;
-import ua.ieeta.sptdatalab.event.GeometryFunctionListener;
 import ua.ieeta.sptdatalab.event.SpatialFunctionPanelEvent;
 import ua.ieeta.sptdatalab.event.SpatialFunctionPanelListener;
 import ua.ieeta.sptdatalab.ui.SwingUtil;
@@ -323,10 +319,6 @@ extends JPanel
     GeometryFunction funToRun = geomFuncPanel.getFunction();
     if (! isMetaFunctionEnabled()) return funToRun;
     
-    if (isFunctionRepeated()) {
-      int count = SwingUtil.getInteger(txtRepeatCount, 10);
-      funToRun = new RepeaterGeometryFunction(funToRun, count);
-    }
     if (isFunctionEach()) {
       funToRun = new SpreaderGeometryFunction(funToRun);
     }
