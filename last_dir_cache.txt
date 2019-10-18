@@ -1,2 +1,2 @@
-C:\SourceCode\app\datasets\icebergs\imgIce
-C:\SourceCode\app\datasets\icebergs\ice2-corr
+C:\SourceCode\SPT-DataLab\datasets\icebergs\imgIce
+C:\SourceCode\SPT-DataLab\datasets\icebergs\ice2-corr
