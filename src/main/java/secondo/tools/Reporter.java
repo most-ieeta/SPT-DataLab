@@ -170,13 +170,6 @@ public static void writeWarning(String message){
 }
 
 
-/** Shows an error message within a graphical window **/
-public static void showError(String message){
-   if(Environment.DEAD_SILENCE){
-      return;
-   }
-   reportError(message,null,false,false,false);
-}
 
 
 /** Shows an warning  message within a graphical window **/
