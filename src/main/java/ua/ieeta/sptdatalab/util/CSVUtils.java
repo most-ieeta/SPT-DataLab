@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -36,7 +35,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import static ua.ieeta.sptdatalab.util.ScreenImage.writeImage;
 
 public class CSVUtils {
 

@@ -19,8 +19,6 @@
 */
 package ua.ieeta.sptdatalab.util;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import org.locationtech.jts.geom.Coordinate;
 
 /**

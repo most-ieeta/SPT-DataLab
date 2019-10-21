@@ -31,7 +31,6 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 import static ua.ieeta.sptdatalab.app.AppConstants.CACHE_FILE;
 import ua.ieeta.sptdatalab.app.AppCorrGeometries;
 import ua.ieeta.sptdatalab.app.AppImage;

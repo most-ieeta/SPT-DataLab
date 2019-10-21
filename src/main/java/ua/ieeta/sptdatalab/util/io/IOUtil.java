@@ -12,10 +12,8 @@
 
 package ua.ieeta.sptdatalab.util.io;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.StringReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -37,7 +35,6 @@ public class IOUtil
   public static Geometry readFile(String filename, GeometryFactory geomFact)
   throws Exception, IOException 
   {
-    String ext = FileUtil.extension(filename);
     return readWKTFile(filename, geomFact);
   }
     
@@ -92,8 +89,4 @@ public class IOUtil
     return geom;
   }
   
-  
-  
-
-
 }

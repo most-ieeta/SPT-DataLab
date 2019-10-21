@@ -9,25 +9,26 @@
  *
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
+
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.util.io;
 
 import java.io.IOException;
 
-import javax.xml.parsers.*;
-
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.*;
-import org.locationtech.jts.io.geojson.GeoJsonReader;
-import org.locationtech.jts.io.gml2.*;
 
 
-/**
- * Reads a {@link Geometry} from a string which is in either WKT, WKBHex
- * or GML format
- *
- * @author Martin Davis
- * @version 1.7
- */
 public class MultiFormatReader
 {
   public static final int FORMAT_UNKNOWN = 0;

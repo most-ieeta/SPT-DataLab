@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ua.ieeta.sptdatalab.util;
 /*
  * Copyright (c) 2016 Vivid Solutions.
@@ -16,6 +12,16 @@ package ua.ieeta.sptdatalab.util;
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
 
 import ua.ieeta.sptdatalab.geom.GeometryLocation;
 import java.util.*;

@@ -9,67 +9,27 @@
  *
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
+
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.util;
 
 import java.io.*;
-import java.util.*;
 
-/**
- * Useful file utilities.
- *
- * @version 1.7
- */
 public class FileUtil 
 {
   public static final String EXTENSION_SEPARATOR = ".";
 
-  public static String name(String path)
-  {
-    File file = new File(path);
-    return file.getName();
-  }
 
-  public static String extension(String path)
-  {
-    String name = name(path);
-    int extIndex = name.lastIndexOf(EXTENSION_SEPARATOR.charAt(0));
-    if (extIndex < 0) return "";
-    return name.substring(extIndex, name.length());
-  }
-
-    /**
-     * Deletes the files in the directory, but does not remove the directory.
-     */
-    public static void deleteFiles(String directoryName) {
-        File dir = new File(directoryName);
-        File[] files = dir.listFiles();
-        for (int i = 0; i < files.length; i++) {
-            files[i].delete();
-        }
-    }
-
-    /**
-     * Returns true if the given directory exists.
-     */
-    public static boolean directoryExists(String directoryName) {
-        File directory = new File(directoryName);
-        return directory.exists();
-    }
-
-    /**
-     * Returns a List of the String's in the text file, one per line.
-     */
-    public static List getContents(String textFileName) throws FileNotFoundException, IOException {
-        List contents = new Vector();
-        FileReader fileReader = new FileReader(textFileName);
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line = bufferedReader.readLine();
-        while (line != null) {
-            contents.add(line);
-            line = bufferedReader.readLine();
-        }
-        return contents;
-    }
  
     public static String readText(String filename) 
     throws IOException 
@@ -110,24 +70,4 @@ public class FileUtil
         fileWriter.close();
     }
 
-    /**
-     * Copies the source file to the destination filename.
-     * Posted by Mark Thornton <mthorn@cix.compulink.co.uk> on Usenet.
-     */
-    public static void copyFile(File source, File destination) throws IOException {
-        RandomAccessFile out = new RandomAccessFile(destination, "rw");
-        //Tell the OS in advance how big the file will be. This may reduce fragmentation
-        out.setLength(source.length());
-        //copy the content
-        FileInputStream in = new FileInputStream(source);
-        byte[] buffer = new byte[16384];
-        while (true) {
-            int n = in.read(buffer);
-            if (n == -1)
-                break;
-            out.write(buffer, 0, n);
-        }
-        in.close();
-        out.close();
-    }
 }

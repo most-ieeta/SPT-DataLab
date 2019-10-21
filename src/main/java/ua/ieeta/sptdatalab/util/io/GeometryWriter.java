@@ -22,10 +22,8 @@ package ua.ieeta.sptdatalab.util.io;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,8 +32,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.WKTWriter;
-import ua.ieeta.sptdatalab.util.io.GeometryReader;
-
 /*
 * Writes to files source and target geometries. Can write to .corr files and .wkt
 */

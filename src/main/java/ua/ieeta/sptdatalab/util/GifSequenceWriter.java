@@ -17,6 +17,18 @@
 * along with SPT Data Lab; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.util;
 
 //
@@ -36,12 +48,8 @@ import javax.imageio.stream.*;
 import java.awt.image.*;
 import java.io.*;
 import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GifSequenceWriter {
     protected ImageWriter gifWriter;
@@ -177,43 +185,6 @@ public class GifSequenceWriter {
         return(node);
     }
     
-    /**
-     * public GifSequenceWriter(
-     * BufferedOutputStream outputStream,
-     * int imageType,
-     * int timeBetweenFramesMS,
-     * boolean loopContinuously) {
-     *
-     */
-    
-    public static void main(String[] args) throws Exception {
-        if (args.length > 1) {
-            // grab the output image type from the first image in the sequence
-            BufferedImage firstImage = ImageIO.read(new File(args[0]));
-            
-            // create a new BufferedOutputStream with the last argument
-            ImageOutputStream output =
-                    new FileImageOutputStream(new File(args[args.length - 1]));
-            
-            // create a gif sequence with the type of the first image, 1 second
-            // between frames, which loops continuously
-            GifSequenceWriter writer =
-                    new GifSequenceWriter(output, firstImage.getType(), 1, false);
-            
-            // write out the first image to our sequence...
-            writer.writeToSequence(firstImage);
-            for(int i=1; i<args.length-1; i++) {
-                BufferedImage nextImage = ImageIO.read(new File(args[i]));
-                writer.writeToSequence(nextImage);
-            }
-            
-            writer.close();
-            output.close();
-        } else {
-            System.out.println(
-                    "Usage: java GifSequenceWriter [list of gif files] [output file]");
-        }
-    }
     
     /**
      *

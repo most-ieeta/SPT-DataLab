@@ -17,6 +17,18 @@
 * along with SPT Data Lab; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 */
+
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.util;
 
 import java.awt.*;
@@ -267,6 +279,5 @@ public class ScreenImage
                 }
             }
         }
-
 
 }

@@ -20,7 +20,6 @@
 
 package ua.ieeta.sptdatalab.util;
 
-import java.awt.Dimension;
 import java.io.File;
 import java.util.List;
 import org.locationtech.jts.geom.Coordinate;
@@ -36,7 +35,6 @@ public class GeometryObservation {
     
     private List<Coordinate> target;
     
-    private File observationFile;
     
     public GeometryObservation(int observationNumber, List<Coordinate> source, List<Coordinate> target) {
         this.observationNumber = observationNumber;
@@ -88,12 +86,4 @@ public class GeometryObservation {
         return target;
     }
 
-    public File getObservationFile() {
-        return observationFile;
-    }
-
-    public GeometryObservation setObservationFile(File observationFile) {
-        this.observationFile = observationFile;
-        return this;
-    }
 }
