@@ -10,15 +10,22 @@
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.ui.style;
 
 import java.awt.*;
-import java.awt.geom.*;
 
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LineString;
-import org.locationtech.jts.geom.Polygon;
-import ua.ieeta.sptdatalab.ui.ColorUtil;
 import ua.ieeta.sptdatalab.ui.Viewport;
 import ua.ieeta.sptdatalab.ui.render.GeometryPainter;
 

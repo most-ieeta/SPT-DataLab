@@ -228,7 +228,6 @@ ua\ieeta\sptdatalab\ui\tools\PointTool.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$22.class
 ua\ieeta\sptdatalab\geom\GeometryVertexInserter$InsertVertexOperation.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$19.class
-ua\ieeta\sptdatalab\util\GeometryDataUtil.class
 ua\ieeta\sptdatalab\geom\GeometryVertexDeleter.class
 ua\ieeta\sptdatalab\ui\tools\StreamPolygonTool.class
 ua\ieeta\sptdatalab\app\GeometryInputDialog$2.class
@@ -328,7 +327,6 @@ ua\ieeta\sptdatalab\app\GeometryCollectionNode.class
 ua\ieeta\sptdatalab\model\HtmlWriter$1.class
 ua\ieeta\sptdatalab\app\PrecisionModelDialog$1.class
 ua\ieeta\sptdatalab\event\SpatialFunctionPanelListener.class
-ua\ieeta\sptdatalab\ui\style\MidArrowLineStyle.class
 jni_st_mesh\Main.class
 ua\ieeta\sptdatalab\ui\style\CostumBasicStyle.class
 ua\ieeta\sptdatalab\app\ValidPanel$1.class
@@ -358,7 +356,6 @@ ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame$3.class
 ua\ieeta\sptdatalab\app\CoordinateNode.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame$2.class
 ua\ieeta\sptdatalab\morphing\SimilarityMetricsEnum.class
-ua\ieeta\sptdatalab\ui\style\ComponentStyle.class
 ua\ieeta\sptdatalab\ui\Viewport.class
 ua\ieeta\sptdatalab\ui\SwingUtil.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$1.class

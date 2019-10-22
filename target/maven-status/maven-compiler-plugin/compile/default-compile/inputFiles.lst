@@ -27,7 +27,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\StringUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\java_cup10\runtime\lr_parser.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\PNGWriter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryVertexDeleter.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\MidArrowLineStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\JDuarteMethod.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\ResultWKTPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\java_cup10\runtime\Symbol.java
@@ -41,7 +40,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\test\Testable.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\GuttingMethod.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\EditVertexTool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLab.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GeometryDataUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\InterpolationMethod.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ClassUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\sj\lang\JavaListExpr\Stack.java
@@ -106,7 +104,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\render\GeometryPa
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\BasicStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\NearestPointFinder.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryPointLocater.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\ComponentStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryEditPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\controller\SPTDataLabBuilderController.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\MultiFormatReader.java

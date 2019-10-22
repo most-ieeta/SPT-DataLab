@@ -32,15 +32,9 @@ import java.awt.geom.Point2D;
 import javax.swing.SwingUtilities;
 
 import ua.ieeta.sptdatalab.app.AppConstants;
-import ua.ieeta.sptdatalab.app.AppImage;
-import ua.ieeta.sptdatalab.app.GeometryEditPanel;
-import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
 
 
 
-/**
- * @version 1.7
- */
 public class ZoomTool extends BasicTool 
 {
   private double zoomFactor = 1.5;

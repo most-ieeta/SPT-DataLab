@@ -29,7 +29,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.Stroke;
-import java.awt.geom.GeneralPath;
 
 import org.locationtech.jts.awt.PointShapeFactory;
 import org.locationtech.jts.awt.ShapeWriter;
@@ -75,13 +74,6 @@ public class GeometryPainter
         style.paint(geometry, viewport, g);
     }
     
-    private static void paintGeometryCollection(Graphics2D g, Viewport viewport,
-            GeometryCollection gc,
-            Style style
-    )
-            throws Exception
-    {
-    }
     
     static Viewport viewportCache;
     static ShapeWriter converterCache;
@@ -137,11 +129,6 @@ public class GeometryPainter
         paint(geometry, converter, g, lineColor, fillColor, stroke);
     }
     
-    private static void paint(Geometry geometry, ShapeWriter converter, Graphics2D g,
-            Color lineColor, Color fillColor)
-    {
-        paint(geometry, converter, g, lineColor, fillColor, null);
-    }
     
     private static void paint(Geometry geometry, ShapeWriter converter, Graphics2D g,
             Color lineColor, Color fillColor, Stroke stroke)

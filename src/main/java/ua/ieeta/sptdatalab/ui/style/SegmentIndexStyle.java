@@ -17,7 +17,6 @@ import java.awt.geom.*;
 
 import org.locationtech.jts.awt.FontGlyphReader;
 import org.locationtech.jts.geomgraph.Quadrant;
-import org.locationtech.jts.noding.Octant;
 import ua.ieeta.sptdatalab.ui.Viewport;
 
 
@@ -100,6 +99,4 @@ public class SegmentIndexStyle
     return (x - lastX)*(x - lastX) + (y - lastY)*(y - lastY);
   }
   
-
-
 }

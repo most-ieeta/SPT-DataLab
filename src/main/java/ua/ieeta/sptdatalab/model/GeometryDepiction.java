@@ -9,6 +9,18 @@
  *
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
+
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 package ua.ieeta.sptdatalab.model;
 
 import java.awt.Color;
@@ -25,8 +37,6 @@ public class GeometryDepiction
   public static final Color GEOM_A_FILL_CLR = new Color(200, 200, 255, 150);
 
   public static final Color GEOM_B_HIGHLIGHT_CLR = new Color(255, 0, 0);
-  public static final Color GEOM_B_LINE_CLR = new Color(150, 0, 0, 150);
-  public static final Color GEOM_B_FILL_CLR = new Color(255, 200, 200, 150);
   public static final Color GEOM_TRANSPARENT = new Color(0, 0, 0, 0);
   
   // YellowGreen

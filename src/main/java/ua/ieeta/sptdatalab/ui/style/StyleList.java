@@ -8,7 +8,7 @@
  * and the Eclipse Distribution License is available at
  *
  * http://www.eclipse.org/org/documents/edl-v10.php.
- */
+ */ 
 
 package ua.ieeta.sptdatalab.ui.style;
 
@@ -50,13 +50,6 @@ public class StyleList implements Style
   	styleList.add(new StyleEntry(style, filter));
   }
   
-  public void setEnabled(Style style, boolean isEnabled)
-  {
-  	StyleEntry entry = getEntry(style);
-  	if (entry == null)
-  		return;
-  	entry.setEnabled(isEnabled);
-  }
   
   private StyleEntry getEntry(Style style)
   {
@@ -86,10 +79,6 @@ class StyleEntry
 	private boolean isEnabled = true;
 	private StyleList.StyleFilter filter = null;
 	
-	public StyleEntry(Style style)
-	{
-		this.style = style;
-	}
 	
 	public StyleEntry(Style style, StyleList.StyleFilter filter)
 	{
