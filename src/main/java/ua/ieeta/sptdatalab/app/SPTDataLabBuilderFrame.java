@@ -147,19 +147,19 @@ public class SPTDataLabBuilderFrame extends JFrame
             //loadEditList(testpp);
             //      testCasePanel.setModel(tbModel);
             
-            testCasePanel.editCtlPanel.btnSetPrecisionModel.addActionListener(
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            precisionModelMenuItem_actionPerformed(e);
-                        }
-                    });
+            //testCasePanel.editCtlPanel.btnSetPrecisionModel.addActionListener(
+            //        new java.awt.event.ActionListener() {
+            //            public void actionPerformed(ActionEvent e) {
+            //                precisionModelMenuItem_actionPerformed(e);
+            //            }
+            //        });
             
-            testCasePanel2.editCtlPanel.btnSetPrecisionModel.addActionListener(
-                    new java.awt.event.ActionListener() {
-                        public void actionPerformed(ActionEvent e) {
-                            precisionModelMenuItem2_actionPerformed(e);
-                        }
-                    });
+            //testCasePanel2.editCtlPanel.btnSetPrecisionModel.addActionListener(
+            //        new java.awt.event.ActionListener() {
+            //            public void actionPerformed(ActionEvent e) {
+            //                precisionModelMenuItem2_actionPerformed(e);
+            //            }
+            //        });
             //testCasePanel.editCtlPanel.cbMagnifyTopo.addActionListener(
             testCasePanel.cbMagnifyTopo.addActionListener(
                     new java.awt.event.ActionListener() {
@@ -332,7 +332,7 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         testListPanel.populateList();
         updateTestCaseView();
-        updatePrecisionModelDescription();
+        //updatePrecisionModelDescription();
     }
     
     public static void reportException(Exception e) {
@@ -756,37 +756,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         //    testCasePanel.editPanel.setShowVertexIndices(showVertexIndicesMenuItem.isSelected());
     }
     
-    void precisionModelMenuItem_actionPerformed(ActionEvent e) {
-        try {
-            PrecisionModelDialog precisionModelDialog = new PrecisionModelDialog(
-                    this, "Edit Precision Model", true);
-            GuiUtil.center(precisionModelDialog, this);
-            precisionModelDialog.setPrecisionModel(tbModel.getPrecisionModel());
-            precisionModelDialog.setVisible(true);
-            tbModel.changePrecisionModel(precisionModelDialog.getPrecisionModel());
-            updatePrecisionModelDescription();
-            updateGeometry();
-        }
-        catch (ParseException pe) {
-            SwingUtil.reportException(this, pe);
-        }
-    }
-    
-    void precisionModelMenuItem2_actionPerformed(ActionEvent e) {
-        try {
-            PrecisionModelDialog precisionModelDialog = new PrecisionModelDialog(
-                    this, "Edit Precision Model", true);
-            GuiUtil.center(precisionModelDialog, this);
-            precisionModelDialog.setPrecisionModel(tbModel2.getPrecisionModel());
-            precisionModelDialog.setVisible(true);
-            tbModel2.changePrecisionModel(precisionModelDialog.getPrecisionModel());
-            updatePrecisionModelDescription();
-            updateGeometry2();
-        }
-        catch (ParseException pe) {
-            SwingUtil.reportException(this, pe);
-        }
-    }
     
     void revealTopo_actionPerformed() {
         DisplayParameters.setMagnifyingTopology(testCasePanel.cbMagnifyTopo.isSelected());

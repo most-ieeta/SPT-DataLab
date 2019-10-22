@@ -71,7 +71,6 @@ ua\ieeta\sptdatalab\util\CoordinateRounded.class
 java_cup10\runtime\Symbol.class
 ua\ieeta\sptdatalab\util\GuiUtil.class
 ua\ieeta\sptdatalab\app\MorphingGeometryViewerFrame$7.class
-ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame$9.class
 ua\ieeta\sptdatalab\model\Layer$1.class
 ua\ieeta\sptdatalab\app\WKTPanel$2.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$2.class
@@ -172,7 +171,6 @@ ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$9.class
 ua\ieeta\sptdatalab\util\FileUtil.class
 ua\ieeta\sptdatalab\app\PrecisionModelPanel$1.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$8.class
-ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame$8.class
 ua\ieeta\sptdatalab\ui\render\OperationMonitorManager$1.class
 ua\ieeta\sptdatalab\app\GeometryEditPanel.class
 sj\lang\UpdateInterface.class
@@ -204,7 +202,6 @@ ua\ieeta\sptdatalab\geom\VertexLocater$NearestVertexFilter.class
 ua\ieeta\sptdatalab\model\GeometryEvent.class
 ua\ieeta\sptdatalab\app\AppStrings.class
 ua\ieeta\sptdatalab\model\GeometryListener.class
-ua\ieeta\sptdatalab\app\PrecisionModelDialog.class
 ua\ieeta\sptdatalab\app\GeometryPopupMenu$3.class
 ua\ieeta\sptdatalab\model\GeometryType.class
 ua\ieeta\sptdatalab\morphing\MetricsEnum.class
@@ -284,7 +281,6 @@ ua\ieeta\sptdatalab\ui\style\BasicStyle.class
 ua\ieeta\sptdatalab\app\TestCasePanel$5.class
 ua\ieeta\sptdatalab\ui\render\GeometryPainter.class
 ua\ieeta\sptdatalab\model\HtmlWriter$1.class
-ua\ieeta\sptdatalab\app\PrecisionModelDialog$1.class
 ua\ieeta\sptdatalab\event\SpatialFunctionPanelListener.class
 jni_st_mesh\Main.class
 ua\ieeta\sptdatalab\ui\style\CostumBasicStyle.class
