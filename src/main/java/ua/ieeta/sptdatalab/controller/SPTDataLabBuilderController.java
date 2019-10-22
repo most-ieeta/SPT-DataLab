@@ -23,17 +23,60 @@
 
 package ua.ieeta.sptdatalab.controller;
 
+import org.locationtech.jts.geom.Coordinate;
+import org.locationtech.jts.geom.Geometry;
 import ua.ieeta.sptdatalab.app.GeometryEditPanel;
+import ua.ieeta.sptdatalab.app.SPTDataLab;
 import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
 import ua.ieeta.sptdatalab.app.SPTDataLabBuilderToolBar;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
+import ua.ieeta.sptdatalab.model.LayerList;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
+import ua.ieeta.sptdatalab.ui.SwingUtil;
 
 
 public class SPTDataLabBuilderController 
 {
+  /*
+  private static boolean autoZoomOnNextChange = false;
 
+  
+  public static void requestAutoZoom()
+  {
+    autoZoomOnNextChange  = true;
+  }
+  */
+ 
 
+  public static void setShowingStructure(boolean showStructure) {
+    DisplayParameters.setShowingStructure(showStructure);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
+
+  public static void setShowingOrientations(boolean showingOrientations) {
+    DisplayParameters.setShowingOrientation(showingOrientations);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
+
+  public void setShowVertexIndices(boolean showVertexIndices) {
+    DisplayParameters.setShowingOrientation(showVertexIndices);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
+
+  public static void setShowingVertices(boolean showingVertices) {
+    DisplayParameters.setShowingVertices(showingVertices);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
+
+  public static void setShowingLabel(boolean showLabel) {
+    DisplayParameters.setShowingLabel(showLabel);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
+
+  public static void setFillType(int fillType) {
+    DisplayParameters.setFillType(fillType);
+    SPTDataLabBuilderController.geometryViewChanged();
+  }
   
     public static void geometryViewChanged()
     {     
@@ -59,6 +102,14 @@ public class SPTDataLabBuilderController
     }
   
     
+    //not necessary?
+  public static Geometry getGeometryA() {
+    return SPTDataLab.model().getGeometryEditModel().getGeometry(0);
+  }
+  //not necessary?
+  public static Geometry getGeometryB() {
+    return SPTDataLab.model().getGeometryEditModel().getGeometry(1);
+  }
   
   public static void zoomToInput()
   {

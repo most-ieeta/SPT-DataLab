@@ -104,7 +104,7 @@ public class SPTDataLabBuilderFrame extends JFrame
     TestListPanel testListPanel = new TestListPanel(this);
     GridBagLayout gridBagLayout2 = new GridBagLayout();
     GridLayout gridLayout1 = new GridLayout();
-    //ResultWKTPanel resultWKTPanel = new ResultWKTPanel();
+    ResultWKTPanel resultWKTPanel = new ResultWKTPanel();
     //
     JTabbedPane tabbedPane = new JTabbedPane();
     MorphingGeometryOptionsPanel morphingPanel = new MorphingGeometryOptionsPanel();
@@ -301,7 +301,7 @@ public class SPTDataLabBuilderFrame extends JFrame
         testCasePanel.setModel(tbModel);
         testCasePanel2.setModel(tbModel2);
         wktPanel.setModel(model, model2);
-        //resultWKTPanel.setModel(model);
+        resultWKTPanel.setModel(model);
         
         model.getGeometryEditModel().addGeometryListener(new ua.ieeta.sptdatalab.model.GeometryListener() {
             public void geometryChanged(GeometryEvent e) {
@@ -336,9 +336,9 @@ public class SPTDataLabBuilderFrame extends JFrame
         return testCasePanel2;
     }
     
-    //public ResultWKTPanel getResultWKTPanel() {
-    //    return resultWKTPanel;
-   // }
+    public ResultWKTPanel getResultWKTPanel() {
+        return resultWKTPanel;
+    }
     
     /**
      *  File | Exit action performed
@@ -737,7 +737,8 @@ public class SPTDataLabBuilderFrame extends JFrame
     void revealTopo_actionPerformed() {
         DisplayParameters.setMagnifyingTopology(testCasePanel.cbMagnifyTopo.isSelected());
         DisplayParameters.setTopologyStretchSize(testCasePanel.getStretchSize());
-
+        //tbModel.setMagnifyingTopology(testCasePanel.editCtlPanel.cbMagnifyTopo.isSelected());
+        //tbModel.setTopologyStretchSize(testCasePanel.editCtlPanel.getStretchSize());
         SPTDataLabBuilderController.geometryViewChanged();
     }
     void revealTopo2_actionPerformed() {
@@ -772,6 +773,15 @@ public class SPTDataLabBuilderFrame extends JFrame
         //start JFrame maximized
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
+        /*
+        testCasePanel.editPanel.addGeometryListener(
+        new com.vividsolutions.jtstest.testbuilder.model.GeometryListener() {
+        
+        public void geometryChanged(GeometryEvent e) {
+        editPanel_geometryChanged(e);
+        }
+        });
+        */
         
         jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setPreferredSize(new Dimension(601, 660));
@@ -805,7 +815,11 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         tabbedPane.addTab("Morphing", morphingIcon, morphingPanel, AppStrings.MORPHING_PANE_TOOLTIP);
         
+        //previously, before the tabbed pane:
+        //jSplitPane1.add(jPanel2, JSplitPane.BOTTOM);
+        
         jPanel2.add(tbToolBar.getToolBar(), BorderLayout.NORTH);
+        //jPanel2 contains the wkt panel results and other statistics (bottom)
         jPanel2.add(inputTabbedPane, BorderLayout.CENTER);
         jSplitPane1.setBorder(new EmptyBorder(2,2,2,2));
         jSplitPane1.setResizeWeight(0.6);
@@ -813,8 +827,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         jSplitPane1.setDividerLocation(500);
         this.setJMenuBar(tbMenuBar.getMenuBar());
-        //contentPane.add(tbToolBar.getToolBar(), BorderLayout.NORTH);
-        
         
     }
     
@@ -894,23 +906,7 @@ public class SPTDataLabBuilderFrame extends JFrame
         testCasePanel2.getGeometryEditPanel().setCurrentTool(EditVertexTool.getInstance());
     }
     
-    /*void btnShowHideGrid_actionPerformed(ActionEvent e) {
-        //show or hide the grid
-        getGeometryEditPanel().getGridRenderer().swithEnabled();
-        //update ui
-        getGeometryEditPanel().forceRepaint();
-    }*/
-    
-    private Coordinate pickOffset(Geometry a, Geometry b) {
-        if (a != null && ! a.isEmpty()) {
-            return a.getCoordinates()[0];
-        }
-        if (b != null && ! b.isEmpty()) {
-            return b.getCoordinates()[0];
-        }
-        return null;
-    }
-    
+       
     public void resetZoom(){
         testCasePanel.getGeometryEditPanel().getViewport().zoomToInitialExtent();
         testCasePanel2.getGeometryEditPanel().getViewport().zoomToInitialExtent();

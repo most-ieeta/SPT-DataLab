@@ -55,7 +55,6 @@ public class SPTDataLabBuilderToolBar {
     JLabel totalImages = new JLabel();//a number with the total number of images in the directory (i.e. loaded to memory)
     JButton nextButton = new JButton();
     JButton previousButton = new JButton();
-    JButton newButton = new JButton();
     JButton saveButton = new JButton();
     JButton saveAllButton = new JButton();
     JButton saveAsButton = new JButton();
@@ -212,21 +211,6 @@ public class SPTDataLabBuilderToolBar {
                     }
                 });
         
-        newButton.setMargin(new Insets(0, 0, 0, 0));
-        newButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        newButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        newButton.setMaximumSize(new Dimension(30, 30));
-        newButton.setMinimumSize(new Dimension(30, 30));
-        newButton.setPreferredSize(new Dimension(30, 30));
-        newButton.setToolTipText(AppStrings.TIP_CASE_ADD_NEW);
-        newButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        newButton.setIcon(plusIcon);
-        newButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.createNewCase();
-                    }
-                });
         
         saveButton.setMargin(new Insets(0, 0, 0, 0));
         saveButton.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -555,7 +539,6 @@ public class SPTDataLabBuilderToolBar {
         toolButtonGroup.add(extractComponentButton);
         
         
-        jToolBar1.add(newButton, null);
         jToolBar1.add(saveButton, null);
         jToolBar1.add(saveAllButton, null);
         jToolBar1.add(saveAsButton, null);
