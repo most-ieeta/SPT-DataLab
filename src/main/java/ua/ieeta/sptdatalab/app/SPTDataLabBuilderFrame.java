@@ -50,8 +50,6 @@ import javax.swing.UIManager;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -82,11 +80,6 @@ import ua.ieeta.sptdatalab.util.StringUtil;
 import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 
 
-/**
- * The main frame for the JTS Test Builder.
- *
- * @version 1.7
- */
 public class SPTDataLabBuilderFrame extends JFrame
 {
     private static SPTDataLabBuilderFrame singleton = null;
@@ -643,11 +636,6 @@ public class SPTDataLabBuilderFrame extends JFrame
     }
     
     
-    void menuExchangeGeom_actionPerformed(ActionEvent e) {
-        currentCase().exchange();
-        testCasePanel.setTestCase(currentCase());
-    }
-    
     
     public void actionInspectGeometry() {
         int geomIndex = tbModel.getGeometryEditModel().getGeomIndex();
@@ -685,34 +673,7 @@ public class SPTDataLabBuilderFrame extends JFrame
         }
     }
     
-    
-    
-    
-    
-    void menuSaveAsPNG_actionPerformed(ActionEvent e) {
-        initFileChoosers();
-        try {
-            String fullFileName = SwingUtil.chooseFilenameWithConfirm(this, pngFileChooser);
-            if (fullFileName == null) return;
-            ImageUtil.writeImage(testCasePanel.getGeometryEditPanel(),
-                    fullFileName,
-                    ImageUtil.IMAGE_FORMAT_NAME_PNG);
-        }
-        catch (Exception x) {
-            SwingUtil.reportException(this, x);
-        }
-    }
-    
-    void menuSaveScreenToClipboard_actionPerformed(ActionEvent e) {
-        try {
-            ImageUtil.saveImageToClipboard(testCasePanel.getGeometryEditPanel(),
-                    ImageUtil.IMAGE_FORMAT_NAME_PNG);
-        }
-        catch (Exception x) {
-            SwingUtil.reportException(this, x);
-        }
-    }
-    
+        
     void drawRectangleButton_actionPerformed(ActionEvent e) {
         testCasePanel2.getGeometryEditPanel().setCurrentTool(RectangleTool.getInstance());
         testCasePanel.getGeometryEditPanel().setCurrentTool(RectangleTool.getInstance());

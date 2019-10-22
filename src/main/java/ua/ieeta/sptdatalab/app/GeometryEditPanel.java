@@ -228,18 +228,11 @@ public class GeometryEditPanel extends JPanel {
       forceRepaint();
     }
 
-    public void setGridSize(double gridSize) {
-      grid.setGridSize(gridSize);
-      forceRepaint();
-    }
 
     public void setHighlightPoint(Coordinate pt) {
       markPoint = pt;
     }
 
-    public boolean isAddingPoints() {
-      return stateAddingPoints;
-    }
 
     public void updateGeom()
     {

@@ -1,8 +1,6 @@
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\IOUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\GeometryWriter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\test\TestCase.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerCheckBoxList.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryTreePanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryInspectorDialog.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryVertexMover.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\sj\lang\ESInterface.java
@@ -21,7 +19,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\event\ValidPanelList
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryDepiction.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\TestCaseEdit.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\GeometryReader.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\ResultValuePanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\StringUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\java_cup10\runtime\lr_parser.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\PNGWriter.java
@@ -78,7 +75,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LegendPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\tools\Base64Encoder.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\DatasetLoader.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerControlList.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppCorrGeometries.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryBoxDeleter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryTransferable.java
@@ -168,7 +164,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\BasicTool.j
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\PolygonTool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\Tool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\MetricsEnum.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryTreeModel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\StaticGeometryContainer.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\render\LayerRenderer.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\LineStringTool.java
