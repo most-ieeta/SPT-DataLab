@@ -27,9 +27,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
-import ua.ieeta.sptdatalab.model.DisplayParameters;
-
 public class SPTDataLabBuilderMenuBar 
 {
   JMenuBar jMenuBar1 = new JMenuBar();
@@ -39,20 +36,13 @@ public class SPTDataLabBuilderMenuBar
   JMenu jMenuView = new JMenu();
   JMenuItem jMenuFileExit = new JMenuItem();
   JMenu jMenuEdit = new JMenu();
-  //JMenu jMenuTools = new JMenu();
-  //JMenu jMenuOptions = new JMenu();
   JMenuItem changeDataSet = new JMenuItem();
   JMenuItem menuLoadCorrFilesFolder = new JMenuItem();
   JMenuItem saveCurrent = new JMenuItem();
   JMenuItem saveCurrentAs = new JMenuItem();
   JMenuItem saveAll = new JMenuItem();
   JMenuItem saveAllAs = new JMenuItem();
-  JCheckBoxMenuItem showVerticesMenuItem = new JCheckBoxMenuItem();
-  JCheckBoxMenuItem showGridMenuItem = new JCheckBoxMenuItem();
-  JCheckBoxMenuItem showStructureMenuItem = new JCheckBoxMenuItem();
-  JCheckBoxMenuItem showVertexIndicesMenuItem = new JCheckBoxMenuItem();
   JMenuItem changeToLines = new JMenuItem();
-  private JMenuItem generateExpectedValuesMenuItem = new JMenuItem();
 
   SPTDataLabBuilderFrame tbFrame;
   
@@ -99,22 +89,6 @@ public class SPTDataLabBuilderMenuBar
         }
       });
     
-    showVerticesMenuItem.setText("Vertices");
-    showVerticesMenuItem.setSelected(true);
-    showVerticesMenuItem.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setShowingVertices(showVerticesMenuItem.isSelected());
-        }
-      });
-
-    showGridMenuItem.setText("Grid");
-    showGridMenuItem.setSelected(true);
-    showGridMenuItem.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          tbFrame.setShowingGrid(showGridMenuItem.isSelected());
-        }
-      });
     saveCurrent.setText("Save Current");
     saveCurrentAs.setText("Save Current As...");
     saveCurrentAs.addActionListener(
@@ -138,15 +112,6 @@ public class SPTDataLabBuilderMenuBar
         }
       });
     jMenuFile.setText("File");
-    //jMenuOptions.setText("Options");
-    //jMenuTools.setText("Tools");
-
-    //ButtonGroup fillGroup = new ButtonGroup();
-    //fillGroup.add(basicFillMenuItem);
-    //fillGroup.add(varyFillMenuItem);
-    //fillGroup.add(rainbowFillMenuItem);
-    //fillGroup.add(rainbowRandomFillMenuItem);
-    //basicFillMenuItem.setSelected(true);
 
     jMenuFile.add(this.changeDataSet);
     jMenuFile.add(this.menuLoadCorrFilesFolder);
@@ -154,42 +119,14 @@ public class SPTDataLabBuilderMenuBar
     jMenuFile.add(this.saveCurrentAs);
     jMenuFile.add(this.saveAll);
     jMenuFile.add(this.saveAllAs);
-    //jMenuFile.add(saveAsHtmlMenuItem);
-    //jMenuFile.add(generateExpectedValuesMenuItem);
     jMenuFile.addSeparator();
     jMenuFile.add(jMenuFileExit);
     //==========================
     
     jMenuHelp.setText("Help");
     jMenuHelp.add(jMenuAbout);
-    //==========================
-    /*jMenuView.setText("View");
-    jMenuView.add(showVerticesMenuItem);
-    //jMenuOptions.add(showVertexIndicesMenuItem);
-    jMenuView.add(showStructureMenuItem);
-    jMenuView.add(showOrientationsMenuItem);
-    jMenuView.add(showLabelMenuItem);
-    
-    jMenuView.addSeparator();
-    jMenuView.add(basicFillMenuItem);
-    jMenuView.add(varyFillMenuItem);
-    jMenuView.add(rainbowFillMenuItem);
-    jMenuView.add(rainbowRandomFillMenuItem);
-    
-    jMenuView.addSeparator();
-    jMenuView.add(showGridMenuItem);
-    
-    jMenuView.addSeparator();
-    jMenuView.add(menuViewText);
-    jMenuView.add(menuViewGeometry);*/
-    //==========================    
-    
     
     jMenuBar1.add(jMenuFile);
-    //jMenuBar1.add(jMenuView);
-    //jMenuBar1.add(jMenuEdit);
-    //jMenuBar1.add(jMenuOptions);
-    //jMenuBar1.add(jMenuTools);
     jMenuBar1.add(jMenuHelp);
 
     return jMenuBar1;

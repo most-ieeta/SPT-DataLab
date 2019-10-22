@@ -73,7 +73,6 @@ public class TestCasePanel extends JPanel {
     JButton btnRunTests = new JButton();
     RelatePanel relatePanel = new RelatePanel();
     BorderLayout borderLayout2 = new BorderLayout();
-    //GeometryEditControlPanel editCtlPanel = new GeometryEditControlPanel();
     BorderLayout borderLayout3 = new BorderLayout();
     JPanel jPanel1 = new JPanel();
     JTextField txtDesc = new JTextField();

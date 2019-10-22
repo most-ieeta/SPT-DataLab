@@ -55,7 +55,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.util.LinearComponentExtracter;
-import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
@@ -63,7 +62,6 @@ import ua.ieeta.sptdatalab.model.GeometryEvent;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
 import ua.ieeta.sptdatalab.model.TestCaseEdit;
 
-import ua.ieeta.sptdatalab.ui.ImageUtil;
 import ua.ieeta.sptdatalab.ui.SwingUtil;
 import ua.ieeta.sptdatalab.ui.tools.DeleteVertexTool;
 import ua.ieeta.sptdatalab.ui.tools.EditVertexTool;
@@ -75,7 +73,6 @@ import ua.ieeta.sptdatalab.ui.tools.PointTool;
 import ua.ieeta.sptdatalab.ui.tools.RectangleTool;
 import ua.ieeta.sptdatalab.ui.tools.StreamPolygonTool;
 import ua.ieeta.sptdatalab.ui.tools.ZoomTool;
-import ua.ieeta.sptdatalab.util.GuiUtil;
 import ua.ieeta.sptdatalab.util.StringUtil;
 import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 
@@ -245,14 +242,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         }
     }
     
-    private void initFileChoosers() {
-        if (pngFileChooser == null) {
-            pngFileChooser = new JFileChooser();
-            pngFileChooser.addChoosableFileFilter(SwingUtil.PNG_FILE_FILTER);
-            pngFileChooser.setDialogTitle("Save PNG");
-            pngFileChooser.setSelectedFile(new File("geoms.png"));
-        }
-    }
     
     public static SPTDataLabBuilderFrame instance() {
         if (singleton == null) {
@@ -327,7 +316,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         testListPanel.populateList();
         updateTestCaseView();
-        //updatePrecisionModelDescription();
     }
     
     public static void reportException(Exception e) {
@@ -749,8 +737,7 @@ public class SPTDataLabBuilderFrame extends JFrame
     void revealTopo_actionPerformed() {
         DisplayParameters.setMagnifyingTopology(testCasePanel.cbMagnifyTopo.isSelected());
         DisplayParameters.setTopologyStretchSize(testCasePanel.getStretchSize());
-        //tbModel.setMagnifyingTopology(testCasePanel.editCtlPanel.cbMagnifyTopo.isSelected());
-        //tbModel.setTopologyStretchSize(testCasePanel.editCtlPanel.getStretchSize());
+
         SPTDataLabBuilderController.geometryViewChanged();
     }
     void revealTopo2_actionPerformed() {
@@ -785,15 +772,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         //start JFrame maximized
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
-        /*
-        testCasePanel.editPanel.addGeometryListener(
-        new com.vividsolutions.jtstest.testbuilder.model.GeometryListener() {
-        
-        public void geometryChanged(GeometryEvent e) {
-        editPanel_geometryChanged(e);
-        }
-        });
-        */
         
         jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setPreferredSize(new Dimension(601, 660));
@@ -827,21 +805,11 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         tabbedPane.addTab("Morphing", morphingIcon, morphingPanel, AppStrings.MORPHING_PANE_TOOLTIP);
         
-        //previously, before the tabbed pane:
-        //jSplitPane1.add(jPanel2, JSplitPane.BOTTOM);
-        
         jPanel2.add(tbToolBar.getToolBar(), BorderLayout.NORTH);
-        //jPanel2 contains the wkt panel results and other statistics (bottom)
         jPanel2.add(inputTabbedPane, BorderLayout.CENTER);
         jSplitPane1.setBorder(new EmptyBorder(2,2,2,2));
         jSplitPane1.setResizeWeight(0.6);
         inputTabbedPane.add(wktPanel,  AppStrings.TAB_LABEL_INPUT);
-        /*inputTabbedPane.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e)
-            {
-                //updateStatsPanelIfVisible();
-            }
-        });*/
         
         jSplitPane1.setDividerLocation(500);
         this.setJMenuBar(tbMenuBar.getMenuBar());
@@ -855,16 +823,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         return tbToolBar;
     }
     
-    private void updateGeometry() {
-        testCasePanel.relatePanel.clearResults();
-        testCasePanel.setTestCase(currentCase());
-        updateWktTopPanel();
-    }
-    private void updateGeometry2() {
-        testCasePanel2.relatePanel.clearResults();
-        testCasePanel2.setTestCase(currentCase2());
-        updateWktBottomPanel();
-    }
     
     private void updateWktPanel() {
         updateWktTopPanel();
@@ -930,11 +888,6 @@ public class SPTDataLabBuilderFrame extends JFrame
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
     
-    void menuChangeToLines_actionPerformed(ActionEvent e) {
-        Geometry cleanGeom = LinearComponentExtracter.getGeometry(tbModel.getGeometryEditModel().getGeometry(0));
-        currentCase().setGeometry(0, cleanGeom);
-        updateGeometry();
-    }
     
     void btnEditVertex_actionPerformed(ActionEvent e) {
         testCasePanel.getGeometryEditPanel().setCurrentTool(EditVertexTool.getInstance());

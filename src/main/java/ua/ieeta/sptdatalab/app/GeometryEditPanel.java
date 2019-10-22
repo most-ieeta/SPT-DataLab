@@ -47,7 +47,6 @@ import java.util.List;
 
 import java.awt.*;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.awt.geom.Area;
@@ -100,7 +99,6 @@ public class GeometryEditPanel extends JPanel {
     private static final int OTHER_GEOMETRY_INDEX = 2;
     //----------------------------------------
     BorderLayout borderLayout1 = new BorderLayout();
-    GeometryPopupMenu menu = new GeometryPopupMenu();
     
     //flag to check if this is the first(right) or second (left) panel
     private boolean isSecondPanel = false;
@@ -143,23 +141,6 @@ public class GeometryEditPanel extends JPanel {
       //this.add(legendPanel);
     }  
 
-    class PopupClickListener extends MouseAdapter
-    {
-      public void mousePressed(MouseEvent e)
-      {
-        if (e.isPopupTrigger())
-          doPopUp(e);
-      }
-      public void mouseReleased(MouseEvent e)
-      {
-        if (e.isPopupTrigger())
-          doPopUp(e);
-      }
-      private void doPopUp(MouseEvent e)
-      {
-          menu.show(e.getComponent(), e.getX(), e.getY());
-      }
-    }
 
 
     public void setModel(TestBuilderModel model) {
@@ -263,7 +244,7 @@ public class GeometryEditPanel extends JPanel {
       double toleranceInModel = AppConstants.TOLERANCE_PIXELS / getViewport().getScale();
       GeometryLocationsWriter writer = new GeometryLocationsWriter();
       writer.setHtml(false);
-      return writer.writeLocationString(getLayerList(), pt, toleranceInModel, isSecondPanel);
+      return "Coordinates: ".concat(writer.writeLocationString(getLayerList(), pt, toleranceInModel, isSecondPanel));
     }
 
     public double getGridSize() {
