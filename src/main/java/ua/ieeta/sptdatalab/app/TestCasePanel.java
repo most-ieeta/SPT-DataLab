@@ -85,13 +85,10 @@ public class TestCasePanel extends JPanel {
     JLabel testCaseIndexLabel = new JLabel();
     GridBagLayout gridBagLayout2 = new GridBagLayout();
     GridBagLayout gridBagLayout3 = new GridBagLayout();
-    JLabel precisionModelLabel = new JLabel();
     ValidPanel validPanel = new ValidPanel();
     JPanel statusBarPanel = new JPanel();
     JLabel lblMousePos = new JLabel();
-    JLabel geomArea = new JLabel();
-    JLabel lblPrecisionModel = new JLabel();
-
+    
     JPanel jPanelMagnify = new JPanel();
     JSpinner spStretchDist = new JSpinner(new SpinnerNumberModel(5, 0, 99999, 1));
     JCheckBox cbMagnifyTopo = new JCheckBox();
@@ -259,31 +256,14 @@ public class TestCasePanel extends JPanel {
               jTabbedPane1_stateChanged(e);
             }
           });
-        testCaseIndexLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        testCaseIndexLabel.setToolTipText("");
-        testCaseIndexLabel.setText("0 of 0");
-        casePrecisionModelPanel.setLayout(gridBagLayout2);
-        namePanel.setLayout(gridBagLayout3);
-        precisionModelLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-        precisionModelLabel.setToolTipText("Precision Model");
-        precisionModelLabel.setText("");
-
+        
         txtDesc.setBackground(Color.white);
         lblMousePos.setBackground(SystemColor.text);
         lblMousePos.setBorder(BorderFactory.createLoweredBevelBorder());
-        lblMousePos.setPreferredSize(new Dimension(21, 21));
+        lblMousePos.setPreferredSize(new Dimension(31, 21));
         lblMousePos.setHorizontalAlignment(SwingConstants.RIGHT);
-        lblPrecisionModel.setBackground(SystemColor.text);
-        lblPrecisionModel.setBorder(BorderFactory.createLoweredBevelBorder());
-    //    txtSelectedPoint.setEditable(false);
-        lblPrecisionModel.setText("Sel Pt:");
         
-        geomArea.setBackground(SystemColor.text);
-        geomArea.setBorder(BorderFactory.createLoweredBevelBorder());
-        geomArea.setPreferredSize(new Dimension(21, 21));
-        geomArea.setHorizontalAlignment(SwingConstants.RIGHT);
-        geomArea.setText("Area: ");
-
+        
         editFramePanel.setLayout(editFrameLayout);
         editFramePanel.add(editPanel, BorderLayout.CENTER);
         editFramePanel.setBorder(BorderFactory.createBevelBorder(1));
@@ -293,8 +273,8 @@ public class TestCasePanel extends JPanel {
         editGroupPanel.add(statusBarPanel, BorderLayout.SOUTH);
 
         //cbMagnifyTopo.setText("Magnify");
-        cbMagnifyTopo.setToolTipText("Magnify Topology - Stretches geometries to reveal topological detail");
-        spStretchDist.setToolTipText("Stretch Distance (pixels)");
+        //cbMagnifyTopo.setToolTipText("Magnify Topology - Stretches geometries to reveal topological detail");
+        //spStretchDist.setToolTipText("Stretch Distance (pixels)");
         spStretchDist.setMaximumSize(new Dimension(20,20));
         ((JSpinner.DefaultEditor) spStretchDist.getEditor()).getTextField().setColumns(2);
         jPanelMagnify.setLayout(new BoxLayout(jPanelMagnify, BoxLayout.LINE_AXIS));
@@ -305,21 +285,8 @@ public class TestCasePanel extends JPanel {
         jPanelMagnify.setBorder(BorderFactory.createLoweredBevelBorder());
 
         statusBarPanel.setLayout(new GridLayout(1,2));
-        statusBarPanel.add(testCaseIndexLabel);
-        statusBarPanel.add(jPanelMagnify);
-        statusBarPanel.add(lblPrecisionModel);
         statusBarPanel.add(lblMousePos);
-        statusBarPanel.add(geomArea);
-
-        /*add(jTabbedPane1, BorderLayout.WEST);
-        //jTabbedPane1.add(editCtlPanel, "Edit");
-        jTabbedPane1.add(spatialFunctionPanel,  "Geometry Functions");
-        jTabbedPane1.add(scalarFunctionPanel,   "Scalar Functions");
-        jTabbedPane1.add(validPanel, "Valid / Mark");
-        jTabbedPane1.add(relateTabPanel, "Predicates");
-        relateTabPanel.add(relatePanel, BorderLayout.CENTER);
-        relateTabPanel.add(btnPanel, BorderLayout.NORTH);
-        btnPanel.add(btnRunTests, null);*/
+        
       }
 
       private void updateTestCaseIndexLabel() {
