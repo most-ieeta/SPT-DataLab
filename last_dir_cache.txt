@@ -1,2 +1,0 @@
-C:\SourceCode\SPT-DataLab\datasets\icebergs\imgIce
-C:\SourceCode\SPT-DataLab\datasets\icebergs\ice1-wkt

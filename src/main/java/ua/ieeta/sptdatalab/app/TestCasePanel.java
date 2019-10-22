@@ -209,10 +209,6 @@ public class TestCasePanel extends JPanel {
         }
       }
 
-      public void setPrecisionModelDescription(String description) {
-        precisionModelLabel.setText(description);
-        lblPrecisionModel.setText(" PM: " + description);
-      }
 
       /**
        *  Component initialization

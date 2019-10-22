@@ -123,11 +123,6 @@ public class SPTDataLabBuilderFrame extends JFrame
     TestBuilderModel tbModel;
     TestBuilderModel tbModel2;
     
-    private GeometryInspectorDialog geomInspectorDlg = new GeometryInspectorDialog(this);
-    /*
-    private LoadTestCasesDialog loadTestCasesDlg = new LoadTestCasesDialog(this,
-    "Load Test Cases", true);
-    */
     
     
     /**
@@ -650,12 +645,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         //geomInspectorDlg.setVisible(true);
     }
     
-    public void actionInspectGeometryDialog() {
-        int geomIndex = tbModel.getGeometryEditModel().getGeomIndex();
-        String tag = geomIndex == 0 ? AppStrings.GEOM_LABEL_A : AppStrings.GEOM_LABEL_B;
-        Geometry geometry = currentCase().getGeometry(geomIndex);
-        geomInspectorDlg.setVisible(true);
-    }
     
     void menuLoadCorrFilesFolder_actionPerformed(ActionEvent e) {
         boolean success = DatasetLoader.loadAndSetCoordinatesFiles();
@@ -900,10 +889,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         
     }
     
-    private void updatePrecisionModelDescription() {
-        testCasePanel.setPrecisionModelDescription(tbModel.getPrecisionModel().toString());
-        testCasePanel2.setPrecisionModelDescription(tbModel2.getPrecisionModel().toString());
-    }
     
     public void updateTestCaseView() {
         testCasePanel.setTestCase(currentCase());

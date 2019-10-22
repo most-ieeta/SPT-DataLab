@@ -177,10 +177,6 @@ public class SPTDataLabBuilderController
   {
     SPTDataLabBuilderFrame.instance().actionExchangeGeoms();
   }
-  public static void inspectGeometryDialog()
-  {
-    SPTDataLabBuilderFrame.instance().actionInspectGeometryDialog();
-  }
   public static void clearResult()
   {
     SPTDataLabBuilderFrame.instance().getResultWKTPanel().clearResult();
