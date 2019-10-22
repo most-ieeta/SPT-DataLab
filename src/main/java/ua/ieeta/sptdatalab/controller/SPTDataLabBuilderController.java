@@ -140,19 +140,6 @@ public class SPTDataLabBuilderController
     SPTDataLabBuilderFrame.instance().updateTestCases();
   }
   
-  public static void extractComponentsToTestCase(Geometry aoi)
-  {
-    //double toleranceInModel = SPTDataLabBuilderFrame.getGeometryEditPanel().getToleranceInModel();
-    LayerList lyrList = model().getLayers();
-    Geometry[] comp = lyrList.getComponents(aoi);
-    if (comp == null) 
-      return;
-    model().addCase(comp);
-    SPTDataLabBuilderFrame.instance().updateTestCases();
-    toolbar().clearToolButtons();
-    toolbar().unselectExtractComponentButton();
-    editPanel().setCurrentTool(null);
-  }
 
   public static void copyComponentToClipboard(Coordinate pt)
   {
@@ -177,22 +164,12 @@ public class SPTDataLabBuilderController
   {
     SPTDataLabBuilderFrame.instance().actionExchangeGeoms();
   }
-  public static void clearResult()
-  {
-    SPTDataLabBuilderFrame.instance().getResultWKTPanel().clearResult();
-    model().setResult(null);
-    editPanel().updateView();
-  }
+  
 
   private static TestBuilderModel model() {
     return SPTDataLabBuilderFrame.instance().getModel();
   }
-  private static GeometryEditPanel editPanel() {
-    return SPTDataLabBuilderFrame.instance().getGeometryEditPanel();
-  }
-  private static GeometryEditPanel editPanel2() {
-    return SPTDataLabBuilderFrame.instance().getGeometryEditPanel2();
-  }
+  
 
 
   private static SPTDataLabBuilderToolBar toolbar() {

@@ -74,9 +74,7 @@ import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 
 public class SPTDataLab
 {
-    private static final String PROP_SWING_DEFAULTLAF = "swing.defaultlaf";
     
-    private static final String OPT_GEOMFUNC = "geomfunc";
     
     private TestBuilderModel tbModel = new TestBuilderModel(false);
     
@@ -96,12 +94,6 @@ public class SPTDataLab
    
     public static SPTDataLab app;
     
-    
-    
-    public static PrecisionModel getPrecisionModel()
-    {
-        return model().getPrecisionModel();
-    }
     
     public static GeometryFactory getGeometryFactory()
     {
@@ -394,36 +386,6 @@ public class SPTDataLab
         System.out.println("-h: shows this help message.\n-c: Shows necessary installations needed to use the diferent interpolation and similarity metrics libraries");
     }
     
-    /**
-     * Sets the look and feel, using user-defined LAF if
-     * provided as a system property.
-     *
-     * e.g. Metal: -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
-     *
-     * @throws InterruptedException
-     * @throws InvocationTargetException
-     */
-    private static void setLookAndFeel() throws InterruptedException, InvocationTargetException
-    {
-        /**
-         * Invoke on Swing thread to pass Java security requirements
-         */
-        javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-            public void run()
-            {
-                try {
-                    String laf = System.getProperty(PROP_SWING_DEFAULTLAF);
-                    if (laf == null) {
-                        laf = UIManager.getSystemLookAndFeelClassName();
-                    }
-                    javax.swing.UIManager.setLookAndFeel(laf);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
     
     
     public static InterpolationMethodEnum getMethodEnum(int methodInt){
