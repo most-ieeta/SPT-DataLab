@@ -12,23 +12,23 @@
 
 package ua.ieeta.sptdatalab.model;
 
-import ua.ieeta.sptdatalab.ui.style.ArrowEndpointStyle;
-import ua.ieeta.sptdatalab.ui.style.SegmentIndexStyle;
+//import ua.ieeta.sptdatalab.ui.style.ArrowEndpointStyle;
+//import ua.ieeta.sptdatalab.ui.style.SegmentIndexStyle;
 import ua.ieeta.sptdatalab.ui.style.VertexStyle;
-import ua.ieeta.sptdatalab.ui.style.ArrowLineStyle;
+//import ua.ieeta.sptdatalab.ui.style.ArrowLineStyle;
 import ua.ieeta.sptdatalab.ui.style.BasicStyle;
-import ua.ieeta.sptdatalab.ui.style.CircleEndpointStyle;
-import ua.ieeta.sptdatalab.ui.style.PolygonStructureStyle;
+//import ua.ieeta.sptdatalab.ui.style.CircleEndpointStyle;
+//import ua.ieeta.sptdatalab.ui.style.PolygonStructureStyle;
 import ua.ieeta.sptdatalab.ui.style.Style;
-import ua.ieeta.sptdatalab.ui.style.DataLabelStyle;
+//import ua.ieeta.sptdatalab.ui.style.DataLabelStyle;
 import ua.ieeta.sptdatalab.ui.style.StyleList;
 import ua.ieeta.sptdatalab.ui.style.LayerStyle;
 import ua.ieeta.sptdatalab.geom.GeometryUtil;
-import java.awt.*;
+//import java.awt.*;
 
 import org.locationtech.jts.geom.*;
-import ua.ieeta.sptdatalab.ui.ColorUtil;
-import ua.ieeta.sptdatalab.ui.Viewport;
+//import ua.ieeta.sptdatalab.ui.ColorUtil;
+//import ua.ieeta.sptdatalab.ui.Viewport;
 
 
 
@@ -109,23 +109,23 @@ public class Layer
   {
     this.geomStyle = style;
     VertexStyle vertexStyle = new VertexStyle(style.getLineColor());
-    ArrowLineStyle segArrowStyle = new ArrowLineStyle(ColorUtil.lighter(style.getLineColor(), 0.8));
-    ArrowEndpointStyle lineArrowStyle = new ArrowEndpointStyle(ColorUtil.lighter(style.getLineColor(),0.5), false, true);
-    CircleEndpointStyle lineCircleStyle = new CircleEndpointStyle(style.getLineColor(), 6, true, true);
-    PolygonStructureStyle polyStyle = new PolygonStructureStyle(ColorUtil.opaque(style.getLineColor()));
-    SegmentIndexStyle indexStyle = new SegmentIndexStyle(ColorUtil.opaque(style.getLineColor().darker()));
-    DataLabelStyle dataLabelStyle = new DataLabelStyle(ColorUtil.opaque(style.getLineColor().darker()));
+    //ArrowLineStyle segArrowStyle = new ArrowLineStyle(ColorUtil.lighter(style.getLineColor(), 0.8));
+    //ArrowEndpointStyle lineArrowStyle = new ArrowEndpointStyle(ColorUtil.lighter(style.getLineColor(),0.5), false, true);
+    //CircleEndpointStyle lineCircleStyle = new CircleEndpointStyle(style.getLineColor(), 6, true, true);
+    //PolygonStructureStyle polyStyle = new PolygonStructureStyle(ColorUtil.opaque(style.getLineColor()));
+    //SegmentIndexStyle indexStyle = new SegmentIndexStyle(ColorUtil.opaque(style.getLineColor().darker()));
+    //DataLabelStyle dataLabelStyle = new DataLabelStyle(ColorUtil.opaque(style.getLineColor().darker()));
     
     // order is important here
     StyleList styleList = new StyleList();
     styleList.add(vertexStyle, vertexFilter);
-    styleList.add(segArrowStyle, decorationFilter);
-    styleList.add(lineArrowStyle, decorationFilter);
-    styleList.add(lineCircleStyle, decorationFilter);
+    //styleList.add(segArrowStyle, decorationFilter);
+    //styleList.add(lineArrowStyle, decorationFilter);
+    //styleList.add(lineCircleStyle, decorationFilter);
     //styleList.add(style);
-    styleList.add(polyStyle, structureFilter);
-    styleList.add(indexStyle, structureFilter);
-    styleList.add(dataLabelStyle, labelFilter);
+    //styleList.add(polyStyle, structureFilter);
+    //styleList.add(indexStyle, structureFilter);
+    //styleList.add(dataLabelStyle, labelFilter);
     
     layerStyle = new LayerStyle(style, styleList);
   }

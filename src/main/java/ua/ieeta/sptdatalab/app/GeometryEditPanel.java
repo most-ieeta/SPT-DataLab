@@ -56,8 +56,6 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -67,7 +65,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import ua.ieeta.sptdatalab.ui.style.AWTUtil;
-import ua.ieeta.sptdatalab.util.io.CorrToGeometryUtils;
 
 
 /**
@@ -578,9 +575,6 @@ public class GeometryEditPanel extends JPanel {
   }
   
   
-  public Point2D snapToGrid(Point2D modelPoint) {
-    return grid.snapToGrid(modelPoint);
-  }
 
   void this_componentResized(ComponentEvent e) {
   	renderMgr.componentResized();

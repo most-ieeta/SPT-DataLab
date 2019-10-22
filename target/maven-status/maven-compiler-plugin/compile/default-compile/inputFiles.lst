@@ -1,5 +1,4 @@
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\IOUtil.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\PolygonStructureStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\GeometryWriter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\test\TestCase.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerCheckBoxList.java
@@ -60,11 +59,9 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryLocatio
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryVertexInserter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\ZoomTool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ChartMaker.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\DataLabelStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\AdjacentVertexFinder.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\LayerList.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\GraphicsUtil.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\LineStringEndpointStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\LineBandTool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\CSVUtils.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\sj\lang\ServerErrorCodes.java
@@ -76,18 +73,15 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GuiUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ScreenImage.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ExceptionFormatter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\TriangulationMethod.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\CircleEndpointStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\sj\lang\IntByReference.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LegendPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\secondo\tools\Base64Encoder.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\io\DatasetLoader.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\ArrowLineStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerControlList.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppCorrGeometries.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryBoxDeleter.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryTransferable.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\LineStringStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GeometryObservation.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GeometryTextCleaner.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\MorphingGeometryViewerFrame.java
@@ -122,7 +116,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\WKTPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\ColorUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\VertexLocater.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppStrings.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\SegmentStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\LayerStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\FileUtil.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\Viewport.java
@@ -132,7 +125,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\secondo\sj\lang\MyDataInputStream.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\DrawingGrid.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\Statistics.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\SegmentIndexStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\IndicatorTool.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryEvent.java
 C:\SourceCode\SPT-DataLab\src\main\java\jni_st_mesh\Main.java
@@ -166,7 +158,6 @@ C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\ClipImage.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\MorphingGeometryOptionsPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\PrecisionModelPanel.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\HtmlWriter.java
-C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\ArrowEndpointStyle.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\MckenneyMethod.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppCursors.java
 C:\SourceCode\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\ComponentLocater.java

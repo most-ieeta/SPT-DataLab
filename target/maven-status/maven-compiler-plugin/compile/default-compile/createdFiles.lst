@@ -32,7 +32,6 @@ ua\ieeta\sptdatalab\app\ResultWKTPanel.class
 ua\ieeta\sptdatalab\app\BusyDialog$2.class
 ua\ieeta\sptdatalab\model\DisplayParameters.class
 ua\ieeta\sptdatalab\topostretch\GeometryVerticesMover$MoveVerticesOperation.class
-ua\ieeta\sptdatalab\ui\style\LineStringEndpointStyle.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$5.class
 ua\ieeta\sptdatalab\util\ChartType.class
 ua\ieeta\sptdatalab\geom\GeometryPointLocater.class
@@ -41,7 +40,6 @@ ua\ieeta\sptdatalab\app\LayerCheckBoxList$CellRenderer.class
 ua\ieeta\sptdatalab\geom\GeometryVertexInserter.class
 ua\ieeta\sptdatalab\util\ChartMaker.class
 ua\ieeta\sptdatalab\app\ValidPanel.class
-ua\ieeta\sptdatalab\ui\style\CircleEndpointStyle.class
 ua\ieeta\sptdatalab\app\LayerCheckBoxList$1.class
 ua\ieeta\sptdatalab\app\LayerCheckBoxList.class
 ua\ieeta\sptdatalab\app\LayerControlList$RadioButtonRenderer.class
@@ -131,7 +129,6 @@ ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$9.class
 ua\ieeta\sptdatalab\app\GeometryPopupMenu$1.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$12.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$6.class
-ua\ieeta\sptdatalab\ui\style\SegmentStyle.class
 ua\ieeta\sptdatalab\geom\GeometryVertexMover.class
 ua\ieeta\sptdatalab\app\MorphingGeometryOptionsPanel$1.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$16.class
@@ -145,7 +142,6 @@ ua\ieeta\sptdatalab\model\TestBuilderModel$CaseList.class
 ua\ieeta\sptdatalab\util\io\GeometryWriter.class
 ua\ieeta\sptdatalab\ui\tools\IndicatorTool.class
 ua\ieeta\sptdatalab\ui\tools\InfoTool.class
-ua\ieeta\sptdatalab\ui\style\PolygonStructureStyle.class
 ua\ieeta\sptdatalab\app\MorphingGeometryPanel$1.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$11.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$18.class
@@ -179,7 +175,6 @@ ua\ieeta\sptdatalab\util\CSVUtils.class
 ua\ieeta\sptdatalab\app\AppCursors.class
 ua\ieeta\sptdatalab\topostretch\TopologyStretcher$VertexInMaskCountCoordinateFilter.class
 ua\ieeta\sptdatalab\event\SpatialFunctionPanelEvent.class
-ua\ieeta\sptdatalab\ui\style\ArrowEndpointStyle.class
 ua\ieeta\sptdatalab\ui\render\GridRenderer.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderMenuBar$13.class
 sj\lang\IntByReference.class
@@ -222,7 +217,6 @@ ua\ieeta\sptdatalab\app\GeometryTreeModel.class
 ua\ieeta\sptdatalab\app\AppCorrGeometries.class
 ua\ieeta\sptdatalab\app\TestListPanel.class
 ua\ieeta\sptdatalab\ui\style\LayerStyle.class
-ua\ieeta\sptdatalab\ui\style\ArrowLineStyle.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$6.class
 ua\ieeta\sptdatalab\ui\tools\PointTool.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderToolBar$22.class
@@ -283,7 +277,6 @@ ua\ieeta\sptdatalab\app\MorphingGeometryViewerFrame$6.class
 java_cup10\runtime\Scanner.class
 ua\ieeta\sptdatalab\app\BusyDialog.class
 ua\ieeta\sptdatalab\model\IndexedGeometryContainer.class
-ua\ieeta\sptdatalab\ui\style\DataLabelStyle.class
 ua\ieeta\sptdatalab\ui\style\StyleEntry.class
 ua\ieeta\sptdatalab\app\WKTPanel$10.class
 ua\ieeta\sptdatalab\app\GeometryInputDialog.class
@@ -317,7 +310,6 @@ ua\ieeta\sptdatalab\app\GeometryEditControlPanel$5.class
 ua\ieeta\sptdatalab\app\MorphingGeometryViewerFrame$9.class
 ua\ieeta\sptdatalab\morphing\JDuarteMethod.class
 ua\ieeta\sptdatalab\model\HtmlWriter.class
-ua\ieeta\sptdatalab\ui\style\SegmentIndexStyle.class
 ua\ieeta\sptdatalab\app\WKTPanel$13.class
 ua\ieeta\sptdatalab\topostretch\TopologyStretcher.class
 ua\ieeta\sptdatalab\ui\style\BasicStyle.class
@@ -344,7 +336,6 @@ ua\ieeta\sptdatalab\util\GeometryTextCleaner.class
 ua\ieeta\sptdatalab\app\MorphingGeometryOptionsPanel.class
 ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame$4.class
 sj\lang\JavaListExpr\Stack$List.class
-ua\ieeta\sptdatalab\ui\style\LineStringStyle.class
 ua\ieeta\sptdatalab\app\ValidPanel$3.class
 ua\ieeta\sptdatalab\ui\render\RendererSwingWorker.class
 ua\ieeta\sptdatalab\model\GeometryContainer.class
