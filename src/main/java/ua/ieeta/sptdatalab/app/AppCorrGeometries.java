@@ -405,10 +405,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         this.geometriesInPanelOriginalScale.add(new GeometryObservation(observationNumber, coordsListSource, coordsListTarget));
     }
     
-    private void updateSourceGeometries(int index, Coordinate newCoord){
-        
-    }
-    
     // getters for the geometries and coordinates list
     public GeometryObservation getCurrentObservation(){
         return getObservation(this.currentObservationNumber);

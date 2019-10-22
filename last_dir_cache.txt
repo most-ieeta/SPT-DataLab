@@ -1,2 +1,2 @@
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\datasets\icebergs\imgIce
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\datasets\icebergs\ice2-corr
+C:\Users\bjpsi\Desktop\datasets\icebergs\imgIce
+C:\Users\bjpsi\Desktop\datasets\icebergs\ice2-corr

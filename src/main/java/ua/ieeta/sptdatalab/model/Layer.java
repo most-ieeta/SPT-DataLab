@@ -119,13 +119,13 @@ public class Layer
     // order is important here
     StyleList styleList = new StyleList();
     styleList.add(vertexStyle, vertexFilter);
-    styleList.add(segArrowStyle, decorationFilter);
+    /*styleList.add(segArrowStyle, decorationFilter);
     styleList.add(lineArrowStyle, decorationFilter);
     styleList.add(lineCircleStyle, decorationFilter);
     //styleList.add(style);
     styleList.add(polyStyle, structureFilter);
     styleList.add(indexStyle, structureFilter);
-    styleList.add(dataLabelStyle, labelFilter);
+    styleList.add(dataLabelStyle, labelFilter);*/
     
     layerStyle = new LayerStyle(style, styleList);
   }

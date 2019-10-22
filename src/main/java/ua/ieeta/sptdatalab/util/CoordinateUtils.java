@@ -27,6 +27,8 @@ public class CoordinateUtils extends CoordinateRounded{
     
     public CoordinateUtils (double x, double y){
         super(x, y);
+        this.setX(x);
+        this.setY(y);
     }
     
     //used to transform this point from the original image to the size of the window the image is in
@@ -63,15 +65,11 @@ public class CoordinateUtils extends CoordinateRounded{
     
     @Override
     public void setX(double x){
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.format(x);
-        this.x = x;
+        this.x = Math.floor(x * 100) / 100;//round for 2 decimal places
     }
     
     @Override
     public void setY(double y){
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.format(y);
-        this.y = y;
+        this.y = Math.floor(y * 100) / 100;
     }
 }

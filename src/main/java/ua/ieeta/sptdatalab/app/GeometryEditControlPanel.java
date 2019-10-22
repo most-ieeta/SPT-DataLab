@@ -76,7 +76,6 @@ public class GeometryEditControlPanel extends JPanel
     JButton btnSetPrecisionModel = new JButton();
     //LayerControlList layerList = new LayerControlList();
     
-    JPanel jPanel9 = new JPanel();
     JCheckBox cbMagnifyTopo = new JCheckBox();
     
     JPanel jPanelMagnify = new JPanel();
@@ -235,9 +234,6 @@ public class GeometryEditControlPanel extends JPanel
         jPanelPM.setLayout(new FlowLayout());
         jPanelPM.add(btnSetPrecisionModel);
         
-        //jPanel9.setLayout(new FlowLayout());
-       // jPanel9.add(cbMagnifyTopo);
-      
         jPanelMagnify.setLayout(new FlowLayout());
         jPanelMagnify.add(cbMagnifyTopo);
         jPanelMagnify.add(stretchDist);
