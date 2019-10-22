@@ -73,7 +73,7 @@ public class TestCasePanel extends JPanel {
     JButton btnRunTests = new JButton();
     RelatePanel relatePanel = new RelatePanel();
     BorderLayout borderLayout2 = new BorderLayout();
-    GeometryEditControlPanel editCtlPanel = new GeometryEditControlPanel();
+    //GeometryEditControlPanel editCtlPanel = new GeometryEditControlPanel();
     BorderLayout borderLayout3 = new BorderLayout();
     JPanel jPanel1 = new JPanel();
     JTextField txtDesc = new JTextField();
@@ -134,7 +134,7 @@ public class TestCasePanel extends JPanel {
         this.tbModel = tbModel; 
         editPanel.setModel(tbModel);
         // hook up other beans
-        editCtlPanel.setModel(tbModel);
+       // editCtlPanel.setModel(tbModel);
 
       }
 
@@ -148,9 +148,9 @@ public class TestCasePanel extends JPanel {
         updateTestCaseIndexLabel();
     }
 
-      public GeometryEditControlPanel getGeometryEditControlPanel() {
-        return editCtlPanel;
-      }
+      //public GeometryEditControlPanel getGeometryEditControlPanel() {
+      //  return editCtlPanel;
+      //}
 
       public GeometryEditPanel getGeometryEditPanel() {
         return editPanel;
@@ -193,18 +193,19 @@ public class TestCasePanel extends JPanel {
 
       void jTabbedPane1_stateChanged(ChangeEvent e) 
       {
-        boolean isEdit = jTabbedPane1.getSelectedComponent() == editCtlPanel;
+       // boolean isEdit = jTabbedPane1.getSelectedComponent() == editCtlPanel;
 
        
         editPanel.setHighlightPoint(null);
         if (jTabbedPane1.getSelectedComponent() == validPanel
-            || jTabbedPane1.getSelectedComponent() == editCtlPanel) {
+        //    || jTabbedPane1.getSelectedComponent() == editCtlPanel
+                ) {
           editPanel.setHighlightPoint(validPanel.getMarkPoint());
         }
         if (initialized) {
           //avoid infinite loop
-          if (isEdit)
-            SPTDataLabBuilderFrame.instance().showGeomsTab();
+         // if (isEdit)
+         //   SPTDataLabBuilderFrame.instance().showGeomsTab();
         }
       }
 
