@@ -108,4 +108,22 @@ public class AppConstants
     //------------ second line: coordinates directory)
     public static final String CACHE_FILE = "last_dir_cache.txt";
     
+    public static final double COORDINATE_ERROR_MAX = 0.05;
+    
+    // number of max decimal places for the coordinates
+    public static final int COORDINATE_MAX_DECIMAL_PLACE = 3;
+    
+    public static int getMaxNumberDecimalPlacesConverter(){
+        String n = "1";
+        for (int i = 0; i < COORDINATE_MAX_DECIMAL_PLACE; i++){
+            n += "0";
+        }
+        return Integer.parseInt(n);
+    }
+    
+    public static double limitMaxNumberOfDecimalPlaces(double d){
+        int decimalPlaceConverter = getMaxNumberDecimalPlacesConverter();
+        return Math.floor(d * decimalPlaceConverter) / decimalPlaceConverter;
+    }
+    
 }

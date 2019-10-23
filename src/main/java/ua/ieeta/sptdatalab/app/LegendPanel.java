@@ -74,18 +74,18 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     
     private void setTextForSource(){
         String text = "<html>"
-                      + "<font size=+2 color=red>Source</font>";
+                      + "<font size=+1 color=red>Source</font>";
         if (isInterpolationShowing)
             text += "<font color=blue>     (Showing result of interpolation)</font>";
-        text+= "<br/> Image: " + sourceImageFile
+        text+= "   Image: " + sourceImageFile
             + "</html>";
         this.sourceLabel.setText(text);
     }
     
     private void setTextForTarget(){
         String text = "<html>"
-                      + "<font size=+2 color=red>Target</font><br/>"
-                      + "Image: " + targetImageFile;
+                      + "<font size=+1 color=red>Target</font>"
+                      + "   Image: " + targetImageFile;
         text += "</html>";
         this.targetLabel.setText(text);
     }

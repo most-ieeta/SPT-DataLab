@@ -15,8 +15,6 @@ package ua.ieeta.sptdatalab.app;
 import java.awt.Cursor;
 import java.awt.Toolkit;
 
-import javax.swing.ImageIcon;
-
 public class AppCursors
 {
   public static Cursor DRAW_GEOM = Toolkit.getDefaultToolkit().createCustomCursor(

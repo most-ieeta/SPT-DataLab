@@ -22,8 +22,9 @@ package ua.ieeta.sptdatalab.util;
 
 import java.text.DecimalFormat;
 import org.locationtech.jts.geom.Coordinate;
+import ua.ieeta.sptdatalab.app.AppConstants;
 
-public class CoordinateUtils extends CoordinateRounded{
+public class CoordinateUtils extends Coordinate{
     
     public CoordinateUtils (double x, double y){
         super(x, y);
@@ -65,11 +66,11 @@ public class CoordinateUtils extends CoordinateRounded{
     
     @Override
     public void setX(double x){
-        this.x = Math.floor(x * 100) / 100;//round for 2 decimal places
+        this.x =  AppConstants.limitMaxNumberOfDecimalPlaces(x);
     }
     
     @Override
     public void setY(double y){
-        this.y = Math.floor(y * 100) / 100;
+        this.y = AppConstants.limitMaxNumberOfDecimalPlaces(y);
     }
 }

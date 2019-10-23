@@ -3,7 +3,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\event\SpatialFunctionPanelEvent.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\tools\Base64Decoder.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\BoxBandTool.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\ArrowLineStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\JavaListExpr\NLJLex.l.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryCombiner.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryDepiction.java
@@ -16,7 +15,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\PointTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\LineBandTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\test\TestCase.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerControlList.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\MyDataOutputStream.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ChartMaker.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\StreamPolygonTool.java
@@ -33,8 +31,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\StaticGeometryContainer.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\SecondoInterface.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryBoxDeleter.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\ResultValuePanel.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\LineStringStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\ESInterface.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryType.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryPopupMenu.java
@@ -42,9 +38,7 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\java_cup10\runtime\Symbol.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\RectangleTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GeometryTextCleaner.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\PolygonStructureStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\DrawingGrid.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\SegmentIndexStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\MyDataInputStream.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\JavaListExpr\Stack.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\PanTool.java
@@ -53,7 +47,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ExceptionFormatter.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\java_cup10\runtime\Scanner.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryVertexMover.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\CoordinateRounded.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\SegmentClipper.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryStretcherView.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\WKTPanel.java
@@ -71,7 +64,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppCorrGeometries.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppStrings.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\VertexLocater.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ClassUtil.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\EditVertexTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\TestBuilderModel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\CostumBasicStyle.java
@@ -97,18 +89,15 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryEditControlPanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ChartType.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryVertexDeleter.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\SegmentStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\AbstractStreamDrawTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\ClipImage.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryLocation.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\AbstractDrawTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\ListExpr.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryContainer.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\ArrowEndpointStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\sj\lang\MessageListener.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\Viewport.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\BusyDialog.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\CircleEndpointStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\LineStringTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\tools\Base64Encoder.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\StringUtil.java
@@ -124,7 +113,6 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\AppConstants.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\TriangulationMethod.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\GeometryLocationsWriter.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\LineStringEndpointStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\render\LayerRenderer.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryEditPanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\ScreenImage.java
@@ -139,13 +127,10 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\Style.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GuiUtil.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\ExtractComponentTool.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\style\DataLabelStyle.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryEvent.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\TestCasePanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\secondo\tools\Reporter.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\PrecisionModelDialog.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\InterpolationMethod.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryTreePanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\PolygonTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLabBuilderFrame.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\IconLoader.java
@@ -161,14 +146,12 @@ C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatala
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\ZoomTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\GeometryEditModel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\geom\GeometryPointLocater.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\LayerCheckBoxList.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\morphing\JDuarteMethod.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\FacetLocater.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\MorphingGeometryPanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\ResultWKTPanel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\model\ResultGeometryContainer.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\render\OperationMonitorManager.java
-C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\GeometryTreeModel.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\ui\tools\DeleteVertexTool.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\util\GifSequenceWriter.java
 C:\Users\bjpsi\Desktop\Investigacao\SPT-DataLab\src\main\java\ua\ieeta\sptdatalab\app\SPTDataLabBuilder_AboutBox.java

@@ -527,7 +527,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         
         Coordinate[] transformedCoords = new Coordinate[coord.length];
         CoordinateUtils coordUtils;
-        
         //first pass to see maximum x and y coordinates
         double maxX = 0;
         double maxY = 0;
@@ -553,8 +552,10 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return transformedCoords;
     }
     
-    //returns the index of the coordinates in the array or -1 if it doesnt exist. The corresponding coordinate in the other geometry
-    //on the other panel will be on the other list in the same index
+    /**returns the index of the coordinates in the array or -1 if it doesnt exist. 
+     * The corresponding coordinate in the other geometry
+    *on the other panel will be on the other list in the same index
+    */
     public int getCordIndex(Coordinate c, boolean isSecondPanel){
         List<Coordinate> listToSearch;
         if(isSecondPanel){
@@ -564,12 +565,19 @@ public class AppCorrGeometries implements PropertyChangeListener{
             listToSearch = getCurrentSource();
         }
         for (int i = 0; i < listToSearch.size(); i++){
-            if (c.equals(listToSearch.get(i))){
+            Coordinate coordInPanel = listToSearch.get(i);
+            //eliminate precision errors...
+            if (almostEqual(c.x, coordInPanel.getX(), AppConstants.COORDINATE_ERROR_MAX)
+                    && almostEqual(c.y, coordInPanel.getY(), AppConstants.COORDINATE_ERROR_MAX)){
                 return i;
             }
         }
         //does not exist
         return -1;
+    }
+    
+    private boolean almostEqual(double a, double b, double eps){
+      return Math.abs(a-b) < eps;
     }
     
     //returns the matching coordinates of the other list of coordinates.
@@ -680,10 +688,11 @@ public class AppCorrGeometries implements PropertyChangeListener{
     public void editPointIfExistInCorrGeometry(double newX, double newY, boolean isSecondPanel){
         List <Coordinate> currentSourceGeometry = this.getCurrentSource();
         List <Coordinate> currentTargetGeometry = this.getCurrentTarget();
-        System.out.println("size -> "+currentSourceGeometry.size());
-        System.out.println("edit index -> "+editIndex);
-        System.out.println("source: before -> "+this.getOriginalScaleSource(this.currentObservationNumber).get(editIndex));
+        //System.out.println("size -> "+currentSourceGeometry.size());
+        //System.out.println("edit index -> "+editIndex);
+        
         if (editIndex > -1){
+            //System.out.println("source: before -> "+this.getOriginalScaleSource(this.currentObservationNumber).get(editIndex));
             Coordinate newC = new Coordinate(newX, newY);
             if (isSecondPanel){
                 currentTargetGeometry.set(editIndex, newC);
@@ -775,8 +784,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
             interactedPanelCoords = this.getCurrentSource();
             otherPanelCoords = this.getCurrentTarget();
         }
-        //System.out.println("interactedPanelCoords (before) ->" +interactedPanelCoords.size() +", "+ interactedPanelCoords);
-        //System.out.println("otherPanelCoords (before) ->" +otherPanelCoords.size() +", "+ otherPanelCoords);
+        //System.out.println("nearby coords: "+nearbyCoords);
         //add coordinate in both panels, but first, find the points closest to the new point in a line segment
         int index1 = this.getCordIndex(nearbyCoords.get(0), isSecondPanel);
         int index2 = this.getCordIndex(nearbyCoords.get(1), isSecondPanel);
@@ -808,8 +816,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 updateInfoGeometries(true, true); //source
                 updateInfoGeometries(false, true);//target
             }
-            //System.out.println("interactedPanelCoords (after) ->" +interactedPanelCoords.size() +", "+ interactedPanelCoords);
-            //System.out.println("otherPanelCoords (after) ->" + otherPanelCoords.size() +", "+ otherPanelCoords);
             this.isEdited = true;
             return newCoordinateOtherPanel;
         }

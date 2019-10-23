@@ -56,8 +56,7 @@ import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Arrays;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
@@ -67,7 +66,6 @@ import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import ua.ieeta.sptdatalab.ui.style.AWTUtil;
-import ua.ieeta.sptdatalab.util.io.CorrToGeometryUtils;
 
 
 /**
@@ -231,18 +229,11 @@ public class GeometryEditPanel extends JPanel {
       forceRepaint();
     }
 
-    public void setGridSize(double gridSize) {
-      grid.setGridSize(gridSize);
-      forceRepaint();
-    }
 
     public void setHighlightPoint(Coordinate pt) {
       markPoint = pt;
     }
 
-    public boolean isAddingPoints() {
-      return stateAddingPoints;
-    }
 
     public void updateGeom()
     {
@@ -578,9 +569,6 @@ public class GeometryEditPanel extends JPanel {
   }
   
   
-  public Point2D snapToGrid(Point2D modelPoint) {
-    return grid.snapToGrid(modelPoint);
-  }
 
   void this_componentResized(ComponentEvent e) {
   	renderMgr.componentResized();
@@ -674,6 +662,16 @@ public class GeometryEditPanel extends JPanel {
   {
     Point2D p = getViewport().toModel(pView);
     NumberFormat format = getViewport().getScaleFormat();
+    /*double dx = Double.parseDouble(format.format(p.getX()));
+    double dy = Double.parseDouble(format.format(p.getY()));
+    
+    Coordinate[] c = {new Coordinate(dx, dy)};
+    System.out.println("Coord: "+c[0]);
+    Coordinate coordCorrected = AppCorrGeometries.getInstance().correctCoordinates(c, this)[0];
+    String s = coordCorrected.getX() + ", "+coordCorrected.getY();
+    
+    System.out.println("Point2D: "+p);
+    System.out.println("Coord corrected: "+ coordCorrected);*/
     return format.format(p.getX()) 
     + ", " 
     + format.format(p.getY());

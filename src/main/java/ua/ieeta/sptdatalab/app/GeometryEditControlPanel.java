@@ -158,12 +158,12 @@ public class GeometryEditControlPanel extends JPanel
         jPanel7.setLayout(gridLayout2);
         
 //        btnSetPrecisionModel.setMaximumSize(new Dimension(30, 27));
-        btnSetPrecisionModel.setMinimumSize(new Dimension(120, 27));
-        btnSetPrecisionModel.setPreferredSize(new Dimension(120, 21));
-        btnSetPrecisionModel.setToolTipText("Set the Precision Model used by all Test Cases");
-        btnSetPrecisionModel.setMargin(new Insets(2, 2, 2, 2));
-        btnSetPrecisionModel.setMnemonic('0');
-        btnSetPrecisionModel.setText("Precision Model...");
+       // btnSetPrecisionModel.setMinimumSize(new Dimension(120, 27));
+       // btnSetPrecisionModel.setPreferredSize(new Dimension(120, 21));
+       // btnSetPrecisionModel.setToolTipText("Set the Precision Model used by all Test Cases");
+       // btnSetPrecisionModel.setMargin(new Insets(2, 2, 2, 2));
+       // btnSetPrecisionModel.setMnemonic('0');
+       // btnSetPrecisionModel.setText("Precision Model...");
 
         // put box ahead of text
         //cbMagnifyTopo.setHorizontalTextPosition(AbstractButton.LEADING);
@@ -231,8 +231,8 @@ public class GeometryEditControlPanel extends JPanel
         */
         
         
-        jPanelPM.setLayout(new FlowLayout());
-        jPanelPM.add(btnSetPrecisionModel);
+        //jPanelPM.setLayout(new FlowLayout());
+       // jPanelPM.add(btnSetPrecisionModel);
         
         jPanelMagnify.setLayout(new FlowLayout());
         jPanelMagnify.add(cbMagnifyTopo);

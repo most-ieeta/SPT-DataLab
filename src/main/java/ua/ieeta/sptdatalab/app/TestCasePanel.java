@@ -171,7 +171,6 @@ public class TestCasePanel extends JPanel {
      void editPanel_mouseMoved(MouseEvent e) {
         String cursorPos = editPanel.cursorLocationString(e.getPoint());
         lblMousePos.setText(cursorPos);
-    //    System.out.println(cursorPos);
     }
 
       void btnRunTests_actionPerformed(ActionEvent e) {

@@ -36,12 +36,7 @@ import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.app.SPTDataLab;
 
 
-/**
- * Holds the current {@link TestCaseEdit}.
- *
- * @author Martin Davis
- *
- */
+
 public class GeometryEditModel
 {
     private static WKTWriter wktWriter = new WKTWriter();
@@ -303,15 +298,6 @@ return testCase.getResult();
         fireGeometryChanged(new GeometryEvent(this));
     }
     
-    //============================================
-    
-    public synchronized void removeGeometryListener(GeometryListener l) {
-        if (geometryListeners != null && geometryListeners.contains(l)) {
-            Vector v = (Vector) geometryListeners.clone();
-            v.removeElement(l);
-            geometryListeners = v;
-        }
-    }
     
     public synchronized void addGeometryListener(GeometryListener l) {
         Vector v = geometryListeners == null ? new Vector(2)

@@ -49,7 +49,6 @@ public class SPTDataLabBuilderMenuBar
   JMenuItem saveAllAs = new JMenuItem();
   JCheckBoxMenuItem showVerticesMenuItem = new JCheckBoxMenuItem();
   JCheckBoxMenuItem showGridMenuItem = new JCheckBoxMenuItem();
-  JCheckBoxMenuItem showOrientationsMenuItem = new JCheckBoxMenuItem();
   JCheckBoxMenuItem showStructureMenuItem = new JCheckBoxMenuItem();
   JCheckBoxMenuItem showVertexIndicesMenuItem = new JCheckBoxMenuItem();
   JMenuItem changeToLines = new JMenuItem();
@@ -108,60 +107,12 @@ public class SPTDataLabBuilderMenuBar
         }
       });
 
-    final JMenuItem showLabelMenuItem = menuItemCheck("Labels", true,
-        new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setShowingLabel(((JMenuItem)e.getSource()).isSelected());
-        }
-      });
-    final JMenuItem basicFillMenuItem = menuItemRadio("Basic Fill", true,
-        new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setFillType(DisplayParameters.FILL_BASIC);
-        }
-      });
-    final JMenuItem varyFillMenuItem = menuItemRadio("Varying Fill", false,
-        new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setFillType(DisplayParameters.FILL_VARY);
-        }
-      });
-    final JMenuItem rainbowFillMenuItem = menuItemRadio("Rainbow Fill", false,
-        new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setFillType(DisplayParameters.FILL_RAINBOW);
-        }
-      });
-    final JMenuItem rainbowRandomFillMenuItem = menuItemRadio("Random Rainbow Fill", false,
-        new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setFillType(DisplayParameters.FILL_RAINBOW_RANDOM);
-        }
-      });
     showGridMenuItem.setText("Grid");
     showGridMenuItem.setSelected(true);
     showGridMenuItem.addActionListener(
       new java.awt.event.ActionListener() {
         public void actionPerformed(ActionEvent e) {
           tbFrame.setShowingGrid(showGridMenuItem.isSelected());
-        }
-      });
-    showStructureMenuItem.setText("Geometry Structure");
-    showStructureMenuItem.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setShowingStructure(showStructureMenuItem.isSelected());
-        }
-      });
-    showOrientationsMenuItem.setText("Orientations");
-    showOrientationsMenuItem.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setShowingOrientations(showOrientationsMenuItem.isSelected());
-        }
-      });
-    showVertexIndicesMenuItem.setText("Vertex Indices");
-    showVertexIndicesMenuItem.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          SPTDataLabBuilderController.setShowingVertices(showVerticesMenuItem.isSelected());
         }
       });
     saveCurrent.setText("Save Current");
@@ -186,28 +137,16 @@ public class SPTDataLabBuilderMenuBar
           tbFrame.saveAllGeometriesAs();
         }
       });
-    changeToLines.setText("Change to Lines");
-    changeToLines.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        tbFrame.menuChangeToLines_actionPerformed(e);
-      }
-    });
-    generateExpectedValuesMenuItem.setText("Generate Expected Values");
-    generateExpectedValuesMenuItem.addActionListener(new java.awt.event.ActionListener() {
-      public void actionPerformed(ActionEvent e) {
-        //generateExpectedValuesMenuItem_actionPerformed(e);
-      }
-    });
     jMenuFile.setText("File");
     //jMenuOptions.setText("Options");
     //jMenuTools.setText("Tools");
 
-    ButtonGroup fillGroup = new ButtonGroup();
-    fillGroup.add(basicFillMenuItem);
-    fillGroup.add(varyFillMenuItem);
-    fillGroup.add(rainbowFillMenuItem);
-    fillGroup.add(rainbowRandomFillMenuItem);
-    basicFillMenuItem.setSelected(true);
+    //ButtonGroup fillGroup = new ButtonGroup();
+    //fillGroup.add(basicFillMenuItem);
+    //fillGroup.add(varyFillMenuItem);
+    //fillGroup.add(rainbowFillMenuItem);
+    //fillGroup.add(rainbowRandomFillMenuItem);
+    //basicFillMenuItem.setSelected(true);
 
     jMenuFile.add(this.changeDataSet);
     jMenuFile.add(this.menuLoadCorrFilesFolder);

@@ -33,6 +33,7 @@ import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
+import ua.ieeta.sptdatalab.app.AppConstants;
 
 /**
  *
@@ -117,6 +118,9 @@ public class GeometryReader {
                     x = Double.parseDouble(pointsInLine[2]);
                     y = Double.parseDouble(pointsInLine[3]);
                 }
+                //limit decimal place number:
+                x = AppConstants.limitMaxNumberOfDecimalPlaces(x);
+                y = AppConstants.limitMaxNumberOfDecimalPlaces(y);
                 coordinatesSource.add(new Coordinate(x, y));
             }
         } catch (IOException ex) {
@@ -140,10 +144,12 @@ public class GeometryReader {
                     line = br.readLine();
                 }
             }
-
             geom = wktreader.read(line);
             for (int i = 0; i < geom.getCoordinates().length; i++) {
-                coordinatesSource.add(geom.getCoordinates()[i]);
+                Coordinate cRounded = geom.getCoordinates()[i];
+                cRounded.setX(AppConstants.limitMaxNumberOfDecimalPlaces(cRounded.getX()));
+                cRounded.setY(AppConstants.limitMaxNumberOfDecimalPlaces(cRounded.getY()));
+                coordinatesSource.add(cRounded);
             }
         } catch (IOException ex) {
             Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
