@@ -475,6 +475,13 @@ public class SPTDataLabBuilderFrame extends JFrame
     void setToFirstImages(){
         tbToolBar.setToFirstImages();
     }
+    
+   
+    void setTextForImageNumberLabels(){
+        tbToolBar.setTextForImageNumberLabels();
+    }
+    
+    
     /*void moveToNextCase(boolean isZoom) {
     tbModel.cases().nextCase();
     tbModel2.cases().nextCase();
@@ -637,16 +644,16 @@ public class SPTDataLabBuilderFrame extends JFrame
     void menuLoadCorrFilesFolder_actionPerformed(ActionEvent e) {
         boolean success = DatasetLoader.loadAndSetCoordinatesFiles();
         if (success){
-            this.setToFirstImages();//start with the first images
             this.reloadBothPanels();
+            this.setToFirstImages();//start with the first images
         }
     }
     
     void menuChangeDataSet_actionPerformed(ActionEvent e) {
         boolean success = DatasetLoader.loadAndSetDataset();
         if (success){
-            this.setToFirstImages();//start with the first images
             this.reloadBothPanels();
+            this.setToFirstImages();//start with the first images
         }
     }
     

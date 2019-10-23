@@ -42,7 +42,6 @@ public class SPTDataLabBuilderMenuBar
   JMenuItem saveCurrentAs = new JMenuItem();
   JMenuItem saveAll = new JMenuItem();
   JMenuItem saveAllAs = new JMenuItem();
-  JMenuItem changeToLines = new JMenuItem();
 
   SPTDataLabBuilderFrame tbFrame;
   
@@ -77,6 +76,7 @@ public class SPTDataLabBuilderMenuBar
           tbFrame.showSavePromptDatasetChange();
           tbFrame.resetZoom();
           tbFrame.menuChangeDataSet_actionPerformed(e);
+          tbFrame.setTextForImageNumberLabels();
         }
       });
     

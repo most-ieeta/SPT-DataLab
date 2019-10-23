@@ -91,12 +91,12 @@ public class AppImage {
                 Logger.getLogger(AppImage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        if (images.size() == 1){
+        setSelectedImageIndexPanel1(0);
+        if (images.size() == 1)
             setSelectedImageIndexPanel2(0);
             //if there is only one image, immediately deactivate one
-        }
-        setSelectedImageIndexPanel1(0);
-        setSelectedImageIndexPanel2(1);
+        else
+            setSelectedImageIndexPanel2(1);
     }
     
     private void sortByNumber(File[] files) {
