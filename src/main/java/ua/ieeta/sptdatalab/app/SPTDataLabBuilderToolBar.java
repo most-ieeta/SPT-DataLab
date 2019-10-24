@@ -615,24 +615,6 @@ public class SPTDataLabBuilderToolBar {
         return btn;
     }
     
-    private static JButton createButton(String toolTipText,
-            ImageIcon icon,
-            java.awt.event.ActionListener actionListener)
-    {
-        JButton btn = new JButton();
-        btn.setMargin(new Insets(0, 0, 0, 0));
-        btn.setPreferredSize(new Dimension(30, 30));
-        btn.setIcon(icon);
-        btn.setMinimumSize(new Dimension(30, 30));
-        btn.setVerticalTextPosition(SwingConstants.BOTTOM);
-        btn.setSelected(false);
-        btn.setToolTipText(toolTipText);
-        btn.setHorizontalTextPosition(SwingConstants.CENTER);
-        btn.setFont(new java.awt.Font("SansSerif", 0, 10));
-        btn.setMaximumSize(new Dimension(30, 30));
-        btn.addActionListener(actionListener);
-        return btn;
-    }
     
     public boolean isNextBtnActivated(){
         return this.nextButton.isEnabled();
@@ -671,31 +653,29 @@ public class SPTDataLabBuilderToolBar {
         panel1ImageNumber.setValue(getNumberOfImagePanel1());
         panel2ImageNumber.setValue(getNumberOfImagePanel2());
         
-        //check if it is 1st image
-        if (AppImage.getInstance().isFirstImageForPanel1()){
-            disablePreviousBtn();
-            return;
-        }
-        else if (!isNextBtnActivated()){
-            enableNextBtn();
-        }
+        if (!isNextBtnActivated() & !(AppImage.getInstance().isLastImageForPanel2()))
+                enableNextBtn();
         
-        //check if is last image
-        if (AppImage.getInstance().isLastImageForPanel2()){
-            disableNextBtn();
-        }
-        else if (!isPreviousBtnActivated()){
-            enablePreviousBtn();
-        }
+        if (!isPreviousBtnActivated() & !(AppImage.getInstance().isFirstImageForPanel1()))
+                enablePreviousBtn();
+        
+        //check if it is 1st image
+        if (AppImage.getInstance().isFirstImageForPanel1())
+            disablePreviousBtn();
+        else
+            if (AppImage.getInstance().isLastImageForPanel2())
+                disableNextBtn();
+            
     }
     
     public void setToFirstImages(){
         AppImage.getInstance().setToFirstImages();
         updateImageNumbersInFields();
+        setTextForImageNumberLabels();
     }
     
     //set the text for the labels next to the spinners with the number of the images in the panel
-    private void setTextForImageNumberLabels(){
+    public void setTextForImageNumberLabels(){
         labelForImageNumberPanel1.setText("  left panel image nº: ");
         labelForImageNumberPanel2.setText(" right panel image nº: ");
         totalImages.setText(" "+AppImage.getInstance().getTotalNumberOfImages()+" images total  ");

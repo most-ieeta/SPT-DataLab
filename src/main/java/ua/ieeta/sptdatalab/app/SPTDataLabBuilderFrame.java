@@ -475,6 +475,13 @@ public class SPTDataLabBuilderFrame extends JFrame
     void setToFirstImages(){
         tbToolBar.setToFirstImages();
     }
+    
+   
+    void setTextForImageNumberLabels(){
+        tbToolBar.setTextForImageNumberLabels();
+    }
+    
+    
     /*void moveToNextCase(boolean isZoom) {
     tbModel.cases().nextCase();
     tbModel2.cases().nextCase();
@@ -637,19 +644,22 @@ public class SPTDataLabBuilderFrame extends JFrame
     void menuLoadCorrFilesFolder_actionPerformed(ActionEvent e) {
         boolean success = DatasetLoader.loadAndSetCoordinatesFiles();
         if (success){
-            this.setToFirstImages();//start with the first images
             this.reloadBothPanels();
+            this.setToFirstImages();//start with the first images
         }
     }
     
     void menuChangeDataSet_actionPerformed(ActionEvent e) {
-        String success = DatasetLoader.loadAndSetDataset();
-        if (success.equals(AppConstants.CONFIRMATION_STRING)){
-            this.setToFirstImages();//start with the first images
+        String message = DatasetLoader.loadAndSetDataset();
+        if (message.equals(AppConstants.CONFIRMATION_STRING)){
             this.reloadBothPanels();
+            this.setToFirstImages();//start with the first images
         }
         else{
-            //error while loading dataset
+            //error dialog
+            if (message.isEmpty()) //use default error message
+                message = AppConstants.DATASET_LOADING_GENERAL_ERROR;
+            JOptionPane.showMessageDialog(null, message, "Error Starting SPTDataLab", JOptionPane.ERROR_MESSAGE);
         }
     }
     
