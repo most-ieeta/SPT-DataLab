@@ -22,7 +22,6 @@ import javax.swing.*;
 
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.util.*;
-import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
 import ua.ieeta.sptdatalab.ui.SwingUtil;
 
 
@@ -48,14 +47,11 @@ public class ResultWKTPanel
     JButton copyButton = new JButton();
     JButton copyToTestButton = new JButton();
     JPanel rButtonPanel = new JPanel();
-//  FlowLayout rButtonPanelLayout = new FlowLayout();
     GridLayout rButtonPanelLayout = new GridLayout();
     BorderLayout rPanelLayout = new BorderLayout();
     BorderLayout tabPanelLayout = new BorderLayout();
     
     private final ImageIcon copyIcon = new ImageIcon(this.getClass().getResource("Copy.png"));
-    private final ImageIcon copyToTestIcon = new ImageIcon(this.getClass().getResource("CopyToTest.png"));
-    private final ImageIcon clearIcon = new ImageIcon(this.getClass().getResource("Delete_small.png"));
     
     public ResultWKTPanel() {
         try {
@@ -93,26 +89,8 @@ public class ResultWKTPanel
         txtResult.setBackground(SystemColor.control);
         
         labelPanel.setLayout(labelPanelLayout);
-        //labelPanel.setBorder(BorderFactory.createEmptyBorder(0,4,2,2));
-        labelPanel.add(functionLabel);
-        labelPanel.add(timeLabel);
-        labelPanel.add(memoryLabel);
+       
         
-        functionLabel.setText(" ");
-        functionLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//    functionLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-functionLabel.setToolTipText("Result Info");
-
-timeLabel.setFont(new Font("SanSerif", Font.BOLD, 16));
-timeLabel.setText(" ");
-timeLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-timeLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-timeLabel.setToolTipText("Execution Time");
-
-memoryLabel.setText(" ");
-memoryLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-memoryLabel.setBorder(BorderFactory.createLoweredBevelBorder());
-memoryLabel.setToolTipText("JVM Memory Usage");
 
 this.add(jScrollPane1, BorderLayout.CENTER);
 this.add(labelPanel, BorderLayout.NORTH);

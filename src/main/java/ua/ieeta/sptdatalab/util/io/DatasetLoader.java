@@ -26,11 +26,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.commons.io.FilenameUtils;
+import ua.ieeta.sptdatalab.app.AppConstants;
 import static ua.ieeta.sptdatalab.app.AppConstants.CACHE_FILE;
 import ua.ieeta.sptdatalab.app.AppCorrGeometries;
 import ua.ieeta.sptdatalab.app.AppImage;
@@ -43,24 +46,24 @@ import ua.ieeta.sptdatalab.ui.SwingUtil;
 public class DatasetLoader {
     
     private static File previousDirectory = new File("");//stores the directory in which the user selected something to reopen on the same dir (for convenience)
-    
+
     /**
      * Loads from user selected directories a dataset (images and coordinates files). Loads only if user didn't cancel any jfilechooser.
      * @return true if a new dataset has been successfully loaded to the application, false otherwise
      */
-    public static boolean loadAndSetDataset(){
+    public static String loadAndSetDataset(){
         File imagesDirectory = promptAndLoadImagesFromDirectory();
         if (imagesDirectory == null)
-            return false;
+            return AppConstants.DATASET_LOADING_IMAGES_ERROR;
         File coordinatesDirectory = promptAndLoadCoordinateFiles();
         
-        if (coordinatesDirectory != null){ //imagesDirectory is not null
-            AppImage.getInstance().loadImages(imagesDirectory.listFiles());//load image files to panels
-            AppCorrGeometries.getInstance().setNewCoordinatesDataset(coordinatesDirectory);//load coordinate files to panels
-            saveDirectoriesToCache(imagesDirectory, coordinatesDirectory);
-            return true;
+        if (coordinatesDirectory == null){
+            return AppConstants.DATASET_LOADING_COORDINATES_ERROR;
         }
-        return false;
+        AppImage.getInstance().loadImages(imagesDirectory.listFiles());//load image files to panels
+        AppCorrGeometries.getInstance().setNewCoordinatesDataset(coordinatesDirectory);//load coordinate files to panels
+        saveDirectoriesToCache(imagesDirectory, coordinatesDirectory);
+        return AppConstants.CONFIRMATION_STRING;
     }
     
     public static boolean loadAndSetCoordinatesFiles(){
@@ -91,6 +94,10 @@ public class DatasetLoader {
                 JOptionPane.showMessageDialog(null, "The indicated folder is empty!\n No files were loaded.", "Warning", JOptionPane.WARNING_MESSAGE);
                 return null;
             }
+            for (File f : files){
+                if (! isFileValidExtension(AppConstants.COORDINATE_FILE_TYPES, f))//only load the files if all are acceptable file types
+                    return null;
+            }
             return fileChooser.getSelectedFile();
         }
         return null;
@@ -112,12 +119,18 @@ public class DatasetLoader {
         int returnValue = jfc.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             previousDirectory = jfc.getCurrentDirectory();
-            if (jfc.getSelectedFile().listFiles().length == 0) {
+            File selectedImagesDir = jfc.getSelectedFile();
+            if (selectedImagesDir.listFiles().length == 0) {
                 //no files in directory!
                 JOptionPane.showMessageDialog(null, "The indicated folder is empty!\n No files were loaded.", "Warning", JOptionPane.WARNING_MESSAGE);
                 return null;
             }
-            return jfc.getSelectedFile();
+            for (File f : selectedImagesDir.listFiles()){
+                if (! isFileValidExtension(AppConstants.IMAGE_FILE_TYPES, f)){//only load the files if all are acceptable file types
+                    return null;
+                }
+            }
+            return selectedImagesDir;
         }
         return null;
     }
@@ -125,6 +138,7 @@ public class DatasetLoader {
     /**
      * Update the cache file with new image and coordinates directories.
      * @param dir - directory with images
+     * @param coordinatesDir - directory with coordinate files
      */
     private static void saveDirectoriesToCache(File imageDir, File coordinatesDir){
         try {
@@ -139,7 +153,8 @@ public class DatasetLoader {
     }
     
     /**
-     * Update the cache file with a new image directory. Coordinates directory is not updated.
+     * Update the cache file with a new image directory. Coordinates directory is not updated. (Currently not used.
+     * This method would be needed if there was an option to change only the images in the dataset)
      * @param dir - directory with images
      */
     private static void saveImageDirectoryToCache(File dir){
@@ -191,6 +206,22 @@ public class DatasetLoader {
             Logger.getLogger(DatasetLoader.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+    
+    private static boolean isFileValidExtension(String[] validExtensions, File f){
+        String ext = FilenameUtils.getExtension(f.getName());//get file extension
+        return Arrays.asList(validExtensions).contains(ext.toLowerCase());
+    }
+    
+    public static boolean isDataSetDirectoryValid(String[] validExtensions, File dataSetDirectory){
+        if (dataSetDirectory.listFiles().length == 0)
+            return false;
+        for (File f : dataSetDirectory.listFiles()){
+            if (!isFileValidExtension(validExtensions, f)){
+                return false;
+            }
+        }
+        return true;
     }
     
 }

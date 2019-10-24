@@ -35,6 +35,7 @@ import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import javax.swing.UIManager;
@@ -74,9 +75,7 @@ import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 
 public class SPTDataLab
 {
-    private static final String PROP_SWING_DEFAULTLAF = "swing.defaultlaf";
     
-    private static final String OPT_GEOMFUNC = "geomfunc";
     
     private TestBuilderModel tbModel = new TestBuilderModel(false);
     
@@ -96,12 +95,6 @@ public class SPTDataLab
    
     public static SPTDataLab app;
     
-    
-    
-    public static PrecisionModel getPrecisionModel()
-    {
-        return model().getPrecisionModel();
-    }
     
     public static GeometryFactory getGeometryFactory()
     {
@@ -329,9 +322,11 @@ public class SPTDataLab
                             //images directory
                             dirImages = new File(dirImageStr);
                             dirCorr = new File(dirCorrStr);
+                            //validate the directories and files inside it
+                            
                             //check if directories exist and contain approrpiate files
-                            if ( (dirImages.exists() && dirImages.isDirectory() && dirImages.listFiles().length > 0)
-                                    && (dirCorr.exists() && dirCorr.isDirectory() && dirCorr.listFiles().length > 0)) {
+                            if ( (dirImages.exists() && dirImages.isDirectory() && DatasetLoader.isDataSetDirectoryValid(AppConstants.IMAGE_FILE_TYPES, dirImages))
+                                && (dirCorr.exists() && dirCorr.isDirectory() && DatasetLoader.isDataSetDirectoryValid(AppConstants.COORDINATE_FILE_TYPES, dirCorr))) {
                                 isValid = true;
                             }
                         }
@@ -339,10 +334,10 @@ public class SPTDataLab
                         Logger.getLogger(SPTDataLab.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-                
-                if (isValid){
+                if (isValid){//cache file is valid and the directories written in file exist
                     // ask user if he wants to use last dataset or choose another
-                    int dialogResult = JOptionPane.showConfirmDialog (null, "Would you like to reuse your dataset used in the previous session?",
+                    JFrame promptFrame = getCenteredOnTopFrame();
+                    int dialogResult = JOptionPane.showConfirmDialog (promptFrame, "Would you like to reuse your dataset used in the previous session?",
                             "Choose dataset", JOptionPane.YES_NO_OPTION);
                     switch (dialogResult) {
                         
@@ -351,20 +346,22 @@ public class SPTDataLab
                             AppImage.getInstance().loadImages(dirImages.listFiles());
                             AppCorrGeometries.getInstance().setNewCoordinatesDataset(dirCorr);
                             startApp();
-                            return;
+                            break;
                         case JOptionPane.NO_OPTION:
+                            //load images and coordinates files (also stores the selected dataset location in a cache file)
+                            loadDataSet();
                             break;
                         default:
-                            return;
+                            break;
+                    
                     }
+                    promptFrame.dispose();
                 }
-                
-                //load images and coordinates files (also stores the selected dataset location in a cache file)
-                boolean success = DatasetLoader.loadAndSetDataset();
-                if (dirImages == null || dirCorr == null)
-                    return; //close program
-                
-                startApp();
+                else{
+                    //cache file does not exist or cannot be located or the path specified in the file cannot be found
+                    //and dataset cannot be loaded: create file and open prompt to load dataset
+                    loadDataSet();
+                }
                 break;
                 
             default:
@@ -384,6 +381,21 @@ public class SPTDataLab
         app.initFrame();
     }
     
+    /**
+     * Open prompt for user to load dataset (image, then geometry files) then load to memory.
+     * Gives an alert prompt if dataset could not be loaded
+     */
+    private static void loadDataSet(){
+        String message = DatasetLoader.loadAndSetDataset();
+        if(message.equals(AppConstants.CONFIRMATION_STRING))
+            startApp();
+        else {//error message -> dataset could not be opened/parsed/incorrect file types
+            if (message.isEmpty()) //use default error message
+                message = AppConstants.DATASET_LOADING_GENERAL_ERROR;
+            JOptionPane.showMessageDialog(null, message, "Error Starting SPTDataLab", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
     private static void printHelpMessages(){
         System.out.println("Usage (interpolation at instant): -> -i <Source wkt> <Target wkt> <instant> <interpolation method number> <file to save (optional)>");
         System.out.println("Usage (interpolation during period): -> -p <Source wkt> <Target wkt> <number of samples> <interpolation method number> <file to save (optional)>");
@@ -395,36 +407,21 @@ public class SPTDataLab
     }
     
     /**
-     * Sets the look and feel, using user-defined LAF if
-     * provided as a system property.
-     *
-     * e.g. Metal: -Dswing.defaultlaf=javax.swing.plaf.metal.MetalLookAndFeel
-     *
-     * @throws InterruptedException
-     * @throws InvocationTargetException
+     * Creates a JFrame that is centered on screen, starts on top of all windows with focus, and has no borders.
+     * This is usefull for dialogs or jfile choosers, because they show on top of other windows and get the attention of the user.
+     * The frame should be disposed when it is no longer useful.
+     * @return 
      */
-    private static void setLookAndFeel() throws InterruptedException, InvocationTargetException
-    {
-        /**
-         * Invoke on Swing thread to pass Java security requirements
-         */
-        javax.swing.SwingUtilities.invokeAndWait(new Runnable() {
-            public void run()
-            {
-                try {
-                    String laf = System.getProperty(PROP_SWING_DEFAULTLAF);
-                    if (laf == null) {
-                        laf = UIManager.getSystemLookAndFeelClassName();
-                    }
-                    javax.swing.UIManager.setLookAndFeel(laf);
-                }
-                catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
+    public static JFrame getCenteredOnTopFrame(){
+        JFrame promptFrame = new JFrame();
+        promptFrame.setUndecorated(true);
+        promptFrame.setVisible(true);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        promptFrame.setLocation(dim.width/2-promptFrame.getSize().width/2, dim.height/2-promptFrame.getSize().height/2);
+        promptFrame.toFront();
+        promptFrame.requestFocus();
+        return promptFrame;
     }
-    
     
     public static InterpolationMethodEnum getMethodEnum(int methodInt){
         switch (methodInt){

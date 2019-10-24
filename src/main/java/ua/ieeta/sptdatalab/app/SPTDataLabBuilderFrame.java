@@ -55,7 +55,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.util.LinearComponentExtracter;
-import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
@@ -63,7 +62,6 @@ import ua.ieeta.sptdatalab.model.GeometryEvent;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
 import ua.ieeta.sptdatalab.model.TestCaseEdit;
 
-import ua.ieeta.sptdatalab.ui.ImageUtil;
 import ua.ieeta.sptdatalab.ui.SwingUtil;
 import ua.ieeta.sptdatalab.ui.tools.DeleteVertexTool;
 import ua.ieeta.sptdatalab.ui.tools.EditVertexTool;
@@ -75,7 +73,6 @@ import ua.ieeta.sptdatalab.ui.tools.PointTool;
 import ua.ieeta.sptdatalab.ui.tools.RectangleTool;
 import ua.ieeta.sptdatalab.ui.tools.StreamPolygonTool;
 import ua.ieeta.sptdatalab.ui.tools.ZoomTool;
-import ua.ieeta.sptdatalab.util.GuiUtil;
 import ua.ieeta.sptdatalab.util.StringUtil;
 import ua.ieeta.sptdatalab.util.io.DatasetLoader;
 
@@ -123,11 +120,6 @@ public class SPTDataLabBuilderFrame extends JFrame
     TestBuilderModel tbModel;
     TestBuilderModel tbModel2;
     
-    private GeometryInspectorDialog geomInspectorDlg = new GeometryInspectorDialog(this);
-    /*
-    private LoadTestCasesDialog loadTestCasesDlg = new LoadTestCasesDialog(this,
-    "Load Test Cases", true);
-    */
     
     
     /**
@@ -250,14 +242,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         }
     }
     
-    private void initFileChoosers() {
-        if (pngFileChooser == null) {
-            pngFileChooser = new JFileChooser();
-            pngFileChooser.addChoosableFileFilter(SwingUtil.PNG_FILE_FILTER);
-            pngFileChooser.setDialogTitle("Save PNG");
-            pngFileChooser.setSelectedFile(new File("geoms.png"));
-        }
-    }
     
     public static SPTDataLabBuilderFrame instance() {
         if (singleton == null) {
@@ -332,7 +316,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         
         testListPanel.populateList();
         updateTestCaseView();
-        //updatePrecisionModelDescription();
     }
     
     public static void reportException(Exception e) {
@@ -650,12 +633,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         //geomInspectorDlg.setVisible(true);
     }
     
-    public void actionInspectGeometryDialog() {
-        int geomIndex = tbModel.getGeometryEditModel().getGeomIndex();
-        String tag = geomIndex == 0 ? AppStrings.GEOM_LABEL_A : AppStrings.GEOM_LABEL_B;
-        Geometry geometry = currentCase().getGeometry(geomIndex);
-        geomInspectorDlg.setVisible(true);
-    }
     
     void menuLoadCorrFilesFolder_actionPerformed(ActionEvent e) {
         boolean success = DatasetLoader.loadAndSetCoordinatesFiles();
@@ -666,10 +643,13 @@ public class SPTDataLabBuilderFrame extends JFrame
     }
     
     void menuChangeDataSet_actionPerformed(ActionEvent e) {
-        boolean success = DatasetLoader.loadAndSetDataset();
-        if (success){
+        String success = DatasetLoader.loadAndSetDataset();
+        if (success.equals(AppConstants.CONFIRMATION_STRING)){
             this.setToFirstImages();//start with the first images
             this.reloadBothPanels();
+        }
+        else{
+            //error while loading dataset
         }
     }
     
@@ -796,16 +776,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         //start JFrame maximized
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
         
-        /*
-        testCasePanel.editPanel.addGeometryListener(
-        new com.vividsolutions.jtstest.testbuilder.model.GeometryListener() {
-        
-        public void geometryChanged(GeometryEvent e) {
-        editPanel_geometryChanged(e);
-        }
-        });
-        */
-        
         jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
         jSplitPane1.setPreferredSize(new Dimension(601, 660));
         //top panel (top half of window)
@@ -847,17 +817,9 @@ public class SPTDataLabBuilderFrame extends JFrame
         jSplitPane1.setBorder(new EmptyBorder(2,2,2,2));
         jSplitPane1.setResizeWeight(0.6);
         inputTabbedPane.add(wktPanel,  AppStrings.TAB_LABEL_INPUT);
-        /*inputTabbedPane.addChangeListener(new ChangeListener() {
-            public void stateChanged(ChangeEvent e)
-            {
-                //updateStatsPanelIfVisible();
-            }
-        });*/
         
         jSplitPane1.setDividerLocation(500);
         this.setJMenuBar(tbMenuBar.getMenuBar());
-        //contentPane.add(tbToolBar.getToolBar(), BorderLayout.NORTH);
-        
         
     }
     
@@ -866,16 +828,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         return tbToolBar;
     }
     
-    private void updateGeometry() {
-        testCasePanel.relatePanel.clearResults();
-        testCasePanel.setTestCase(currentCase());
-        updateWktTopPanel();
-    }
-    private void updateGeometry2() {
-        testCasePanel2.relatePanel.clearResults();
-        testCasePanel2.setTestCase(currentCase2());
-        updateWktBottomPanel();
-    }
     
     private void updateWktPanel() {
         updateWktTopPanel();
@@ -900,10 +852,6 @@ public class SPTDataLabBuilderFrame extends JFrame
         
     }
     
-    private void updatePrecisionModelDescription() {
-        testCasePanel.setPrecisionModelDescription(tbModel.getPrecisionModel().toString());
-        testCasePanel2.setPrecisionModelDescription(tbModel2.getPrecisionModel().toString());
-    }
     
     public void updateTestCaseView() {
         testCasePanel.setTestCase(currentCase());
@@ -945,34 +893,13 @@ public class SPTDataLabBuilderFrame extends JFrame
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
     
-    void menuChangeToLines_actionPerformed(ActionEvent e) {
-        Geometry cleanGeom = LinearComponentExtracter.getGeometry(tbModel.getGeometryEditModel().getGeometry(0));
-        currentCase().setGeometry(0, cleanGeom);
-        updateGeometry();
-    }
     
     void btnEditVertex_actionPerformed(ActionEvent e) {
         testCasePanel.getGeometryEditPanel().setCurrentTool(EditVertexTool.getInstance());
         testCasePanel2.getGeometryEditPanel().setCurrentTool(EditVertexTool.getInstance());
     }
     
-    /*void btnShowHideGrid_actionPerformed(ActionEvent e) {
-        //show or hide the grid
-        getGeometryEditPanel().getGridRenderer().swithEnabled();
-        //update ui
-        getGeometryEditPanel().forceRepaint();
-    }*/
-    
-    private Coordinate pickOffset(Geometry a, Geometry b) {
-        if (a != null && ! a.isEmpty()) {
-            return a.getCoordinates()[0];
-        }
-        if (b != null && ! b.isEmpty()) {
-            return b.getCoordinates()[0];
-        }
-        return null;
-    }
-    
+       
     public void resetZoom(){
         testCasePanel.getGeometryEditPanel().getViewport().zoomToInitialExtent();
         testCasePanel2.getGeometryEditPanel().getViewport().zoomToInitialExtent();

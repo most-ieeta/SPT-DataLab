@@ -110,64 +110,13 @@ public class SPTDataLabBuilderController
   public static Geometry getGeometryB() {
     return SPTDataLab.model().getGeometryEditModel().getGeometry(1);
   }
-
-  public static void zoomToFullExtent()
-  {
-    getGeometryEditPanel().zoomToFullExtent();
-    getGeometryEditPanel2().zoomToFullExtent();
-  }
   
   public static void zoomToInput()
   {
     getGeometryEditPanel().zoomToInput();
     getGeometryEditPanel2().zoomToInput();
   }
-  
-  public static void addTestCase(Geometry[] geom, String name)
-  {
-    model().addCase(geom, name);
-    SPTDataLabBuilderFrame.instance().updateTestCases();
-  }
-  
-  public static void extractComponentsToTestCase(Coordinate pt)
-  {
-    double toleranceInModel = getGeometryEditPanel().getToleranceInModel();
-    LayerList lyrList = model().getLayers();
-    Geometry comp = lyrList.getComponent(pt, toleranceInModel);
-    if (comp == null) 
-      return;
-    model().addCase(new Geometry[] { comp, null });
-    SPTDataLabBuilderFrame.instance().updateTestCases();
-  }
-  
-  public static void extractComponentsToTestCase(Geometry aoi)
-  {
-    //double toleranceInModel = SPTDataLabBuilderFrame.getGeometryEditPanel().getToleranceInModel();
-    LayerList lyrList = model().getLayers();
-    Geometry[] comp = lyrList.getComponents(aoi);
-    if (comp == null) 
-      return;
-    model().addCase(comp);
-    SPTDataLabBuilderFrame.instance().updateTestCases();
-    toolbar().clearToolButtons();
-    toolbar().unselectExtractComponentButton();
-    editPanel().setCurrentTool(null);
-  }
-
-  public static void copyComponentToClipboard(Coordinate pt)
-  {
-    double toleranceInModel = getGeometryEditPanel().getToleranceInModel();
-    LayerList lyrList = model().getLayers();
-    Geometry comp = lyrList.getComponent(pt, toleranceInModel);
-    if (comp == null) 
-      return;
-    SwingUtil.copyToClipboard(comp, false);
-  }
-  
-  public static void setFocusGeometry(int index) {
-    model().getGeometryEditModel().setEditGeomIndex(index);
-    toolbar().setFocusGeometry(index);    
-  }
+      
 
   public static void inspectGeometry()
   {
@@ -177,28 +126,11 @@ public class SPTDataLabBuilderController
   {
     SPTDataLabBuilderFrame.instance().actionExchangeGeoms();
   }
-  public static void inspectGeometryDialog()
-  {
-    SPTDataLabBuilderFrame.instance().actionInspectGeometryDialog();
-  }
-  public static void clearResult()
-  {
-    SPTDataLabBuilderFrame.instance().getResultWKTPanel().clearResult();
-    model().setResult(null);
-    editPanel().updateView();
-  }
-
+  
   private static TestBuilderModel model() {
     return SPTDataLabBuilderFrame.instance().getModel();
   }
-  private static GeometryEditPanel editPanel() {
-    return SPTDataLabBuilderFrame.instance().getGeometryEditPanel();
-  }
-  private static GeometryEditPanel editPanel2() {
-    return SPTDataLabBuilderFrame.instance().getGeometryEditPanel2();
-  }
-
-
+  
   private static SPTDataLabBuilderToolBar toolbar() {
     return SPTDataLabBuilderFrame.instance().getToolbar();
   }

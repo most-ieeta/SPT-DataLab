@@ -11,8 +11,6 @@
  */
 package ua.ieeta.sptdatalab.ui.tools;
 
-import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
-
 /**
  * Extracts a component of a geometry to a new Test Case
  * @version 1.7
@@ -30,10 +28,6 @@ public class ExtractComponentTool extends BoxBandTool {
     super();
   }
 
-  protected void gestureFinished() 
-  {      
-    SPTDataLabBuilderController.extractComponentsToTestCase(getBox());  
-  }
-
+  
 
 }
