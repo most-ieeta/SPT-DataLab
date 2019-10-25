@@ -11,7 +11,6 @@
  */
 package ua.ieeta.sptdatalab.app;
 
-import ua.ieeta.sptdatalab.util.ExceptionFormatter;
 import ua.ieeta.sptdatalab.model.TestBuilderModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -100,49 +99,11 @@ public class ResultWKTPanel
         this.tbModel = tbModel;
     }
 
-    public void setOpName(String opName) {
-        this.opName = opName;
-    }
 
-    public void setRunningTime(String time) {
-        setExecutedTime(time);
-    }
 
-    public void setExecutedTime(String time) {
-        functionLabel.setText(opName);
-        timeLabel.setText(time);
-        memoryLabel.setText(Memory.usedTotalString());
-    }
 
-    public void updateResult() {
-        Object o = tbModel.getResult();
-        if (o == null) {
-            setString("");
-        } else if (o instanceof Geometry) {
-            setGeometry((Geometry) o);
-        } else if (o instanceof Throwable) {
-            setError((Throwable) o);
-        } else {
-            setString(o.toString());
-        }
-    }
 
-    private void setGeometry(Geometry g) {
-        String str = tbModel.getResultDisplayString(g);
-        txtResult.setText(str);
-        txtResult.setBackground(SystemColor.control);
-    }
 
-    private void setString(String s) {
-        txtResult.setText(s);
-        txtResult.setBackground(SystemColor.control);
-    }
-
-    private void setError(Throwable ex) {
-        String exStr = ExceptionFormatter.getFullString(ex);
-        txtResult.setText(exStr);
-        txtResult.setBackground(Color.pink);
-    }
 
     void rCopyButton_actionPerformed(ActionEvent e) {
         boolean isFormatted = 0 != (e.getModifiers() & ActionEvent.CTRL_MASK);
