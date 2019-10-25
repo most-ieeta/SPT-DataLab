@@ -612,6 +612,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
                 message = AppConstants.DATASET_LOADING_GENERAL_ERROR;
             JOptionPane.showMessageDialog(null, message, "Error Starting SPTDataLab", JOptionPane.ERROR_MESSAGE);
         }
+        
     }
 
     void drawRectangleButton_actionPerformed(ActionEvent e) {

@@ -24,9 +24,8 @@
 package ua.ieeta.sptdatalab.ui.tools;
 
 import java.awt.Cursor;
-import org.locationtech.jts.geom.Geometry;
-import org.locationtech.jts.geom.LinearRing;
-import ua.ieeta.sptdatalab.app.AppCorrGeometries;
+import java.util.List;
+import org.locationtech.jts.geom.Coordinate;
 import ua.ieeta.sptdatalab.app.GeometryEditPanel;
 import ua.ieeta.sptdatalab.app.SPTDataLab;
 import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
