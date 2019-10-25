@@ -14,8 +14,6 @@
 package ua.ieeta.sptdatalab.app;
 
 
-import java.awt.event.ActionEvent;
-
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.DocumentEvent;

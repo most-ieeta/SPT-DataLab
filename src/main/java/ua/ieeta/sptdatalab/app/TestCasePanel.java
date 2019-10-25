@@ -29,6 +29,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -46,9 +51,11 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 import javax.swing.event.ChangeEvent;
+import org.locationtech.jts.geom.Coordinate;
 
 import ua.ieeta.sptdatalab.event.ValidPanelEvent;
 import ua.ieeta.sptdatalab.event.ValidPanelListener;
+import ua.ieeta.sptdatalab.util.CoordinateUtils;
 
 
 
@@ -165,8 +172,9 @@ public class TestCasePanel extends JPanel {
       }
 
      void editPanel_mouseMoved(MouseEvent e) {
-        String cursorPos = editPanel.cursorLocationString(e.getPoint());
-        lblMousePos.setText(cursorPos);
+        CoordinateUtils coordUtils;
+        coordUtils = AppCorrGeometries.getInstance().transformPanelToOriginalCoordinates(e.getPoint().getX(), e.getPoint().getY(), editPanel);
+        lblMousePos.setText(String.valueOf(coordUtils.x) + ',' + String.valueOf(coordUtils.y));
     }
 
       void btnRunTests_actionPerformed(ActionEvent e) {

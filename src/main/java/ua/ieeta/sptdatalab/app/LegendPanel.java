@@ -30,12 +30,8 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
 
     private String sourceImageFile;
     private String targetImageFile;
-    private String sourceCorrFile;
-    private String targetCorrFile;
     private int numberSourceImageFile;
     private int numberTargetImageFile;
-    private int numberSourceCorrFile;
-    private int numberTargetCorrFile;
     private final int maxStringSize = 80;//maximum number of chars in text for some labels
     
     public LegendPanel() {

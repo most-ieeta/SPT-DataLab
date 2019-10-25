@@ -51,6 +51,11 @@ public class CoordinateUtils extends Coordinate{
         this.setY(originalHeight - this.getY() );
     }
     
+    public void transformOriginalNoChangeAxis (double originalWidth, double originalHeight, double panelWidth, double panelHeight){
+        this.setX(getCoordinateOriginal(this.getX(), originalWidth, panelWidth));
+        this.setY(getCoordinateOriginal(this.getY(), originalHeight, panelHeight));
+        //remove original height from original coordinates!
+    }
     private double getCoordinateConversion(double c, double originalPanelSize, double panelSize){
         return (c/originalPanelSize) * panelSize;
     }

@@ -289,7 +289,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
     }
     
-    private void updateInfoGeometriesOriginalScale(List<Coordinate> coords, boolean isSource, boolean isOriginalScale){
+        void updateInfoGeometriesOriginalScale(List<Coordinate> coords, boolean isSource, boolean isOriginalScale){
         //first validate that last coordinate equals first coordinate
         if (!coords.get(0).equals(coords.get(coords.size()-1))){
             coords.set(coords.size()-1, coords.get(0));
@@ -303,7 +303,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
         //this.updateInfoGeometries(isSource, isEdited);
     }
-    
+
     /**
      * Returns the geometry observation (which includes source and target) with original scale of the current observation in panel.
      * 
@@ -460,7 +460,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
      * @param editPanel
      * @return 
      */
-    private List<Coordinate> correctCoordinates(List<Coordinate> coord, GeometryEditPanel editPanel){
+    public List<Coordinate> correctCoordinates(List<Coordinate> coord, GeometryEditPanel editPanel){
         AppImage appImage = AppImage.getInstance();
 
         double currImageHeightInPanel = appImage.getImageHeightInPanel(editPanel.isSecondPanel());
@@ -1053,6 +1053,16 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return transformedCoords;
     }
     
+    public CoordinateUtils transformPanelToOriginalCoordinates(Double x, Double y, GeometryEditPanel editPanel,
+                                                            double imageWidthInPanel, double imageHeightInPanel){
+        AppImage appImage = AppImage.getInstance();
+        CoordinateUtils coordUtils;
+        coordUtils = new CoordinateUtils(x, y);
+        coordUtils.transformOriginalNoChangeAxis(appImage.getImageOriginalWidth(editPanel.isSecondPanel()),
+                    appImage.getImageOriginalHeight(editPanel.isSecondPanel()), imageWidthInPanel, imageHeightInPanel);
+        return coordUtils;
+    }
+    
     /**
      * Original Image dimension changes inside the panel, therefore, the coordinates of the geometries need to be transformed
      * to be aligned with the image. This method returns the original coordinates before tranformation according to 
@@ -1068,6 +1078,12 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return transformToOriginalCoordinates(coordinates, editPanel, currImageWidthInPanel, currImageHeightInPanel);
     }
     
+    public CoordinateUtils transformPanelToOriginalCoordinates(Double x, Double y, GeometryEditPanel editPanel){
+        AppImage appImage = AppImage.getInstance();
+        double currImageWidthInPanel = appImage.getImageWidthInPanel(editPanel.isSecondPanel());
+        double currImageHeightInPanel = appImage.getImageHeightInPanel(editPanel.isSecondPanel());
+        return transformPanelToOriginalCoordinates(x, y, editPanel, currImageWidthInPanel, currImageHeightInPanel);
+    }
     /**
      * Original Image dimension changes inside the panel, therefore, the coordinates of the geometries need to be transformed
      * to be aligned with the image. This method returns the original coordinates before tranformation according to 

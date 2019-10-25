@@ -24,11 +24,8 @@
 package ua.ieeta.sptdatalab.ui.tools;
 
 import java.awt.Cursor;
-import java.util.List;
-import org.locationtech.jts.geom.Coordinate;
-import ua.ieeta.sptdatalab.app.GeometryEditPanel;
-
-import ua.ieeta.sptdatalab.model.GeometryType;
+import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
+import static ua.ieeta.sptdatalab.ui.tools.BasicTool.getClickedPanel;
 
 
 public class RectangleTool extends BoxBandTool
@@ -47,11 +44,8 @@ public class RectangleTool extends BoxBandTool
 
     protected void gestureFinished() 
     { 
-        GeometryEditPanel clickedPanel = getClickedPanel();
-        clickedPanel.getGeomModel().setGeometryType(GeometryType.POLYGON);
-        List<Coordinate> l = getCoordinates();
-        clickedPanel.getGeomModel().addComponent(getCoordinates());
-        clickedPanel.updateGeom();
+        SPTDataLabBuilderFrame.instance().updateModelGeometry(getCoordinates(), getClickedPanel());
+        SPTDataLabBuilderFrame.instance().disableDrawingButtons(); 
     }
   
 }

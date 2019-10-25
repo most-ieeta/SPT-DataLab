@@ -118,22 +118,7 @@ public class SPTDataLabBuilderController
   }
       
 
-  public static void inspectGeometry()
-  {
-    SPTDataLabBuilderFrame.instance().actionInspectGeometry();
-  }
-  public static void exchangeGeometry()
-  {
-    SPTDataLabBuilderFrame.instance().actionExchangeGeoms();
-  }
   
-  private static TestBuilderModel model() {
-    return SPTDataLabBuilderFrame.instance().getModel();
-  }
-  
-  private static SPTDataLabBuilderToolBar toolbar() {
-    return SPTDataLabBuilderFrame.instance().getToolbar();
-  }
   
 
 }
