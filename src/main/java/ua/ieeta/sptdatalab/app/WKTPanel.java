@@ -24,7 +24,6 @@ package ua.ieeta.sptdatalab.app;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -309,60 +308,60 @@ this.add(
                 new Insets(2, 2, 0, 2),
                 0, 0));
 
-loadButton.addActionListener(
-        new ActionListener() {
+        loadButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        loadButton_actionPerformed(e);
+                    }
+                });
+        inspectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                loadButton_actionPerformed(e);
+                SPTDataLabBuilderController.inspectGeometry();
             }
         });
-inspectButton.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        SPTDataLabBuilderController.inspectGeometry();
-    }
-});
-exchangeButton.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        SPTDataLabBuilderController.exchangeGeometry();
-    }
-});
-aCopyButton.addActionListener(
-        new ActionListener() {
+        exchangeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                aCopyButton_actionPerformed(e);
+                SPTDataLabBuilderController.exchangeGeometry();
             }
         });
-aPasteButton.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                aPasteButton_actionPerformed(e);
-            }
-        });
-aCutButton.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                aCutButton_actionPerformed(e);
-            }
-        });
-bCopyButton.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bCopyButton_actionPerformed(e);
-            }
-        });
-bPasteButton.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bPasteButton_actionPerformed(e);
-            }
-        });
-bCutButton.addActionListener(
-        new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                bCutButton_actionPerformed(e);
-            }
-        });
-editMode.add(aRB);
-editMode.add(bRB);
+        aCopyButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        aCopyButton_actionPerformed(e);
+                    }
+                });
+        aPasteButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        aPasteButton_actionPerformed(e);
+                    }
+                });
+        aCutButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        aCutButton_actionPerformed(e);
+                    }
+                });
+        bCopyButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        bCopyButton_actionPerformed(e);
+                    }
+                });
+        bPasteButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        bPasteButton_actionPerformed(e);
+                    }
+                });
+        bCutButton.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        bCutButton_actionPerformed(e);
+                    }
+                });
+        editMode.add(aRB);
+        editMode.add(bRB);
     }
     
     public void setText(Geometry g, int geomIndex)
