@@ -95,7 +95,6 @@ public class AppConstants
     
     public final static String COORD_RIGHT_PANEL_PROPERTY = "rightPanelCoords";
     
-    public final static String INTERPOLATION_SHOWING = "interpolation_showing";
     
     //---------------- headers to parse secondo file credential data
     public final static String SECONDO_HOST_HEADER = "host";

@@ -271,53 +271,24 @@ public class GeometryEditPanel extends JPanel {
         AppImage.getInstance().resizeImageDimension(this.getSize(), isSecondPanel);
         AppCorrGeometries appCorr = AppCorrGeometries.getInstance();
         List<Coordinate> coord;//for polygon or normal geometry read from corr file
-        List<List<Coordinate>> coords; //for multipolygon
         
          //remove any other geometries previously drawn
         
         //tbModel.getGeometryEditModel().clear();
          
         drawImagePolygon();
-        if (!this.isSecondPanel && appCorr.showMorphingGeometry()){
-            //this is the first panel and will draw the result of the morphing of a geometry
-            coord = appCorr.getMorphingPolygon();
-            coords = appCorr.getMorphingMultiPolygon();
-            if (!coord.isEmpty()){ //polygon
-                //the below 2 lines of code have to be repeated every time we add a component... else it throws an exception
-                //remove any other geometries previously drawn
-                tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-                tbModel.getGeometryEditModel().clear();
+        
+        //this panel will draw the geometry read from the file or from the cache if previously edited
+        coord = appCorr.getSourceTargetCoordsFixedForScreen(this);
+        //this chunk of code has to be repeated every time we add a component... else it throws an exception
+        //remove any other geometries previously drawn
+        tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
+        tbModel.getGeometryEditModel().clear();
 
-                tbModel.getGeometryEditModel().setGeometryType(GeometryType.POLYGON);
-                tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-                tbModel.getGeometryEditModel().addComponent(coord);//draw a polygon from the morphing operation
-            }
-            else if (!coords.isEmpty()){//multipolygon
-                //this chunk of code has to be repeated every time we add a component... else it throws an exception
-                //remove any other geometries previously drawn
-                tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-                tbModel.getGeometryEditModel().clear();
-
-                tbModel.getGeometryEditModel().setGeometryType(GeometryType.POLYGON);
-                tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-                for (List<Coordinate> mesh : coords){
-                    tbModel.getGeometryEditModel().addComponent(mesh);
-                }
-            }
-        }
-        else{
-            //this panel will draw the geometry read from the file or from the cache if previously edited
-            coord = appCorr.getSourceTargetCoordsFixedForScreen(this);
-            //this chunk of code has to be repeated every time we add a component... else it throws an exception
-            //remove any other geometries previously drawn
-            tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-            tbModel.getGeometryEditModel().clear();
-
-            tbModel.getGeometryEditModel().setGeometryType(GeometryType.POLYGON);
-            tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
-            //tbModel.getGeometryEditModel().clear();
-            tbModel.getGeometryEditModel().addComponent(coord);
-        }
+        tbModel.getGeometryEditModel().setGeometryType(GeometryType.POLYGON);
+        tbModel.getGeometryEditModel().setEditGeomIndex(OBJECT_GEOMETRY_INDEX);
+        //tbModel.getGeometryEditModel().clear();
+        tbModel.getGeometryEditModel().addComponent(coord);
         
         this.updateGeom();   
     }

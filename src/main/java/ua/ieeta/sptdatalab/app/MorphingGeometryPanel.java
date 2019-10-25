@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -69,6 +70,7 @@ public class MorphingGeometryPanel extends JPanel{
     private MorphingGeometryViewerFrame viewerFrame;
     private static int callerPanelNGeometries;
     private double stepCounter = 0;
+    private int delay;
     
 
     //for a multipolygon, each polygon in a certain instant
@@ -80,6 +82,7 @@ public class MorphingGeometryPanel extends JPanel{
         if (nGeometries > biggestNGeometries)
             biggestNGeometries = nGeometries;
         callerPanelNGeometries = nGeometries;
+        setDelay();
         super.setBackground(Color.white);
         startAnimation();
     }
@@ -93,6 +96,7 @@ public class MorphingGeometryPanel extends JPanel{
         if (nGeometries > biggestNGeometries)
             biggestNGeometries = nGeometries;
         callerPanelNGeometries = nGeometries;
+        setDelay();
         super.setBackground(Color.white);
         startAnimation();
     }
@@ -106,12 +110,13 @@ public class MorphingGeometryPanel extends JPanel{
        if (nGeometries > biggestNGeometries)
             biggestNGeometries = nGeometries;
        callerPanelNGeometries = nGeometries;
+       setDelay();
        super.setBackground(Color.white);
        startAnimation();
     }
     
     private void startAnimation(){
-        timer = new Timer(10, new ActionListener() {
+        timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 repaint();
@@ -210,9 +215,9 @@ public class MorphingGeometryPanel extends JPanel{
         Graphics2D gr = (Graphics2D) g.create();
         gr = drawGeometryFrame(gr, currentGeometryNumber);
         
-        incrementGeometryNumber();
         //to update the slider in the ui of every interpolation animation windows
         viewerFrame.updateSlider(currentGeometryNumber);
+        incrementGeometryNumber();
         
         gr.dispose();
         if(currentGeometryNumber >= nGeometries) {
@@ -237,7 +242,6 @@ public class MorphingGeometryPanel extends JPanel{
         double panelWidth = this.getWidth();
         LiteShape lt = null;
         if (multiPolygonList != null && geoNumber < multiPolygonList.length){
-            //System.out.println("--> geo paint: " + currentGeometryNumber);
             mGeometry = multiPolygonList[geoNumber];
             Point p = mGeometry.getCentroid();
             at.translate(panelWidth/2 - p.getX(), panelHeight/2 - p.getY());//place center of the geometry in the midle of the panel
@@ -248,10 +252,10 @@ public class MorphingGeometryPanel extends JPanel{
             //the size of the shape and the panel
            AffineTransform atScaled =  scaleShapeToFitScreen(lt, p);
             if (atScaled != null)
-                lt = new LiteShape(pGeometry, atScaled, false);
+                lt = new LiteShape(mGeometry, atScaled, false);
             else
-                lt = new LiteShape(pGeometry, at, false);
-            
+                lt = new LiteShape(mGeometry, at, false);
+            System.out.println(lt.getGeometry());
             gr.draw(lt);
 
         }
@@ -421,6 +425,18 @@ public class MorphingGeometryPanel extends JPanel{
     
     public int getNGeometries(){
         return this.nGeometries;
+    }
+    
+    private void setDelay(){
+        if (nGeometries >= 100){
+            delay = 10;
+        }
+        else if (nGeometries >= 10 && nGeometries < 100) {
+            delay = 100;
+        }
+        else{
+            delay = 500;
+        }
     }
     
 }

@@ -139,6 +139,8 @@ public class AppStrings {
     
     public static final String STATISTIC_LABEL_STRING = "Statistics:";
     
+    public static final String CURRENT_INSTANT_LABEL_STRING = "Instant: ";
+    
     public static final String PLAY_STRING = "Play";
     
     public static final String PAUSE_STRING = "Pause";

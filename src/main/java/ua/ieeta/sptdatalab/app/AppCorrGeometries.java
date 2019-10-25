@@ -62,7 +62,6 @@ import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import ua.ieeta.sptdatalab.model.GeometryEditModel;
 import ua.ieeta.sptdatalab.model.GeometryType;
-import ua.ieeta.sptdatalab.morphing.InterpolationMethodEnum;
 import ua.ieeta.sptdatalab.util.CoordinateUtils;
 import ua.ieeta.sptdatalab.util.GeometryObservation;
 
@@ -94,15 +93,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
 
     private List<String> geoDates = new ArrayList<>();
     
-    //stores the coordinates of a morphed polygon
-    private List<Coordinate> morphingPolygon;
-    
-    //stores the coordinates of a morphed multipolygon (a mesh of triangules)
-    private List<List<Coordinate>> morphingMultiPolygon;
-    
-    //used to toogle morphing geometry on and off in the panel
-    private boolean showMorphingGeometry = false;
-    
     private List<Coordinate> drawnPoints = new ArrayList<>();
     
     private Map<BufferedImage, Coordinate> images = new HashMap<>();//used to draw red points indicating the correspondences between source and target
@@ -129,8 +119,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     private AppCorrGeometries() {
         this.isEdited = false;
-        morphingMultiPolygon = new ArrayList<>();
-        morphingPolygon = new ArrayList<>();
         currentObservationNumber = 0;
         geometriesInPanel = new ArrayList<>();
         geometriesInPanelOriginalScale = new ArrayList<>();
@@ -931,90 +919,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return g;
     }
     
-    
-    public void animation(String[] wktGeometry, MultiPolygon multiPolygon, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, multiPolygon);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    public void animation(String[] wktGeometry, Polygon[] polyList, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, polyList);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    public void animation(String[] wktGeometry, MultiPolygon[] multiPolyList, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, multiPolyList);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    private void openMorphingGeometryFrame(MorphingGeometryViewerFrame frame){
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run()
-            {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                //start frame to show the animation for the morphing geometry
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dont close entire project on window close
-                frame.pack();
-                frame.validate();
-                frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH); //start frame maximized
-                frame.setLocationRelativeTo(null);
-                frame.setTitle(AppStrings.MORPHING_PANEL_TITLE + " - " + frame.getMorphingMethod().toString());
-                frame.setVisible(true);
-            }
-        });
-    }
-    
-    public void showMorphingGeometryInPanel(Polygon p){
-        morphingPolygon.clear(); //remove any previous coordinates
-        //store this coordinates to be redrawn on the first panel when panel repaint occurs
-        this.morphingPolygon = new ArrayList<>(Arrays.asList(p.getCoordinates()));
-        morphingPolygon = this.correctCoordinates(morphingPolygon, SPTDataLabBuilderFrame.getGeometryEditPanel());
-        setShowMorphingGeometry(true);
-        morphingMultiPolygon.clear();//avoid conflicts with previous types of morphing geometry
-        //draw on the 1st panel
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    public void showMorphingGeometryInPanel(MultiPolygon mp){
-        morphingMultiPolygon.clear(); //remove any previous coordinates
-        //store this coordinates to be redrawn on the first panel when panel repaint occurs
-        for (int i = 0; i < mp.getNumGeometries(); i++){
-            List <Coordinate> polygonCoords = new ArrayList<>(Arrays.asList(mp.getGeometryN(i).getCoordinates()));
-            this.morphingMultiPolygon.add(polygonCoords);
-        }
-        
-        //correct every coordinate to fit the screen and align with the image
-        for (int i = 0; i < morphingMultiPolygon.size(); i++){
-            List <Coordinate> polygonCoordsCorrected = this.correctCoordinates(morphingMultiPolygon.get(i), SPTDataLabBuilderFrame.getGeometryEditPanel());
-            morphingMultiPolygon.set(i, polygonCoordsCorrected);
-        }
-        setShowMorphingGeometry(true);
-        //draw on the 1st panel
-        morphingPolygon.clear();//avoid conflicts with previous types of morphing geometry
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    public void showMorphingGeometryInPanel(){
-        if ( morphingPolygon.isEmpty() || morphingMultiPolygon.isEmpty()){//one has values with the result of the interpolation
-            setShowMorphingGeometry(true);
-            //draw on the 1st panel
-            SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-        }
-    }
-    
-    public void hideMorphingGeometryInPanel(){
-        setShowMorphingGeometry(false);
-        //draw back the normal geometry on the 1st panel
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    
     public void setCorrGeometry(List<Coordinate> corrGeometry, boolean isSecondPanel) {
         this.updateInfoGeometriesOriginalScale(corrGeometry, !isSecondPanel, false);
         this.updateInfoGeometries(!isSecondPanel, true);
@@ -1026,23 +930,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     public SPTDataLabBuilderFrame getFrame() {
         return frame;
-    }
-    
-    public void setShowMorphingGeometry(boolean showMorphingGeometry){
-        support.firePropertyChange(AppConstants.INTERPOLATION_SHOWING, !showMorphingGeometry, showMorphingGeometry);
-        this.showMorphingGeometry = showMorphingGeometry;
-    }
-    
-    public boolean showMorphingGeometry() {
-        return showMorphingGeometry;
-    }
-    
-    public List<Coordinate> getMorphingPolygon() {
-        return this.morphingPolygon;
-    }
-    
-    public List<List<Coordinate>> getMorphingMultiPolygon() {
-        return this.morphingMultiPolygon;
     }
     
     public List<String> getGeoDates() {
