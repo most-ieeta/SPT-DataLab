@@ -70,8 +70,6 @@ public class SPTDataLabBuilderToolBar {
     
     JToggleButton drawRectangleButton = new JToggleButton();
     JToggleButton drawPolygonButton = new JToggleButton();
-    JToggleButton drawLineStringButton = new JToggleButton();
-    JToggleButton drawPointButton = new JToggleButton();
     JToggleButton zoomButton = new JToggleButton();
     JToggleButton infoButton = new JToggleButton();
     JToggleButton panButton = new JToggleButton();
@@ -113,12 +111,6 @@ public class SPTDataLabBuilderToolBar {
         this.tbFrame = tbFrame;
     }
     
-    public void clearToolButtons()
-    {
-        // this only works in JSE 1.6
-        // In 1.5, need to add an invisible button and select it
-        //toolButtonGroup.clearSelection();
-    }
     
     public void unselectExtractComponentButton()
     {
@@ -281,7 +273,8 @@ public class SPTDataLabBuilderToolBar {
         drawRectangleButton.setIcon(drawRectangleIcon);
         drawRectangleButton.setMinimumSize(new Dimension(30, 30));
         drawRectangleButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        drawRectangleButton.setSelected(true);
+        drawRectangleButton.setSelected(false);
+        drawRectangleButton.setEnabled(false);
         drawRectangleButton.setToolTipText(AppStrings.TIP_DRAW_RECTANGLE);
         drawRectangleButton.setHorizontalTextPosition(SwingConstants.CENTER);
         drawRectangleButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -298,7 +291,8 @@ public class SPTDataLabBuilderToolBar {
         drawPolygonButton.setIcon(drawPolygonIcon);
         drawPolygonButton.setMinimumSize(new Dimension(30, 30));
         drawPolygonButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        drawPolygonButton.setSelected(true);
+        drawPolygonButton.setSelected(false);
+        drawPolygonButton.setEnabled(false);
         drawPolygonButton.setToolTipText(AppStrings.TIP_DRAW_POLY);
         drawPolygonButton.setHorizontalTextPosition(SwingConstants.CENTER);
         drawPolygonButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -311,38 +305,6 @@ public class SPTDataLabBuilderToolBar {
                     }
                 });
         
-        drawLineStringButton.setMargin(new Insets(0, 0, 0, 0));
-        drawLineStringButton.setPreferredSize(new Dimension(30, 30));
-        drawLineStringButton.setIcon(drawLineStringIcon);
-        drawLineStringButton.setMinimumSize(new Dimension(30, 30));
-        drawLineStringButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        drawLineStringButton.setSelected(true);
-        drawLineStringButton.setToolTipText(AppStrings.TIP_DRAW_LINE);
-        drawLineStringButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        drawLineStringButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        drawLineStringButton.setMaximumSize(new Dimension(30, 30));
-        drawLineStringButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.drawLineStringButton_actionPerformed(e);
-                    }
-                });
-        drawPointButton.setMargin(new Insets(0, 0, 0, 0));
-        drawPointButton.setPreferredSize(new Dimension(30, 30));
-        drawPointButton.setIcon(drawPointIcon);
-        drawPointButton.setMinimumSize(new Dimension(30, 30));
-        drawPointButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        drawPointButton.setSelected(true);
-        drawPointButton.setToolTipText(AppStrings.TIP_DRAW_POINT);
-        drawPointButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        drawPointButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        drawPointButton.setMaximumSize(new Dimension(30, 30));
-        drawPointButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.drawPointButton_actionPerformed(e);
-                    }
-                });
         infoButton.setMargin(new Insets(0, 0, 0, 0));
         infoButton.setPreferredSize(new Dimension(30, 30));
         infoButton.setIcon(infoIcon);
@@ -445,40 +407,6 @@ public class SPTDataLabBuilderToolBar {
                 });
         zoomToInputButton.setMaximumSize(new Dimension(30, 30));
         
-        /*zoomToResultButton.setMargin(new Insets(0, 0, 0, 0));
-        zoomToResultButton.setIcon(zoomToResultIcon);
-        zoomToResultButton.setPreferredSize(new Dimension(30, 30));
-        zoomToResultButton.setMaximumSize(new Dimension(30, 30));
-        zoomToResultButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        zoomToResultButton.setMinimumSize(new Dimension(30, 30));
-        zoomToResultButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        zoomToResultButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        zoomToResultButton.setToolTipText(AppStrings.TIP_ZOOM_TO_RESULT);
-        zoomToResultButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomToResult_actionPerformed(e);
-                    }
-                });
-        zoomToResultButton.setMaximumSize(new Dimension(30, 30));*/
-        
-        /*zoomToFullExtentButton.setMargin(new Insets(0, 0, 0, 0));
-        zoomToFullExtentButton.setIcon(zoomToFullExtentIcon);
-        zoomToFullExtentButton.setPreferredSize(new Dimension(30, 30));
-        zoomToFullExtentButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        zoomToFullExtentButton.setMinimumSize(new Dimension(30, 30));
-        zoomToFullExtentButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        zoomToFullExtentButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        zoomToFullExtentButton.setToolTipText(AppStrings.TIP_ZOOM_TO_FULL_EXTENT);
-        zoomToFullExtentButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomToFullExtentButton_actionPerformed(e);
-                    }
-                });
-        zoomToFullExtentButton.setMaximumSize(new Dimension(30, 30));*/
         
         panButton.addActionListener(
                 new java.awt.event.ActionListener() {
@@ -529,8 +457,6 @@ public class SPTDataLabBuilderToolBar {
         
         toolButtonGroup.add(drawRectangleButton);
         toolButtonGroup.add(drawPolygonButton);
-        toolButtonGroup.add(drawLineStringButton);
-        toolButtonGroup.add(drawPointButton);
         toolButtonGroup.add(panButton);
         toolButtonGroup.add(zoomButton);
         toolButtonGroup.add(btnEditVertex);
@@ -577,8 +503,6 @@ public class SPTDataLabBuilderToolBar {
         
         jToolBar1.add(drawRectangleButton, null);
         jToolBar1.add(drawPolygonButton, null);
-        jToolBar1.add(drawLineStringButton, null);
-        jToolBar1.add(drawPointButton, null);
         jToolBar1.add(btnEditVertex, null);
         jToolBar1.add(deleteVertexButton, null);
         
@@ -592,8 +516,6 @@ public class SPTDataLabBuilderToolBar {
     {
         drawRectangleButton.setIcon(index == 0 ? drawRectangleIcon : drawRectangleBIcon);
         drawPolygonButton.setIcon(index == 0 ? drawPolygonIcon : drawPolygonBIcon);
-        drawLineStringButton.setIcon(index == 0 ? drawLineStringIcon : drawLineStringBIcon);
-        drawPointButton.setIcon(index == 0 ? drawPointIcon : drawPointBIcon);
     }
     
     private static JToggleButton createToggleButton(String toolTipText,

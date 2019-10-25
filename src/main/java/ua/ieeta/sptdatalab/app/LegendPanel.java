@@ -36,7 +36,6 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     private int numberTargetImageFile;
     private int numberSourceCorrFile;
     private int numberTargetCorrFile;
-    private boolean isInterpolationShowing = false;
     private final int maxStringSize = 80;//maximum number of chars in text for some labels
     
     public LegendPanel() {
@@ -58,9 +57,6 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
             case AppConstants.IMAGE_RIGHT_PANEL_PROPERTY:
                 this.numberTargetImageFile = Integer.parseInt(evt.getNewValue().toString());
                 break;
-            case AppConstants.INTERPOLATION_SHOWING:
-                this.isInterpolationShowing = Boolean.parseBoolean(evt.getNewValue().toString());
-                break;
         }
         updateFilesInLegend();
     }
@@ -74,18 +70,16 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     
     private void setTextForSource(){
         String text = "<html>"
-                      + "<font size=+2 color=red>Source</font>";
-        if (isInterpolationShowing)
-            text += "<font color=blue>     (Showing result of interpolation)</font>";
-        text+= "<br/> Image: " + sourceImageFile
+                      + "<font size=+1 color=red>Source</font>";
+        text+= "   Image: " + sourceImageFile
             + "</html>";
         this.sourceLabel.setText(text);
     }
     
     private void setTextForTarget(){
         String text = "<html>"
-                      + "<font size=+2 color=red>Target</font><br/>"
-                      + "Image: " + targetImageFile;
+                      + "<font size=+1 color=red>Target</font>"
+                      + "   Image: " + targetImageFile;
         text += "</html>";
         this.targetLabel.setText(text);
     }

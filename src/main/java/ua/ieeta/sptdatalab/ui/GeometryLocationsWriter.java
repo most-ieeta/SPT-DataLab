@@ -195,15 +195,12 @@ public class GeometryLocationsWriter
     
     StringBuffer buf = new StringBuffer();
     boolean isFirst = true;
-    int count = 0;
     for (Iterator i = locs.iterator(); i.hasNext(); ) {
     	GeometryLocation loc = (GeometryLocation) i.next();
     	if (! isFirst) {
             buf.append(eol);
     	}
-
     	isFirst = false;
-      
         if(!loc.isVertex()){
             cursorCoordinates.addAll(loc.getCoordsInSegment());
         }

@@ -20,14 +20,12 @@ import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.SwingUtilities;
-
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 import org.locationtech.jts.geom.Geometry;
 import ua.ieeta.sptdatalab.app.GeometryEditPanel;
 import ua.ieeta.sptdatalab.app.SPTDataLab;
-import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
+import ua.ieeta.sptdatalab.app.AppCorrGeometries;
 
 
 
@@ -67,6 +65,7 @@ public abstract class BoxBandTool extends IndicatorTool
     super.mouseDragged(e);
     zoomBoxEnd = e.getPoint();
     redrawIndicator();
+    
   }
   
   protected Shape getShape()
@@ -174,6 +173,7 @@ public abstract class BoxBandTool extends IndicatorTool
   
   protected void gestureFinished() 
   {
+      
     // basic tool does nothing.
     // Subclasses should override
   }

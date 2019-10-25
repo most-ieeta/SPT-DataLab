@@ -22,11 +22,14 @@ package ua.ieeta.sptdatalab.util;
 
 import java.text.DecimalFormat;
 import org.locationtech.jts.geom.Coordinate;
+import ua.ieeta.sptdatalab.app.AppConstants;
 
-public class CoordinateUtils extends CoordinateRounded{
+public class CoordinateUtils extends Coordinate{
     
     public CoordinateUtils (double x, double y){
         super(x, y);
+        this.setX(x);
+        this.setY(y);
     }
     
     //used to transform this point from the original image to the size of the window the image is in
@@ -63,15 +66,11 @@ public class CoordinateUtils extends CoordinateRounded{
     
     @Override
     public void setX(double x){
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.format(x);
-        this.x = x;
+        this.x =  AppConstants.limitMaxNumberOfDecimalPlaces(x);
     }
     
     @Override
     public void setY(double y){
-        DecimalFormat df = new DecimalFormat("#.###");
-        df.format(y);
-        this.y = y;
+        this.y = AppConstants.limitMaxNumberOfDecimalPlaces(y);
     }
 }

@@ -541,7 +541,6 @@ else:
 	#during period
 	for i in range(0, n_samples):
 		t = (float(i) / n) * dt + query_time_begin
-
 		# Get region at t.
 		region_at = at(cir, t)
 		#region_at = at(complex_cir, t)

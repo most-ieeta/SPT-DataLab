@@ -81,12 +81,5 @@ public class IOUtil
     return geomFact.createGeometryCollection(GeometryFactory.toGeometryArray(geomList));
   }
   
-  public static Geometry readGMLString(String gml, GeometryFactory geomFact)
-  throws ParseException, IOException, SAXException, ParserConfigurationException 
-  {
-    GMLReader reader = new GMLReader();
-    Geometry geom = reader.read(gml, geomFact);
-    return geom;
-  }
   
 }

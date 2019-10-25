@@ -26,6 +26,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -61,11 +62,11 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
     
     private MorphingGeometryPanel morphingGeoPanel;
     private static boolean userChangedSlider = true;
-    private String[] wktGeometry;
     private boolean isPolygon;
     private int beginTime = 1000; //<----- temporary
     private int endTime = 2000; //<-----
     private int numSamples;
+    int[] periods;
     
     //statistics information. If used with similarity measures, contains the value of the similarity between interpolation geometry and source during all observations
     private Map<String, Double> statistics;
@@ -81,11 +82,11 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
     private MultiPolygon[] multiPolyList;
     private Polygon[] polyList;
     
-    private MorphingGeometryViewerFrame(String[] wktGeometry, boolean isPolygon, InterpolationMethodEnum morphingMethod, int numSamples) {
-        this.wktGeometry = wktGeometry;
+    private MorphingGeometryViewerFrame(boolean isPolygon, InterpolationMethodEnum morphingMethod, int[] periods) {
         this.isPolygon = isPolygon;
         this.morphingMethod = morphingMethod;
-        this.numSamples = numSamples;
+        this.periods = periods;
+        this.numSamples = periods.length;
         this.statistics = new HashMap<>();
         this.statisticsTarget = new HashMap<>();
         chartMaker = new ChartMaker();
@@ -114,9 +115,9 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
      * @param numSamples
      * @param mp - the result of the morphing of the geometries as a multipolygon, each polygon in an instant
      */
-    public MorphingGeometryViewerFrame(String[] wktGeometry, boolean isPolygon, InterpolationMethodEnum morphingMethod,
-            int numSamples, MultiPolygon mp) {
-        this(wktGeometry, isPolygon, morphingMethod, numSamples);
+    public MorphingGeometryViewerFrame(boolean isPolygon, InterpolationMethodEnum morphingMethod,
+            int[] periods, MultiPolygon mp) {
+        this(isPolygon, morphingMethod, periods);
         this.morphingGeoPanel = new MorphingGeometryPanel(mp,this);
         this.mp = mp;
         startComponents();
@@ -131,9 +132,9 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
      * @param geometryList - the result of the morphing of the geometries as a list of multipolygon, or polygon
      * each multipolygon being a mesh of triangles in an instant or a polygon in each instant of time
      */
-    public MorphingGeometryViewerFrame(String[] wktGeometry, boolean isPolygon, InterpolationMethodEnum morphingMethod, 
-            int numSamples, Polygon[] geometryList) {
-        this(wktGeometry, isPolygon, morphingMethod, numSamples);
+    public MorphingGeometryViewerFrame(boolean isPolygon, InterpolationMethodEnum morphingMethod, 
+            int[] periods, Polygon[] geometryList) {
+        this(isPolygon, morphingMethod, periods);
         this.morphingGeoPanel = new MorphingGeometryPanel(geometryList, this);
         this.polyList = geometryList;
         startComponents();
@@ -142,9 +143,9 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         showStatisticsInChart(metricsComboBox.getSelectedItem().toString(), chartTypeComboBox.getSelectedItem().toString());
     }
     
-    public MorphingGeometryViewerFrame(String[] wktGeometry, boolean isPolygon, InterpolationMethodEnum morphingMethod, 
-            int numSamples, MultiPolygon[] geometryList) {
-        this(wktGeometry, isPolygon, morphingMethod, numSamples);
+    public MorphingGeometryViewerFrame(boolean isPolygon, InterpolationMethodEnum morphingMethod, 
+            int[] periods, MultiPolygon[] geometryList) {
+        this(isPolygon, morphingMethod, periods);
         this.morphingGeoPanel = new MorphingGeometryPanel(geometryList, this);
         this.multiPolyList = geometryList;
         startComponents();
@@ -179,7 +180,8 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         showStatisticsBtn = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         interpolationNameLabel = new javax.swing.JLabel();
-        saveAsGifButton = new javax.swing.JButton();
+        currentInstantInfoLabel = new javax.swing.JLabel();
+        currentInstantLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.GridBagLayout());
@@ -224,7 +226,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
 
         saveCurrentGeometryBtn.setText("jButton3");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -232,7 +234,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
 
         saveAnimationBtn.setText("jButton4");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
@@ -305,16 +307,26 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 11;
+        gridBagConstraints.gridwidth = 5;
         morphingFormPanel.add(interpolationNameLabel, gridBagConstraints);
 
-        saveAsGifButton.setText("jButton1");
+        currentInstantInfoLabel.setText("jLabel1");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridx = 5;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
-        morphingFormPanel.add(saveAsGifButton, gridBagConstraints);
+        morphingFormPanel.add(currentInstantInfoLabel, gridBagConstraints);
+
+        currentInstantLabel.setText("jLabel2");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        morphingFormPanel.add(currentInstantLabel, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -336,7 +348,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 3;///<-------- increase or decrease the size of this acording to the number of columns the top buttons take
+        gridBagConstraints.gridwidth = 3;///<--- increase or decrease the size of this acording to the number of columns the top buttons take
         gridBagConstraints.gridheight = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.CENTER;
@@ -351,8 +363,10 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
     
     //called by the geometry animation panel to update the current observation in the slider
     public void updateSlider(int n){
+        if (n >= numSamples)
+            return;
         userChangedSlider = false;
-        timeSlider.setValue(convertValueToSliderValue(n));
+        timeSlider.setValue(n);
         userChangedSlider = true;
     }
     
@@ -367,13 +381,14 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         this.saveStatisticsBtn.setText(AppStrings.SAVE_CURRENT_STATISTICS_STRING);
         this.saveCurrentGeometryBtn.setText(AppStrings.SAVE_CURRENT_GEOMETRY_STRING);
         this.saveAnimationBtn.setText(AppStrings.SAVE_ANIMATION_STRING);
-        this.saveAsGifButton.setText(AppStrings.SAVE_ANIMATION_GIF_STRING);
+        //this.saveAsGifButton.setText(AppStrings.SAVE_ANIMATION_GIF_STRING);
         this.showStatisticsBtn.setText(AppStrings.SHOW_STATISTIC_STRING);
         
         //initialize labels
         this.chartTypeLabel.setText(AppStrings.CHART_TYPE_LABEL_STRING);
         this.metricsLabel.setText(AppStrings.STATISTIC_LABEL_STRING);
         this.interpolationNameLabel.setText(this.morphingMethod.toString() +" - " + this.numSamples + " samples");
+        this.currentInstantInfoLabel.setText(AppStrings.CURRENT_INSTANT_LABEL_STRING);
         
         //initialize combo box
         this.metricsComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(ArrayUtils.addAll(MetricsEnum.getStatStringList(), SimilarityMetricsEnum.getStatStringList())));
@@ -450,7 +465,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
             }
         });
         
-        saveAsGifButton.addActionListener(new ActionListener() {
+        /*saveAsGifButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 //create images for every frame and save in user created folder;
@@ -458,11 +473,8 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
                 dialog.setVisible(true);
                 morphingGeoPanel.saveAnimationToImages(true);
                 dialog.setVisible(false);
-                //get list of all images corresponding to every frame of the animation
-                /*List<BufferedImage> imagesFromAnimation = morphingGeoPanel.generateImagesFromAnimation(10);
-                GifSequenceWriter.createGIFAndSave(imagesFromAnimation);*/
             }
-        });
+        });*/
         
         
         saveStatisticsBtn.addActionListener(new ActionListener() {
@@ -481,21 +493,26 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
             }
         });
         //the slider's range will be from the begin time to begin time + number of samples
-        int maxValue = beginTime + numSamples;
-        timeSlider.setModel(new DefaultBoundedRangeModel(beginTime, 1, beginTime, maxValue));
+        timeSlider.setModel(new DefaultBoundedRangeModel(0, 0, 0, numSamples-1));
         //static labels for the slider (max min, middle, middle right, middle left values)
         Hashtable labelTable = new Hashtable();
-        int time = endTime - beginTime;
-        int middleValue1 = (time / 3) + beginTime;
-        int middleValue2 = (time / 2) + beginTime;
-        int middleValue3 = (time - (time / 3)) + beginTime;
-        labelTable.put(  beginTime , new JLabel(beginTime+"") );
-        labelTable.put(middleValue1, new JLabel(middleValue1+"") );
-        labelTable.put(middleValue2, new JLabel(middleValue2+"") );
-        labelTable.put(middleValue3, new JLabel(middleValue3+"") );
-        labelTable.put(maxValue, new JLabel(endTime+"") );
+        if (periods.length > 10){
+            //too many values to add for jSlider label. Add only 5 (first, last, middle, middle-first, middle-last
+            labelTable.put(  0 , new JLabel(periods[0]+"") );
+            labelTable.put(  numSamples-1 , new JLabel(periods[numSamples-1]+"") );
+            int c = (int) Math.round(numSamples/2);
+            labelTable.put(  c , new JLabel(periods[c]+"") );
+            c = (int) Math.round(numSamples/3);
+            labelTable.put(  c , new JLabel(periods[c]+"") );
+            c = numSamples - c;
+            labelTable.put(  c , new JLabel(periods[c]+"") );
+        }
+        else{
+            for (int i = 0; i < periods.length; i++){
+                labelTable.put(  i , new JLabel(periods[i]+"") );
+            }
+        }
         timeSlider.setLabelTable(labelTable);
-        //int spacing = maxValue/5;
         timeSlider.setPaintTicks(true);
         timeSlider.setPaintLabels(true);
         
@@ -504,8 +521,10 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
             @Override
             public void stateChanged(ChangeEvent e) {
                 if (userChangedSlider){
-                    morphingGeoPanel.paintAllAtInstant(convertSliderValueToValue(timeSlider.getValue()));
+                    morphingGeoPanel.paintAllAtInstant(timeSlider.getValue());
                 }
+                if (timeSlider.getValue() < numSamples)
+                    currentInstantLabel.setText(periods[timeSlider.getValue()]+"");//update current instant label
             }
         });
     }
@@ -616,7 +635,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
             if (isSimilarityMeasure)
                 table = chartMaker.createJTable(statistics, statisticsTarget, xAxisLegend, yAxisLegend, keysAreNumbers);
             else
-                table = chartMaker.createJTable(statistics, xAxisLegend, yAxisLegend, keysAreNumbers);
+                table = chartMaker.createJTable(statistics, yAxisLegend, xAxisLegend, keysAreNumbers);
             this.chartPanel.add(new JScrollPane(table), BorderLayout.CENTER);
             chartPanel.validate();
             return;
@@ -636,7 +655,7 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
      * @return - the instant in time that the frame belongs to
      */
     private int convertValueToSliderValue(int v){
-        return beginTime+v;
+        return periods[v];
     }
     
     /**
@@ -648,7 +667,11 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
      * @return - the frame number to be shown in the animation
      */
     private int convertSliderValueToValue(int v){
-        return Math.abs(beginTime-v);
+        for (int i = 0; i < periods.length; i++){
+            if (periods[i] == v)
+                return i;
+        }
+        return 0;
     }
     
     private JDialog createWaitDialog(){
@@ -669,6 +692,8 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
     private javax.swing.JPanel chartPanel;
     private javax.swing.JComboBox<String> chartTypeComboBox;
     private javax.swing.JLabel chartTypeLabel;
+    private javax.swing.JLabel currentInstantInfoLabel;
+    private javax.swing.JLabel currentInstantLabel;
     private javax.swing.JButton exportBtn;
     private javax.swing.JLabel interpolationNameLabel;
     private javax.swing.JSeparator jSeparator1;
@@ -678,7 +703,6 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
     private javax.swing.JButton pauseBtn;
     private javax.swing.JButton playBtn;
     private javax.swing.JButton saveAnimationBtn;
-    private javax.swing.JButton saveAsGifButton;
     private javax.swing.JButton saveCurrentGeometryBtn;
     private javax.swing.JButton saveStatisticsBtn;
     private javax.swing.JButton showStatisticsBtn;

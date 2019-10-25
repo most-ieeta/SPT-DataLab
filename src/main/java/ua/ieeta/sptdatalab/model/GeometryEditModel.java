@@ -223,7 +223,7 @@ return testCase.getResult();
         setGeometry(newGeom);
     }
     
-    private static Coordinate[] getRing(List coordList)
+    public static Coordinate[] getRing(List coordList)
     {
         List closedPts = coordList;
         Coordinate p0 = (Coordinate) coordList.get(0);
@@ -318,13 +318,7 @@ return testCase.getResult();
         }
     }
     
-    public Geometry getCorrGeometry() {
-        return corrGeometry;
-    }
     
-    public void setCorrGeometry(Geometry corrGeometry) {
-        this.corrGeometry = corrGeometry;
-    }
     
     
 }

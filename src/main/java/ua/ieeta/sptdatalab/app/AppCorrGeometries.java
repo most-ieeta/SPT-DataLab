@@ -62,7 +62,6 @@ import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import ua.ieeta.sptdatalab.model.GeometryEditModel;
 import ua.ieeta.sptdatalab.model.GeometryType;
-import ua.ieeta.sptdatalab.morphing.InterpolationMethodEnum;
 import ua.ieeta.sptdatalab.util.CoordinateUtils;
 import ua.ieeta.sptdatalab.util.GeometryObservation;
 
@@ -94,15 +93,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
 
     private List<String> geoDates = new ArrayList<>();
     
-    //stores the coordinates of a morphed polygon
-    private List<Coordinate> morphingPolygon;
-    
-    //stores the coordinates of a morphed multipolygon (a mesh of triangules)
-    private List<List<Coordinate>> morphingMultiPolygon;
-    
-    //used to toogle morphing geometry on and off in the panel
-    private boolean showMorphingGeometry = false;
-    
     private List<Coordinate> drawnPoints = new ArrayList<>();
     
     private Map<BufferedImage, Coordinate> images = new HashMap<>();//used to draw red points indicating the correspondences between source and target
@@ -129,8 +119,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     private AppCorrGeometries() {
         this.isEdited = false;
-        morphingMultiPolygon = new ArrayList<>();
-        morphingPolygon = new ArrayList<>();
         currentObservationNumber = 0;
         geometriesInPanel = new ArrayList<>();
         geometriesInPanelOriginalScale = new ArrayList<>();
@@ -301,7 +289,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
     }
     
-    private void updateInfoGeometriesOriginalScale(List<Coordinate> coords, boolean isSource, boolean isOriginalScale){
+        void updateInfoGeometriesOriginalScale(List<Coordinate> coords, boolean isSource, boolean isOriginalScale){
         //first validate that last coordinate equals first coordinate
         if (!coords.get(0).equals(coords.get(coords.size()-1))){
             coords.set(coords.size()-1, coords.get(0));
@@ -315,7 +303,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
         //this.updateInfoGeometries(isSource, isEdited);
     }
-    
+
     /**
      * Returns the geometry observation (which includes source and target) with original scale of the current observation in panel.
      * 
@@ -405,10 +393,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         this.geometriesInPanelOriginalScale.add(new GeometryObservation(observationNumber, coordsListSource, coordsListTarget));
     }
     
-    private void updateSourceGeometries(int index, Coordinate newCoord){
-        
-    }
-    
     // getters for the geometries and coordinates list
     public GeometryObservation getCurrentObservation(){
         return getObservation(this.currentObservationNumber);
@@ -476,7 +460,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
      * @param editPanel
      * @return 
      */
-    private List<Coordinate> correctCoordinates(List<Coordinate> coord, GeometryEditPanel editPanel){
+    public List<Coordinate> correctCoordinates(List<Coordinate> coord, GeometryEditPanel editPanel){
         AppImage appImage = AppImage.getInstance();
 
         double currImageHeightInPanel = appImage.getImageHeightInPanel(editPanel.isSecondPanel());
@@ -531,7 +515,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         
         Coordinate[] transformedCoords = new Coordinate[coord.length];
         CoordinateUtils coordUtils;
-        
         //first pass to see maximum x and y coordinates
         double maxX = 0;
         double maxY = 0;
@@ -557,8 +540,10 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return transformedCoords;
     }
     
-    //returns the index of the coordinates in the array or -1 if it doesnt exist. The corresponding coordinate in the other geometry
-    //on the other panel will be on the other list in the same index
+    /**returns the index of the coordinates in the array or -1 if it doesnt exist. 
+     * The corresponding coordinate in the other geometry
+    *on the other panel will be on the other list in the same index
+    */
     public int getCordIndex(Coordinate c, boolean isSecondPanel){
         List<Coordinate> listToSearch;
         if(isSecondPanel){
@@ -568,12 +553,19 @@ public class AppCorrGeometries implements PropertyChangeListener{
             listToSearch = getCurrentSource();
         }
         for (int i = 0; i < listToSearch.size(); i++){
-            if (c.equals(listToSearch.get(i))){
+            Coordinate coordInPanel = listToSearch.get(i);
+            //eliminate precision errors...
+            if (almostEqual(c.x, coordInPanel.getX(), AppConstants.COORDINATE_ERROR_MAX)
+                    && almostEqual(c.y, coordInPanel.getY(), AppConstants.COORDINATE_ERROR_MAX)){
                 return i;
             }
         }
         //does not exist
         return -1;
+    }
+    
+    private boolean almostEqual(double a, double b, double eps){
+      return Math.abs(a-b) < eps;
     }
     
     //returns the matching coordinates of the other list of coordinates.
@@ -684,10 +676,11 @@ public class AppCorrGeometries implements PropertyChangeListener{
     public void editPointIfExistInCorrGeometry(double newX, double newY, boolean isSecondPanel){
         List <Coordinate> currentSourceGeometry = this.getCurrentSource();
         List <Coordinate> currentTargetGeometry = this.getCurrentTarget();
-        System.out.println("size -> "+currentSourceGeometry.size());
-        System.out.println("edit index -> "+editIndex);
-        System.out.println("source: before -> "+this.getOriginalScaleSource(this.currentObservationNumber).get(editIndex));
+        //System.out.println("size -> "+currentSourceGeometry.size());
+        //System.out.println("edit index -> "+editIndex);
+        
         if (editIndex > -1){
+            //System.out.println("source: before -> "+this.getOriginalScaleSource(this.currentObservationNumber).get(editIndex));
             Coordinate newC = new Coordinate(newX, newY);
             if (isSecondPanel){
                 currentTargetGeometry.set(editIndex, newC);
@@ -779,8 +772,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
             interactedPanelCoords = this.getCurrentSource();
             otherPanelCoords = this.getCurrentTarget();
         }
-        //System.out.println("interactedPanelCoords (before) ->" +interactedPanelCoords.size() +", "+ interactedPanelCoords);
-        //System.out.println("otherPanelCoords (before) ->" +otherPanelCoords.size() +", "+ otherPanelCoords);
+        //System.out.println("nearby coords: "+nearbyCoords);
         //add coordinate in both panels, but first, find the points closest to the new point in a line segment
         int index1 = this.getCordIndex(nearbyCoords.get(0), isSecondPanel);
         int index2 = this.getCordIndex(nearbyCoords.get(1), isSecondPanel);
@@ -812,8 +804,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 updateInfoGeometries(true, true); //source
                 updateInfoGeometries(false, true);//target
             }
-            //System.out.println("interactedPanelCoords (after) ->" +interactedPanelCoords.size() +", "+ interactedPanelCoords);
-            //System.out.println("otherPanelCoords (after) ->" + otherPanelCoords.size() +", "+ otherPanelCoords);
             this.isEdited = true;
             return newCoordinateOtherPanel;
         }
@@ -929,90 +919,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return g;
     }
     
-    
-    public void animation(String[] wktGeometry, MultiPolygon multiPolygon, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, multiPolygon);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    public void animation(String[] wktGeometry, Polygon[] polyList, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, polyList);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    public void animation(String[] wktGeometry, MultiPolygon[] multiPolyList, boolean isPolygon, int numSamples, InterpolationMethodEnum morphingMethod) {
-        MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(wktGeometry, isPolygon, morphingMethod, numSamples, multiPolyList);
-        openMorphingGeometryFrame(mframe);
-    }
-    
-    private void openMorphingGeometryFrame(MorphingGeometryViewerFrame frame){
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run()
-            {
-                try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
-                //start frame to show the animation for the morphing geometry
-                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); //dont close entire project on window close
-                frame.pack();
-                frame.validate();
-                frame.setExtendedState(java.awt.Frame.MAXIMIZED_BOTH); //start frame maximized
-                frame.setLocationRelativeTo(null);
-                frame.setTitle(AppStrings.MORPHING_PANEL_TITLE + " - " + frame.getMorphingMethod().toString());
-                frame.setVisible(true);
-            }
-        });
-    }
-    
-    public void showMorphingGeometryInPanel(Polygon p){
-        morphingPolygon.clear(); //remove any previous coordinates
-        //store this coordinates to be redrawn on the first panel when panel repaint occurs
-        this.morphingPolygon = new ArrayList<>(Arrays.asList(p.getCoordinates()));
-        morphingPolygon = this.correctCoordinates(morphingPolygon, SPTDataLabBuilderFrame.getGeometryEditPanel());
-        setShowMorphingGeometry(true);
-        morphingMultiPolygon.clear();//avoid conflicts with previous types of morphing geometry
-        //draw on the 1st panel
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    public void showMorphingGeometryInPanel(MultiPolygon mp){
-        morphingMultiPolygon.clear(); //remove any previous coordinates
-        //store this coordinates to be redrawn on the first panel when panel repaint occurs
-        for (int i = 0; i < mp.getNumGeometries(); i++){
-            List <Coordinate> polygonCoords = new ArrayList<>(Arrays.asList(mp.getGeometryN(i).getCoordinates()));
-            this.morphingMultiPolygon.add(polygonCoords);
-        }
-        
-        //correct every coordinate to fit the screen and align with the image
-        for (int i = 0; i < morphingMultiPolygon.size(); i++){
-            List <Coordinate> polygonCoordsCorrected = this.correctCoordinates(morphingMultiPolygon.get(i), SPTDataLabBuilderFrame.getGeometryEditPanel());
-            morphingMultiPolygon.set(i, polygonCoordsCorrected);
-        }
-        setShowMorphingGeometry(true);
-        //draw on the 1st panel
-        morphingPolygon.clear();//avoid conflicts with previous types of morphing geometry
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    public void showMorphingGeometryInPanel(){
-        if ( morphingPolygon.isEmpty() || morphingMultiPolygon.isEmpty()){//one has values with the result of the interpolation
-            setShowMorphingGeometry(true);
-            //draw on the 1st panel
-            SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-        }
-    }
-    
-    public void hideMorphingGeometryInPanel(){
-        setShowMorphingGeometry(false);
-        //draw back the normal geometry on the 1st panel
-        SPTDataLabBuilderFrame.getGeometryEditPanel().drawGeometry();
-    }
-    
-    
     public void setCorrGeometry(List<Coordinate> corrGeometry, boolean isSecondPanel) {
         this.updateInfoGeometriesOriginalScale(corrGeometry, !isSecondPanel, false);
         this.updateInfoGeometries(!isSecondPanel, true);
@@ -1024,23 +930,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     public SPTDataLabBuilderFrame getFrame() {
         return frame;
-    }
-    
-    public void setShowMorphingGeometry(boolean showMorphingGeometry){
-        support.firePropertyChange(AppConstants.INTERPOLATION_SHOWING, !showMorphingGeometry, showMorphingGeometry);
-        this.showMorphingGeometry = showMorphingGeometry;
-    }
-    
-    public boolean showMorphingGeometry() {
-        return showMorphingGeometry;
-    }
-    
-    public List<Coordinate> getMorphingPolygon() {
-        return this.morphingPolygon;
-    }
-    
-    public List<List<Coordinate>> getMorphingMultiPolygon() {
-        return this.morphingMultiPolygon;
     }
     
     public List<String> getGeoDates() {

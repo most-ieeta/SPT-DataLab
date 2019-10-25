@@ -95,7 +95,6 @@ public class AppConstants
     
     public final static String COORD_RIGHT_PANEL_PROPERTY = "rightPanelCoords";
     
-    public final static String INTERPOLATION_SHOWING = "interpolation_showing";
     
     //---------------- headers to parse secondo file credential data
     public final static String SECONDO_HOST_HEADER = "host";
@@ -107,5 +106,41 @@ public class AppConstants
     //------------ cache file name where last opened data set is (first line: image directory
     //------------ second line: coordinates directory)
     public static final String CACHE_FILE = "last_dir_cache.txt";
+    
+    public static final double COORDINATE_ERROR_MAX = 0.05;
+    
+    //----------- File types accepted for coordinates and images
+    public static final String[] COORDINATE_FILE_TYPES = {"wkt", "corr"};
+    
+    public static final String[] IMAGE_FILE_TYPES = {"pgn", "jpg", "jpeg", "bpm", "tiff"};
+    
+    //----------- Confirmation string used in some operations to confirm that it succeeded
+    public static final String CONFIRMATION_STRING = "success";
+    
+    //------------- Error messages
+    public static final String DATASET_LOADING_GENERAL_ERROR = "An error occurred while starting SPTDataLab. \n Please, " +
+                               "make sure that the dataset you are using is according to the specifications in the project's wiki.";
+    
+    public static final String DATASET_LOADING_IMAGES_ERROR = "Images directory is either empty or contains files that are not supported. "
+                    + "\nPlease specify a directory with valid image file formats.";
+    
+    public static final String DATASET_LOADING_COORDINATES_ERROR = "Coordinate files directory is either empty or contains files that are not supported. "
+                    + "\nPlease specify a directory with valid coordinate file formats.";
+    
+    // number of max decimal places for the coordinates
+    public static final int COORDINATE_MAX_DECIMAL_PLACE = 3;
+    
+    public static int getMaxNumberDecimalPlacesConverter(){
+        String n = "1";
+        for (int i = 0; i < COORDINATE_MAX_DECIMAL_PLACE; i++){
+            n += "0";
+        }
+        return Integer.parseInt(n);
+    }
+    
+    public static double limitMaxNumberOfDecimalPlaces(double d){
+        int decimalPlaceConverter = getMaxNumberDecimalPlacesConverter();
+        return Math.floor(d * decimalPlaceConverter) / decimalPlaceConverter;
+    }
     
 }
