@@ -74,7 +74,6 @@ public class SPTDataLabBuilderToolBar {
     JToggleButton infoButton = new JToggleButton();
     JToggleButton panButton = new JToggleButton();
     JToggleButton btnEditVertex = new JToggleButton();
-    JToggleButton extractComponentButton;
     ButtonGroup toolButtonGroup = new ButtonGroup();
     
     private final ImageIcon leftIcon = new ImageIcon(this.getClass().getResource("Left.png"));
@@ -100,13 +99,6 @@ public class SPTDataLabBuilderToolBar {
     public SPTDataLabBuilderToolBar(SPTDataLabBuilderFrame tbFrame)
     {
         this.tbFrame = tbFrame;
-    }
-    
-    
-    public void unselectExtractComponentButton()
-    {
-        extractComponentButton.setSelected(false);
-        toolButtonGroup.setSelected(extractComponentButton.getModel(), false);
     }
     
     public JToolBar getToolBar()
@@ -428,15 +420,6 @@ public class SPTDataLabBuilderToolBar {
             }
         });
         
-        extractComponentButton = createToggleButton(AppStrings.TIP_EXTRACT_COMPONENTS,
-                new ImageIcon(this.getClass().getResource("ExtractComponent.png")),
-                new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        tbFrame.actionExtractComponentButton();
-                    }
-                });
-        
         JToggleButton deleteVertexButton = createToggleButton(AppStrings.TIP_DELETE_VERTEX_COMPONENT,
                 new ImageIcon(this.getClass().getResource("DeleteVertex.png")),
                 new java.awt.event.ActionListener() {
@@ -453,8 +436,6 @@ public class SPTDataLabBuilderToolBar {
         toolButtonGroup.add(btnEditVertex);
         toolButtonGroup.add(deleteVertexButton);
         toolButtonGroup.add(infoButton);
-        toolButtonGroup.add(extractComponentButton);
-        
         
         jToolBar1.add(saveButton, null);
         jToolBar1.add(saveAllButton, null);
@@ -488,7 +469,6 @@ public class SPTDataLabBuilderToolBar {
         // remove in favour of using Zoom tool
         //jToolBar1.add(panButton, null);
         jToolBar1.add(infoButton, null);
-        jToolBar1.add(extractComponentButton, null);
         
         jToolBar1.add(Box.createHorizontalStrut(28), null);
         

@@ -69,7 +69,6 @@ import ua.ieeta.sptdatalab.model.TestCaseEdit;
 import ua.ieeta.sptdatalab.ui.SwingUtil;
 import ua.ieeta.sptdatalab.ui.tools.DeleteVertexTool;
 import ua.ieeta.sptdatalab.ui.tools.EditVertexTool;
-import ua.ieeta.sptdatalab.ui.tools.ExtractComponentTool;
 import ua.ieeta.sptdatalab.ui.tools.InfoTool;
 import ua.ieeta.sptdatalab.ui.tools.PanTool;
 import ua.ieeta.sptdatalab.ui.tools.RectangleTool;
@@ -630,11 +629,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
         testCasePanel2.getGeometryEditPanel().setCurrentTool(InfoTool.getInstance());
     }
 
-    void actionExtractComponentButton() {
-        testCasePanel.getGeometryEditPanel().setCurrentTool(ExtractComponentTool.getInstance());
-        testCasePanel2.getGeometryEditPanel().setCurrentTool(ExtractComponentTool.getInstance());
-    }
-
+    
     void actionDeleteVertexButton() {
         testCasePanel.getGeometryEditPanel().setCurrentTool(DeleteVertexTool.getInstance());
         testCasePanel2.getGeometryEditPanel().setCurrentTool(DeleteVertexTool.getInstance());
