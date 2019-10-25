@@ -352,28 +352,6 @@ public class GeometryEditPanel extends JPanel {
   private static int INNER_SIZE = VERTEX_SIZE  - 2;
   private static double INNER_SIZE_OVER_2 = INNER_SIZE / 2;
   
-  private void drawHighlightedVertices(Graphics2D g, List coords, Color clr) {
-    Rectangle2D rect = new Rectangle2D.Double();
-    for (int i = 0; i < coords.size(); i++) {
-      Coordinate pt = (Coordinate) coords.get(i);
-      Point2D p = viewport.toView(pt);
-      rect.setFrame(
-          p.getX() - VERTEX_SIZE_OVER_2,
-          p.getY() - VERTEX_SIZE_OVER_2, 
-          VERTEX_SIZE, 
-          VERTEX_SIZE);
-      g.setColor(clr);
-      g.fill(rect);
-      Rectangle2D rectInner = new Rectangle2D.Double(
-          p.getX() - INNER_SIZE_OVER_2,
-          p.getY() - INNER_SIZE_OVER_2, 
-          INNER_SIZE, 
-          INNER_SIZE);
-      g.setColor(AppConstants.VERTEX_HIGHLIGHT_CLR);
-      g.fill(rectInner);
-
-    }
-  }
   
   private void drawHighlightedVertex(Graphics2D g, Coordinate pt, Color clr) {
     Rectangle2D rect = new Rectangle2D.Double();

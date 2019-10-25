@@ -583,12 +583,12 @@ public class SPTDataLabBuilderFrame extends JFrame {
     }
 
     public void enableDrawingButtons() {
-        tbToolBar.drawPolygonButton.setEnabled(true);
+        //tbToolBar.drawPolygonButton.setEnabled(true);
         tbToolBar.drawRectangleButton.setEnabled(true);
     }
 
     public void disableDrawingButtons() {
-        tbToolBar.drawPolygonButton.setEnabled(false);
+        //tbToolBar.drawPolygonButton.setEnabled(false);
         tbToolBar.drawRectangleButton.setEnabled(false);
     }
         

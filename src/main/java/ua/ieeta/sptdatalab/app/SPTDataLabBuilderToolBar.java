@@ -69,7 +69,7 @@ public class SPTDataLabBuilderToolBar {
     JButton zoomToResultButton = new JButton();
     
     JToggleButton drawRectangleButton = new JToggleButton();
-    JToggleButton drawPolygonButton = new JToggleButton();
+    //JToggleButton drawPolygonButton = new JToggleButton();
     JToggleButton zoomButton = new JToggleButton();
     JToggleButton infoButton = new JToggleButton();
     JToggleButton panButton = new JToggleButton();
@@ -79,29 +79,20 @@ public class SPTDataLabBuilderToolBar {
     
     private final ImageIcon leftIcon = new ImageIcon(this.getClass().getResource("Left.png"));
     private final ImageIcon rightIcon = new ImageIcon(this.getClass().getResource("Right.png"));
-    private final ImageIcon plusIcon = new ImageIcon(this.getClass().getResource("Plus.png"));
     private final ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("save_icon.png"));
     private final ImageIcon saveAllIcon = new ImageIcon(this.getClass().getResource("save_all_icon.png"));
     private final ImageIcon saveAsIcon = new ImageIcon(this.getClass().getResource("save_as_icon.png"));
     private final ImageIcon saveAllAsIcon = new ImageIcon(this.getClass().getResource("save_all_as_icon.png"));
-    private final ImageIcon deleteIcon = new ImageIcon(this.getClass().getResource("Delete.png"));
     private final ImageIcon zoomIcon = new ImageIcon(this.getClass().getResource("MagnifyCursor.gif"));
     private final ImageIcon drawRectangleIcon = new ImageIcon(this.getClass().getResource("DrawRectangle.png"));
     private final ImageIcon drawRectangleBIcon = new ImageIcon(this.getClass().getResource("DrawRectangleB.png"));
-    private final ImageIcon drawPolygonIcon = new ImageIcon(this.getClass().getResource("DrawPolygon.png"));
+    //private final ImageIcon drawPolygonIcon = new ImageIcon(this.getClass().getResource("DrawPolygon.png"));
     private final ImageIcon drawPolygonBIcon = new ImageIcon(this.getClass().getResource("DrawPolygonB.png"));
-    private final ImageIcon drawLineStringIcon = new ImageIcon(this.getClass().getResource("DrawLineString.png"));
-    private final ImageIcon drawLineStringBIcon = new ImageIcon(this.getClass().getResource("DrawLineStringB.png"));
-    private final ImageIcon drawPointIcon = new ImageIcon(this.getClass().getResource("DrawPoint.png"));
-    private final ImageIcon drawPointBIcon = new ImageIcon(this.getClass().getResource("DrawPointB.png"));
     private final ImageIcon infoIcon = new ImageIcon(this.getClass().getResource("Info.png"));
     private final ImageIcon zoomOneToOneIcon = new ImageIcon(this.getClass().getResource("ZoomOneToOne.png"));
     private final ImageIcon zoomToInputIcon = new ImageIcon(this.getClass().getResource("ZoomInput.png"));
     private final ImageIcon zoomToInputAIcon = new ImageIcon(this.getClass().getResource("ZoomInputA.png"));
     private final ImageIcon zoomToInputBIcon = new ImageIcon(this.getClass().getResource("ZoomInputB.png"));
-    private final ImageIcon zoomToResultIcon = new ImageIcon(this.getClass().getResource("ZoomResult.png"));
-    private final ImageIcon zoomToFullExtentIcon = new ImageIcon(this.getClass().getResource("ZoomAll.png"));
-    private final ImageIcon selectIcon = new ImageIcon(this.getClass().getResource("Select.gif"));
     private final ImageIcon moveVertexIcon = new ImageIcon(this.getClass().getResource("MoveVertex.png"));
     private final ImageIcon panIcon = new ImageIcon(this.getClass().getResource("Hand.gif"));
     
@@ -286,24 +277,24 @@ public class SPTDataLabBuilderToolBar {
                     }
                 });
         
-        drawPolygonButton.setMargin(new Insets(0, 0, 0, 0));
-        drawPolygonButton.setPreferredSize(new Dimension(30, 30));
-        drawPolygonButton.setIcon(drawPolygonIcon);
-        drawPolygonButton.setMinimumSize(new Dimension(30, 30));
-        drawPolygonButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        drawPolygonButton.setSelected(false);
-        drawPolygonButton.setEnabled(false);
-        drawPolygonButton.setToolTipText(AppStrings.TIP_DRAW_POLY);
-        drawPolygonButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        drawPolygonButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        drawPolygonButton.setMaximumSize(new Dimension(30, 30));
-        drawPolygonButton.addActionListener(
-                new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.drawPolygonButton_actionPerformed(e);
-                    }
-                });
+        //drawPolygonButton.setMargin(new Insets(0, 0, 0, 0));
+        //drawPolygonButton.setPreferredSize(new Dimension(30, 30));
+        //drawPolygonButton.setIcon(drawPolygonIcon);
+        //drawPolygonButton.setMinimumSize(new Dimension(30, 30));
+        //drawPolygonButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        //drawPolygonButton.setSelected(false);
+        //drawPolygonButton.setEnabled(false);
+        //drawPolygonButton.setToolTipText(AppStrings.TIP_DRAW_POLY);
+        //drawPolygonButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        //drawPolygonButton.setFont(new java.awt.Font("SansSerif", 0, 10));
+        //drawPolygonButton.setMaximumSize(new Dimension(30, 30));
+        //drawPolygonButton.addActionListener(
+        //        new java.awt.event.ActionListener() {
+        //            
+        //            public void actionPerformed(ActionEvent e) {
+        //                tbFrame.drawPolygonButton_actionPerformed(e);
+        //            }
+        //        });
         
         infoButton.setMargin(new Insets(0, 0, 0, 0));
         infoButton.setPreferredSize(new Dimension(30, 30));
@@ -456,7 +447,7 @@ public class SPTDataLabBuilderToolBar {
                 });
         
         toolButtonGroup.add(drawRectangleButton);
-        toolButtonGroup.add(drawPolygonButton);
+        //toolButtonGroup.add(drawPolygonButton);
         toolButtonGroup.add(panButton);
         toolButtonGroup.add(zoomButton);
         toolButtonGroup.add(btnEditVertex);
@@ -502,7 +493,7 @@ public class SPTDataLabBuilderToolBar {
         jToolBar1.add(Box.createHorizontalStrut(28), null);
         
         jToolBar1.add(drawRectangleButton, null);
-        jToolBar1.add(drawPolygonButton, null);
+        //jToolBar1.add(drawPolygonButton, null);
         jToolBar1.add(btnEditVertex, null);
         jToolBar1.add(deleteVertexButton, null);
         
@@ -515,7 +506,7 @@ public class SPTDataLabBuilderToolBar {
     public void setFocusGeometry(int index)
     {
         drawRectangleButton.setIcon(index == 0 ? drawRectangleIcon : drawRectangleBIcon);
-        drawPolygonButton.setIcon(index == 0 ? drawPolygonIcon : drawPolygonBIcon);
+        //drawPolygonButton.setIcon(index == 0 ? drawPolygonIcon : drawPolygonBIcon);
     }
     
     private static JToggleButton createToggleButton(String toolTipText,
