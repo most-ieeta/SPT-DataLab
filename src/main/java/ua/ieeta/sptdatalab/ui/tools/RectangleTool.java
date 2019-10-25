@@ -24,16 +24,7 @@
 package ua.ieeta.sptdatalab.ui.tools;
 
 import java.awt.Cursor;
-import java.util.List;
-import org.locationtech.jts.geom.Coordinate;
-import ua.ieeta.sptdatalab.app.GeometryEditPanel;
-import ua.ieeta.sptdatalab.app.SPTDataLab;
 import ua.ieeta.sptdatalab.app.SPTDataLabBuilderFrame;
-import ua.ieeta.sptdatalab.geom.GeometryCombiner;
-import org.locationtech.jts.geom.GeometryFactory;
-import ua.ieeta.sptdatalab.model.GeometryEditModel;
-
-import ua.ieeta.sptdatalab.model.GeometryType;
 import static ua.ieeta.sptdatalab.ui.tools.BasicTool.getClickedPanel;
 
 
