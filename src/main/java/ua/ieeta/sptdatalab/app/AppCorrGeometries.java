@@ -568,6 +568,22 @@ public class AppCorrGeometries implements PropertyChangeListener{
       return Math.abs(a-b) < eps;
     }
     
+    /**
+     * 
+     * @param a List of Coordinates to search
+     * @param cb Coordinate to compare
+     * @param eps max difference in which to consider 2 coordinates "equal"
+     * @return The index of the coordinate in the list. -1 if no coordinate is eps close to cb. 
+     */
+    private int getAlmostEqualPointIndex(List<Coordinate> a, Coordinate cb, double eps){
+        for (int i = 0; i < a.size(); i++){
+            if (almostEqual(a.get(i).x, cb.x, eps) && almostEqual(a.get(i).y, cb.y, eps)){
+                return i;
+            }
+        }
+        return -1;
+    }
+    
     //returns the matching coordinates of the other list of coordinates.
     //They have the same indexes in both lists
     public Coordinate getCorrespondingCoordinate(Coordinate c, boolean isSecondPanel){
@@ -703,17 +719,22 @@ public class AppCorrGeometries implements PropertyChangeListener{
     public void deletePointInBothCorrGeometries(Coordinate c){
         List <Coordinate> currentSourceGeometry = this.getCurrentSource();
         List <Coordinate> currentTargetGeometry = this.getCurrentTarget();
-        int index = 0;
-        if ( currentSourceGeometry.contains(c)){
-            index = currentSourceGeometry.indexOf(c);
+        System.out.println(currentSourceGeometry);
+        System.out.println(currentTargetGeometry);
+        int index = -1;
+        int indexS = getAlmostEqualPointIndex(currentSourceGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
+        int indexT = getAlmostEqualPointIndex(currentTargetGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
+        if ( indexS > -1){
+            index = indexS;
         }
-        else if ( currentTargetGeometry.contains(c)){
-            index = currentTargetGeometry.indexOf(c);
+        else if ( indexT > -1){
+            index = indexT;
         }
         else{
             return;
         }
-        
+        if (index < 0)
+            return;
         currentTargetGeometry.remove(index);
         currentSourceGeometry.remove(index);
         if (index == 0){
@@ -744,9 +765,9 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
         
         for(Coordinate c : coords){
-            if (interactedPanel.contains(c)){
+            int index = getAlmostEqualPointIndex (interactedPanel, c, AppConstants.COORDINATE_ERROR_MAX);
+            if (index > -1){
                 //remove, this point was deleted
-                int index = this.getCordIndex(c, isSecondPanel);
                 interactedPanel.remove(index);
                 otherPanel.remove(index);
             }
