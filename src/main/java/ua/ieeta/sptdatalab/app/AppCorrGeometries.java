@@ -719,8 +719,6 @@ public class AppCorrGeometries implements PropertyChangeListener{
     public void deletePointInBothCorrGeometries(Coordinate c){
         List <Coordinate> currentSourceGeometry = this.getCurrentSource();
         List <Coordinate> currentTargetGeometry = this.getCurrentTarget();
-        System.out.println(currentSourceGeometry);
-        System.out.println(currentTargetGeometry);
         int index = -1;
         int indexS = getAlmostEqualPointIndex(currentSourceGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
         int indexT = getAlmostEqualPointIndex(currentTargetGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
