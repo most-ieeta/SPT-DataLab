@@ -564,7 +564,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         return -1;
     }
     
-    private boolean almostEqual(double a, double b, double eps){
+    public boolean almostEqual(double a, double b, double eps){
       return Math.abs(a-b) < eps;
     }
     
@@ -575,13 +575,26 @@ public class AppCorrGeometries implements PropertyChangeListener{
      * @param eps max difference in which to consider 2 coordinates "equal"
      * @return The index of the coordinate in the list. -1 if no coordinate is eps close to cb. 
      */
-    private int getAlmostEqualPointIndex(List<Coordinate> a, Coordinate cb, double eps){
+    public int getAlmostEqualPointIndex(List<Coordinate> a, Coordinate cb, double eps){
         for (int i = 0; i < a.size(); i++){
             if (almostEqual(a.get(i).x, cb.x, eps) && almostEqual(a.get(i).y, cb.y, eps)){
                 return i;
             }
         }
         return -1;
+    }
+    
+    public boolean collinearExists(List<Coordinate> a){
+        for (int i = 0; i < a.size()-1; i++){
+            for (int j = 0; j < a.size()-1; j++){
+                if ( i != j && almostEqual(a.get(i).x, a.get(j).x, AppConstants.COORDINATE_ERROR_MAX) &&
+                        almostEqual(a.get(i).y, a.get(j).y, AppConstants.COORDINATE_ERROR_MAX)){
+                    System.out.println("i: "+i+" -> "+a.get(i) +"; j: "+j+" -> "+a.get(j));
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     
     //returns the matching coordinates of the other list of coordinates.
