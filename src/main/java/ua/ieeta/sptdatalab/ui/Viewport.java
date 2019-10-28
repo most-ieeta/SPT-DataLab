@@ -137,20 +137,6 @@ public class Viewport implements PointTransformation
   
   private static final double ROUND_ERROR_REMOVAL = 0.00000001;
   
-  /**
-     * Snaps scale to nearest multiple of 2, 5 or 10.
-     * This ensures that model coordinates entered
-     * via the geometry view
-     * don't carry more precision than the zoom level warrants.
-   * 
-   * @param scaleRaw
-   * @return
-   */
-  private static double snapScale(double scaleRaw)
-  {
-    double scale = snapScaleToSingleDigitPrecision(scaleRaw);
-    return scale;
-  }
   
   private static double snapScaleToSingleDigitPrecision(double scaleRaw)
   {
@@ -164,30 +150,6 @@ public class Viewport implements PointTransformation
     return scale;
   }
   
-  /**
-   * Not used - scaling to multiples of 10,5,2 is too coarse.
-   *  
-   * 
-   * @param scaleRaw
-   * @return
-   */
-  private static double snapScaleTo_10_2_5(double scaleRaw)
-  {
-    // if the rounding error is not nudged, snapping can "stick" at some values
-    double pow10 = Math.floor(MathUtil.log10(scaleRaw) + ROUND_ERROR_REMOVAL);
-    double scaleRoundedToPow10 = Math.pow(10, pow10);
-    
-    double scale = scaleRoundedToPow10;
-    // rounding to a power of 10 is too coarse, so allow some finer gradations
-    //*
-    if (3.5 * scaleRoundedToPow10 <= scaleRaw)
-      scale = 5 * scaleRoundedToPow10;
-    else if (2 * scaleRoundedToPow10 <= scaleRaw)
-      scale = 2 * scaleRoundedToPow10;
-    //*/
-    
-    return scale;
-  }
   
   public boolean intersectsInModel(Envelope env)
   {

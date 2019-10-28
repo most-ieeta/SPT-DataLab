@@ -14,10 +14,8 @@ package ua.ieeta.sptdatalab.app;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
 import java.util.Iterator;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -34,7 +32,6 @@ import ua.ieeta.sptdatalab.test.Testable;
 import ua.ieeta.sptdatalab.model.TestCaseEdit;
 
 
-
 /**
  * @version 1.7
  */
@@ -46,11 +43,6 @@ public class TestListPanel extends JPanel {
     BorderLayout borderLayout2 = new BorderLayout();
 
     private class TestListCellRenderer extends JLabel implements ListCellRenderer {
-        private final ImageIcon tickIcon =
-            new ImageIcon(this.getClass().getResource("tickShaded.gif"));
-        private final ImageIcon crossIcon =
-            new ImageIcon(this.getClass().getResource("crossShaded.gif"));
-        private final ImageIcon clearIcon = new ImageIcon(this.getClass().getResource("clear.gif"));
 
         public Component getListCellRendererComponent(
             JList list,

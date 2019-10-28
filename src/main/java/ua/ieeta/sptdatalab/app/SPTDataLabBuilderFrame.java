@@ -638,33 +638,31 @@ public class SPTDataLabBuilderFrame extends JFrame {
     void zoomInButton_actionPerformed(ActionEvent e) {
         testCasePanel2.getGeometryEditPanel().setCurrentTool(zoomTool);
         testCasePanel.getGeometryEditPanel().setCurrentTool(zoomTool);
+        testCasePanel.lblMousePos.setVisible(false);
+        testCasePanel2.lblMousePos.setVisible(false);
     }
 
     void oneToOneButton_actionPerformed(ActionEvent e) {
         resetZoom();
     }
 
-    void zoomToFullExtentButton_actionPerformed(ActionEvent e) {
-        testCasePanel.getGeometryEditPanel().zoomToFullExtent();
-        testCasePanel2.getGeometryEditPanel().zoomToFullExtent();
-    }
 
-    void zoomToResult_actionPerformed(ActionEvent e) {
-        testCasePanel.getGeometryEditPanel().zoomToResult();
-        testCasePanel2.getGeometryEditPanel().zoomToResult();
-    }
 
     void zoomToInputButton_actionPerformed(ActionEvent e) {
         testCasePanel.getGeometryEditPanel().zoomToGeometry(0);
         testCasePanel2.getGeometryEditPanel().zoomToGeometry(0);
+        testCasePanel.lblMousePos.setVisible(false);
+        testCasePanel2.lblMousePos.setVisible(false);
     }
 
     void zoomToInputA_actionPerformed(ActionEvent e) {
         testCasePanel.getGeometryEditPanel().zoomToGeometry(0);
+        testCasePanel.lblMousePos.setVisible(false);
     }
 
     void zoomToInputB_actionPerformed(ActionEvent e) {
         testCasePanel2.getGeometryEditPanel().zoomToGeometry(0);
+        testCasePanel2.lblMousePos.setVisible(false);
     }
 
     void panButton_actionPerformed(ActionEvent e) {
@@ -870,6 +868,8 @@ public class SPTDataLabBuilderFrame extends JFrame {
     public void resetZoom() {
         testCasePanel.getGeometryEditPanel().getViewport().zoomToInitialExtent();
         testCasePanel2.getGeometryEditPanel().getViewport().zoomToInitialExtent();
+        testCasePanel.lblMousePos.setVisible(true);
+        testCasePanel2.lblMousePos.setVisible(true);
     }
 
 }

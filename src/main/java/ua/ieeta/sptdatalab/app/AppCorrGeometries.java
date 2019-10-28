@@ -1059,7 +1059,8 @@ public class AppCorrGeometries implements PropertyChangeListener{
         CoordinateUtils coordUtils;
         coordUtils = new CoordinateUtils(x, y);
         coordUtils.transformOriginalNoChangeAxis(appImage.getImageOriginalWidth(editPanel.isSecondPanel()),
-                    appImage.getImageOriginalHeight(editPanel.isSecondPanel()), imageWidthInPanel, imageHeightInPanel);
+            appImage.getImageOriginalHeight(editPanel.isSecondPanel()), imageWidthInPanel, imageHeightInPanel, editPanel.getHeight());
+ 
         return coordUtils;
     }
     
