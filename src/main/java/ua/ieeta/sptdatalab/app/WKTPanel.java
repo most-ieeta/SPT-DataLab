@@ -37,6 +37,9 @@ import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -57,7 +60,8 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 import org.locationtech.jts.geom.Geometry;
-import ua.ieeta.sptdatalab.controller.SPTDataLabBuilderController;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 import ua.ieeta.sptdatalab.model.DisplayParameters;
 import ua.ieeta.sptdatalab.model.GeometryEditModel;
 import ua.ieeta.sptdatalab.model.GeometryType;
@@ -66,9 +70,6 @@ import ua.ieeta.sptdatalab.ui.SwingUtil;
 import ua.ieeta.sptdatalab.util.GeometryTextCleaner;
 import ua.ieeta.sptdatalab.util.io.MultiFormatReader;
 
-/**
- * @version 1.7
- */
 public class WKTPanel extends JPanel {
 
     TestBuilderModel tbModel;
@@ -109,11 +110,14 @@ public class WKTPanel extends JPanel {
     JTextArea bTextArea = new JTextArea();
     ButtonGroup editMode = new ButtonGroup();
 
+    boolean editedWKT = false;
+    String resetWKT;
+
     private final ImageIcon copyIcon = new ImageIcon(this.getClass().getResource("Copy.png"));
     private final ImageIcon pasteIcon = new ImageIcon(this.getClass().getResource("Paste.png"));
     private final ImageIcon cutIcon = new ImageIcon(this.getClass().getResource("Delete_small.png"));
     private final ImageIcon loadIcon = new ImageIcon(this.getClass().getResource("LoadWKTToTest.png"));
-    
+
     protected SPTDataLabBuilderFrame tbFrame;
 
     public WKTPanel(SPTDataLabBuilderFrame tbFrame) {
@@ -138,7 +142,7 @@ public class WKTPanel extends JPanel {
 
         loadButton.setPreferredSize(new Dimension(38, 38));
         loadButton.setMargin(new Insets(8, 8, 8, 8));
-       
+
         loadButton.setIcon(loadIcon);
         loadButton.setToolTipText(AppStrings.TIP_WKT_PANEL_LOAD_GEOMETRY);
 
@@ -308,6 +312,139 @@ public class WKTPanel extends JPanel {
                 aPasteButton_actionPerformed(e);
             }
         });
+
+        bPasteButton.addActionListener(
+                new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                bPasteButton_actionPerformed(e);
+            }
+        });
+
+        aTextArea.addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+                if (!editedWKT) {
+                    resetWKT = aTextArea.getText();
+                }
+
+            }
+
+            ;
+            public void focusLost(FocusEvent e) {
+                if (!e.isTemporary()) {
+                    try {
+                        String contents;
+                        Geometry geom;
+                        WKTReader reader = new WKTReader();
+                        contents = aTextArea.getText();
+                        geom = reader.read(contents);
+                        if (!(geom == null)) {
+                            loadButton_actionPerformed(null);
+                        }
+                    } catch (ParseException ex) {
+                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                        if (reply == JOptionPane.YES_OPTION) {
+                            editedWKT = true;
+                            aTextArea.requestFocusInWindow();
+                        } else {
+                            aTextArea.setText(resetWKT);
+                            editedWKT = false;
+                        }
+
+                    }
+
+                }
+            }
+        });
+
+                bTextArea.addFocusListener(new FocusListener() {
+
+            public void focusGained(FocusEvent e) {
+                if (!editedWKT) {
+                    resetWKT = bTextArea.getText();
+                }
+
+            }
+
+            ;
+            public void focusLost(FocusEvent e) {
+                if (!e.isTemporary()) {
+                    try {
+                        String contents;
+                        Geometry geom;
+                        WKTReader reader = new WKTReader();
+                        contents = bTextArea.getText();
+                        geom = reader.read(contents);
+                        if (!(geom == null)) {
+                            loadButton_actionPerformed(null);
+                        }
+                    } catch (ParseException ex) {
+                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                        if (reply == JOptionPane.YES_OPTION) {
+                            editedWKT = true;
+                            bTextArea.requestFocusInWindow();
+                        } else {
+                            bTextArea.setText(resetWKT);
+                            editedWKT = false;
+                        }
+
+                    }
+
+                }
+            }
+        });
+                
+        aTextArea.addKeyListener(new KeyAdapter() {
+            boolean ctrlPressed = false;
+            boolean vPressed = false;
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_V:
+                        vPressed = true;
+
+                        break;
+                    case KeyEvent.VK_CONTROL:
+                        ctrlPressed = true;
+                        break;
+                }
+
+                if (ctrlPressed && vPressed) {
+                    pasteIntoWKTPanel();
+                    vPressed = false;
+                    ctrlPressed = false;
+                    e.consume();// Stop the event from propagating.
+                }
+            }
+
+        });
+
+        bTextArea.addKeyListener(new KeyAdapter() {
+            boolean ctrlPressed = false;
+            boolean vPressed = false;
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                switch (e.getKeyCode()) {
+                    case KeyEvent.VK_V:
+                        vPressed = true;
+
+                        break;
+                    case KeyEvent.VK_CONTROL:
+                        ctrlPressed = true;
+                        break;
+                }
+
+                if (ctrlPressed && vPressed) {
+                    pasteIntoWKTPanel();
+                    vPressed = false;
+                    ctrlPressed = false;
+                    e.consume();// Stop the event from propagating.
+                }
+            }
+
+        });
         aClearButton.addActionListener(
                 new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -399,11 +536,11 @@ public class WKTPanel extends JPanel {
             //get wkt text (original coords) update the lists with that info, transform, and pass the transformed coordinates to the model to draw
             String geo1 = getGeometryTextClean(0);
             String geo2 = getGeometryTextClean(1);
-            if (geo1.length() == 0 || geo2.length() == 0){
+            if (geo1.length() == 0 || geo2.length() == 0) {
                 JOptionPane.showMessageDialog(null, "You should write a WKT before loading it.");
                 return;
             }
-                
+
             AppCorrGeometries.getInstance().updateGeometriesFromWKTPanel(geo1, geo2);
             String[] wkts = AppCorrGeometries.getInstance().getWKTextFromGeometriesInPanelsScreenCoordinates();
             tbModel.loadGeometryText(wkts[0]);//load content of top wkt panel to 1st panel
@@ -430,11 +567,26 @@ public class WKTPanel extends JPanel {
     }
 
     void aPasteButton_actionPerformed(ActionEvent e) {
-        this.aTextArea.setText(getClipboardContents());
+        pasteIntoWKTPanel();
     }
 
     void bPasteButton_actionPerformed(ActionEvent e) {
-        this.bTextArea.setText(getClipboardContents());
+        pasteIntoWKTPanel();
+    }
+
+    void pasteIntoWKTPanel() {
+        try {
+            String clipboardContents;
+            Geometry geom;
+            WKTReader reader = new WKTReader();
+            clipboardContents = getClipboardContents();
+            geom = reader.read(clipboardContents);
+            if (!(geom == null)) {
+                this.aTextArea.setText(getClipboardContents());
+            }
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, "The text you tried to paste is not a valid WKT.");
+        }
     }
 
     public String getClipboardContents() {
