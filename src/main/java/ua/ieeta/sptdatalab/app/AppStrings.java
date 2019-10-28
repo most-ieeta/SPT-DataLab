@@ -53,7 +53,7 @@ public class AppStrings {
     
     static final String TIP_ZOOM = "<html>Zoom In/Out | Pan<br><br>Zoom In = Left-Btn<br>Zoom Extent = Left-Drag<br>Zoom Out = Right-Btn<br>Pan = Right-Drag | Ctl-Drag</html>";
     
-    static final String TIP_INFO = "Show Info on Geometry, Segment, or Point";
+    static final String TIP_INFO = "";
     
     static final String TIP_DRAW_RECTANGLE = "Draw Rectangle";
     static final String TIP_DRAW_POINT = "Draw Point";

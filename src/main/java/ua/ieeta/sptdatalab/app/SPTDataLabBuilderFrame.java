@@ -719,16 +719,16 @@ public class SPTDataLabBuilderFrame extends JFrame {
         setExtendedState(java.awt.Frame.MAXIMIZED_BOTH);
 
         jSplitPane1.setOrientation(JSplitPane.VERTICAL_SPLIT);
-        jSplitPane1.setPreferredSize(new Dimension(601, 660));
+        jSplitPane1.setPreferredSize(new Dimension(601, 460));
         //top panel (top half of window)
         jPanel1.setLayout(new GridLayout(1, 2));
         //jPanel1.setMinimumSize(new Dimension(431, 0));
-        contentPane.setPreferredSize(new Dimension(601, 650));
+        contentPane.setPreferredSize(new Dimension(601, 450));
         //panel with statistics and the buttons to swith statistics
         inputTabbedPane.setTabPlacement(JTabbedPane.LEFT);
         jPanel2.setLayout(borderLayout3);
-        wktPanel.setMinimumSize(new Dimension(111, 100));
-        wktPanel.setSize(new Dimension(600, 150));//switched from "setPreferedSize" (change back if problems arise)
+        wktPanel.setMinimumSize(new Dimension(111, 180));
+        wktPanel.setSize(new Dimension(600, 350));//switched from "setPreferedSize" (change back if problems arise)
         wktPanel.setToolTipText(AppStrings.TIP_TEXT_ENTRY);
         testPanel.setLayout(gridBagLayout2);
         gridLayout1.setRows(4);
@@ -832,7 +832,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
     }
 
     public void displayInfo(Coordinate modelPt) {
-        displayInfo(testCasePanel.getGeometryEditPanel().getInfo(modelPt));
+        //displayInfo(testCasePanel.getGeometryEditPanel().getInfo(modelPt));
     }
 
     public void displayInfo(String s) {

@@ -71,7 +71,7 @@ public class SPTDataLabBuilderToolBar {
     JToggleButton drawRectangleButton = new JToggleButton();
     //JToggleButton drawPolygonButton = new JToggleButton();
     JToggleButton zoomButton = new JToggleButton();
-    JToggleButton infoButton = new JToggleButton();
+    JToggleButton cursorButton = new JToggleButton();
     JToggleButton panButton = new JToggleButton();
     JToggleButton btnEditVertex = new JToggleButton();
     ButtonGroup toolButtonGroup = new ButtonGroup();
@@ -87,7 +87,7 @@ public class SPTDataLabBuilderToolBar {
     private final ImageIcon drawRectangleBIcon = new ImageIcon(this.getClass().getResource("DrawRectangleB.png"));
     //private final ImageIcon drawPolygonIcon = new ImageIcon(this.getClass().getResource("DrawPolygon.png"));
     private final ImageIcon drawPolygonBIcon = new ImageIcon(this.getClass().getResource("DrawPolygonB.png"));
-    private final ImageIcon infoIcon = new ImageIcon(this.getClass().getResource("Info.png"));
+    private final ImageIcon infoIcon = new ImageIcon(this.getClass().getResource("pointer.jpg"));
     private final ImageIcon zoomOneToOneIcon = new ImageIcon(this.getClass().getResource("ZoomOneToOne.png"));
     private final ImageIcon zoomToInputIcon = new ImageIcon(this.getClass().getResource("ZoomInput.png"));
     private final ImageIcon zoomToInputAIcon = new ImageIcon(this.getClass().getResource("ZoomInputA.png"));
@@ -288,17 +288,17 @@ public class SPTDataLabBuilderToolBar {
         //            }
         //        });
         
-        infoButton.setMargin(new Insets(0, 0, 0, 0));
-        infoButton.setPreferredSize(new Dimension(30, 30));
-        infoButton.setIcon(infoIcon);
-        infoButton.setMinimumSize(new Dimension(30, 30));
-        infoButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        infoButton.setSelected(false);
-        infoButton.setToolTipText(AppStrings.TIP_INFO);
-        infoButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        infoButton.setFont(new java.awt.Font("SansSerif", 0, 10));
-        infoButton.setMaximumSize(new Dimension(30, 30));
-        infoButton.addActionListener(
+        cursorButton.setMargin(new Insets(0, 0, 0, 0));
+        cursorButton.setPreferredSize(new Dimension(30, 30));
+        cursorButton.setIcon(infoIcon);
+        cursorButton.setMinimumSize(new Dimension(30, 30));
+        cursorButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        cursorButton.setSelected(false);
+        cursorButton.setToolTipText(AppStrings.TIP_INFO);
+        cursorButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        cursorButton.setFont(new java.awt.Font("SansSerif", 0, 10));
+        cursorButton.setMaximumSize(new Dimension(30, 30));
+        cursorButton.addActionListener(
                 new java.awt.event.ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         tbFrame.infoButton_actionPerformed();
@@ -435,7 +435,7 @@ public class SPTDataLabBuilderToolBar {
         toolButtonGroup.add(zoomButton);
         toolButtonGroup.add(btnEditVertex);
         toolButtonGroup.add(deleteVertexButton);
-        toolButtonGroup.add(infoButton);
+        toolButtonGroup.add(cursorButton);
         
         jToolBar1.add(saveButton, null);
         jToolBar1.add(saveAllButton, null);
@@ -468,7 +468,7 @@ public class SPTDataLabBuilderToolBar {
         jToolBar1.add(zoomButton, null);
         // remove in favour of using Zoom tool
         //jToolBar1.add(panButton, null);
-        jToolBar1.add(infoButton, null);
+        jToolBar1.add(cursorButton, null);
         
         jToolBar1.add(Box.createHorizontalStrut(28), null);
         
