@@ -32,6 +32,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.locationtech.jts.geom.LinearRing;
 import ua.ieeta.sptdatalab.morphing.TriangulationMethod;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
@@ -342,6 +343,11 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         
         //initiate interpolation facade with parameters common to all diferent interpolation methods
         InterpolationMethodFacade interpolation = new InterpolationMethodFacade(wkts[0], wkts[1], beginTime, endTime);
+        /*System.out.println(AppCorrGeometries.getInstance().getCurrentSource().size()+", "+wkts[0]);
+        System.out.println(AppCorrGeometries.getInstance().getCurrentTarget().size()+", "+wkts[1]);
+        System.out.println("Collinear exists in source: "+ AppCorrGeometries.getInstance().collinearExists(AppCorrGeometries.getInstance().getCurrentSource()));
+        System.out.println("Collinear exists in target: "+ AppCorrGeometries.getInstance().collinearExists(AppCorrGeometries.getInstance().getCurrentTarget()));
+        */        
         //at instant
         if (selectedTime.equals(AppStrings.AT_INSTANT_METHOD_STRING)){
             duringPeriod = false;
@@ -478,7 +484,6 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
                     pList[0] = (Polygon) reader.read(wktsSourceTarget[0]);//source
                     pList[1] = (Polygon) reader.read(wktGeometryInterpolated[0]);//interpolation result
                     pList[2] = (Polygon) reader.read(wktsSourceTarget[1]);//target
-                    //System.out.println("wkt -> "+wktGeometryInterpolated[0]);
                     MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(isPolygon, morphingMethod, periods, pList);
                     openMorphingGeometryFrame(mframe);
                 } catch (ParseException ex) {
