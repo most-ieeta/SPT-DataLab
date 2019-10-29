@@ -4,8 +4,6 @@ SPT Data Lab is a tool for the visualization, creation and refinement of Spatio-
 
 ## Getting Started
 
-Spt Data Lab helps in the creation, visualization, and refinement of spatiotemporal data, and can be used to evaluate region interpolation methods.
-
 Users can use their own files with geometries (e.g. observations of the evolution of a phenomenon) and edit them (refine them) using the GUI interface. The supported region interpolation methods can be used to create moving regions from the data provided by the user and to simulate the continuous evolution of the phenomenon being represented. SPT Data Lab can also be used to compute metrics over the results of the interpolation.
 
 Users can visualize the interpolation and compute metrics, and save the results obtained in a png, csv or wkt representation.
