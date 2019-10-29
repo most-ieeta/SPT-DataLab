@@ -160,8 +160,8 @@ public class SPTDataLabBuilderFrame extends JFrame {
             //zoom factor is changed here!
             zoomTool = new ZoomTool(2, AppCursors.ZOOM);
             showGeomsTab();
-            testCasePanel.getGeometryEditPanel().setCurrentTool(RectangleTool.getInstance());
-            testCasePanel2.getGeometryEditPanel().setCurrentTool(RectangleTool.getInstance());
+            testCasePanel.getGeometryEditPanel().setCurrentTool(InfoTool.getInstance());
+            testCasePanel2.getGeometryEditPanel().setCurrentTool(InfoTool.getInstance());
 
             //if there are unsaved changes, prompt user to save them before closing app
             this.addWindowListener(new java.awt.event.WindowAdapter() {

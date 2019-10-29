@@ -293,7 +293,7 @@ public class SPTDataLabBuilderToolBar {
         cursorButton.setIcon(infoIcon);
         cursorButton.setMinimumSize(new Dimension(30, 30));
         cursorButton.setVerticalTextPosition(SwingConstants.BOTTOM);
-        cursorButton.setSelected(false);
+        cursorButton.setSelected(true);
         cursorButton.setToolTipText(AppStrings.TIP_INFO);
         cursorButton.setHorizontalTextPosition(SwingConstants.CENTER);
         cursorButton.setFont(new java.awt.Font("SansSerif", 0, 10));
