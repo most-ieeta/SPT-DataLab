@@ -823,10 +823,11 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 //special case: simply add to the last position the new coordinate
                 indexForNewCoord = interactedPanelCoords.size();
             }
-            interactedPanelCoords.add(indexForNewCoord, newCoordinate); //add point in the geometry user edited
             if (interactedPanelCoords.size() != otherPanelCoords.size()){
+                interactedPanelCoords.add(indexForNewCoord, newCoordinate); //add point in the geometry user edited
                 return null;
             }
+            interactedPanelCoords.add(indexForNewCoord, newCoordinate); //add point in the geometry user edited            
             Coordinate newCoordinateOtherPanel = findPointInLine(interactedPanelCoords, otherPanelCoords,
                     newCoordinate, indexForNewCoord, isSecondPanel);
             //add the new coordinate found in the respective line segment for the other geometry
