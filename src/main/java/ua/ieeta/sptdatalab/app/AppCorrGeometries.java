@@ -637,6 +637,9 @@ public class AppCorrGeometries implements PropertyChangeListener{
     //store the point(s) the cursor is in. call a method to higlight the point in the panel
     //that the cursor IS NOT IN
     public void higlightCorrespondingPointInPanel(Collection<Coordinate> coords, boolean isSecondPanel){
+        if (getCurrentSource().size() != getCurrentTarget().size()){
+            return; //geometries have different sizes: no point in highliting
+        }
         for (Coordinate coord : coords){
             Coordinate c = getCorrespondingCoordinate(coord, isSecondPanel);
             if (c != null || drawnPoints.size() < MAX_POINTS_STORED){
@@ -729,34 +732,34 @@ public class AppCorrGeometries implements PropertyChangeListener{
     }
     
     //given a coordinate, if it is exists on one of the corr geometries, it is deleted from both geometries
-    public void deletePointInBothCorrGeometries(Coordinate c){
-        List <Coordinate> currentSourceGeometry = this.getCurrentSource();
-        List <Coordinate> currentTargetGeometry = this.getCurrentTarget();
+    public void deletePointInBothCorrGeometries(Coordinate c, boolean isSource){
+        List <Coordinate> geometry = this.getCurrentObservation().getGeometryCoordinates(isSource);
+        if (geometry.size() <= 3){
+            //
+            /*if (isSource)
+                frame.wktPanel.aClearButton_actionPerformed(); //clear wkt text*/
+        }
         int index = -1;
-        int indexS = getAlmostEqualPointIndex(currentSourceGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
-        int indexT = getAlmostEqualPointIndex(currentTargetGeometry, c, AppConstants.COORDINATE_ERROR_MAX);
-        if ( indexS > -1){
-            index = indexS;
-        }
-        else if ( indexT > -1){
-            index = indexT;
-        }
-        else{
-            return;
-        }
+        index = getAlmostEqualPointIndex(geometry, c, AppConstants.COORDINATE_ERROR_MAX);
         if (index < 0)
             return;
-        currentTargetGeometry.remove(index);
-        currentSourceGeometry.remove(index);
+        geometry.remove(index);
         if (index == 0){
             //if first coordinate was removed, update last coordinate in the array, because they must be equals
-            currentTargetGeometry.set(currentTargetGeometry.size()-1, currentTargetGeometry.get(0));
-            currentSourceGeometry.set(currentSourceGeometry.size()-1, currentSourceGeometry.get(0));
+            geometry.set(geometry.size()-1, geometry.get(0));
         }
-        this.updateInfoGeometriesOriginalScale(currentTargetGeometry, false, false);
-        this.updateInfoGeometriesOriginalScale(currentSourceGeometry, true, false);
-        updateInfoGeometries(true, true);
-        updateInfoGeometries(false, true);
+        this.updateInfoGeometriesOriginalScale(geometry, isSource, false);
+        updateInfoGeometries(isSource, true);
+        if (getCurrentSource().size() == getCurrentTarget().size()){
+            List <Coordinate> geometryOther = this.getCurrentObservation().getGeometryCoordinates(!isSource);
+            geometryOther.remove(index);
+            if (index == 0){
+                //if first coordinate was removed, update last coordinate in the array, because they must be equals
+                geometryOther.set(geometryOther.size()-1, geometryOther.get(0));
+            }
+            this.updateInfoGeometriesOriginalScale(geometryOther, !isSource, false);
+            updateInfoGeometries(!isSource, true);
+        }
         frame.reloadBothPanels();
         this.isEdited = true;
     }
@@ -818,7 +821,10 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 //special case: simply add to the last position the new coordinate
                 indexForNewCoord = interactedPanelCoords.size();
             }
-            interactedPanelCoords.add(indexForNewCoord, newCoordinate);
+            interactedPanelCoords.add(indexForNewCoord, newCoordinate); //add point in the geometry user edited
+            if (interactedPanelCoords.size() != otherPanelCoords.size()){
+                return null;
+            }
             Coordinate newCoordinateOtherPanel = findPointInLine(interactedPanelCoords, otherPanelCoords,
                     newCoordinate, indexForNewCoord, isSecondPanel);
             //add the new coordinate found in the respective line segment for the other geometry
@@ -845,6 +851,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
     //find a point in the respective line segment on the other panel to add a point
     private Coordinate findPointInLine(List<Coordinate> referenceCoords, List<Coordinate> coordsToAddNewPoint,
             Coordinate newCoord, int newPointNumber, boolean isSecondPanel){
+        
         Coordinate c1 = referenceCoords.get(newPointNumber-1);
         Coordinate c2 = referenceCoords.get(newPointNumber+1);
         double distanceC1_newCoord = c1.distance(newCoord);

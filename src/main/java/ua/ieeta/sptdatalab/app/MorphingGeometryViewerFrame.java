@@ -646,34 +646,6 @@ public class MorphingGeometryViewerFrame extends javax.swing.JFrame {
         chartPanel.validate();
     }
     
-    /**
-     * Convert a value (representing a frame) to a Slider value (representing an instant in time),
-     * used to control the frame of the animation.
-     * The values in the slider represent an instant in time and the frame of animation start at 0, so this method makes
-     * the apropriate conversion so that the frame value becomes a time value
-     * @param v - the frame number shown in the animation
-     * @return - the instant in time that the frame belongs to
-     */
-    private int convertValueToSliderValue(int v){
-        return periods[v];
-    }
-    
-    /**
-     * Convert a Slider value (representing an instant in time) to a normal value (representing a frame),
-     * used to control the frame of the animation.
-     * The values in the slider represent an instant in time and the frame of animation start at 0, so this method makes
-     * the apropriate conversion so that the time value becomes a frame value
-     * @param v - the instant in time selected in the slider
-     * @return - the frame number to be shown in the animation
-     */
-    private int convertSliderValueToValue(int v){
-        for (int i = 0; i < periods.length; i++){
-            if (periods[i] == v)
-                return i;
-        }
-        return 0;
-    }
-    
     private JDialog createWaitDialog(){
         JDialog dialog = new JDialog();
         JLabel label = new JLabel("Please wait.\nSaving animation in images.\nThis process can take a while if the number of samples is too big.");

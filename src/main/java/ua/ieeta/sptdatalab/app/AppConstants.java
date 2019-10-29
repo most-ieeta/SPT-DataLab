@@ -107,12 +107,12 @@ public class AppConstants
     //------------ second line: coordinates directory)
     public static final String CACHE_FILE = "last_dir_cache.txt";
     
-    public static final double COORDINATE_ERROR_MAX = 0.05;
+    public static final double COORDINATE_ERROR_MAX = 0.005;
     
     //----------- File types accepted for coordinates and images
     public static final String[] COORDINATE_FILE_TYPES = {"wkt", "corr"};
     
-    public static final String[] IMAGE_FILE_TYPES = {"pgn", "jpg", "jpeg", "bpm", "tiff"};
+    public static final String[] IMAGE_FILE_TYPES = {"png", "jpg", "jpeg", "bpm", "tiff"};
     
     //----------- Confirmation string used in some operations to confirm that it succeeded
     public static final String CONFIRMATION_STRING = "success";

@@ -19,6 +19,8 @@
 */
 package ua.ieeta.sptdatalab.app;
 
+import java.awt.Dialog.ModalityType;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +29,12 @@ import java.awt.event.ItemListener;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.locationtech.jts.geom.LinearRing;
@@ -49,6 +54,7 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
      
     private int beginTime = 1000;
     private int endTime = 2000;
+    private JDialog modalDialog;
     
     public MorphingGeometryOptionsPanel() {
         initComponents();
@@ -347,7 +353,10 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         System.out.println(AppCorrGeometries.getInstance().getCurrentTarget().size()+", "+wkts[1]);
         System.out.println("Collinear exists in source: "+ AppCorrGeometries.getInstance().collinearExists(AppCorrGeometries.getInstance().getCurrentSource()));
         System.out.println("Collinear exists in target: "+ AppCorrGeometries.getInstance().collinearExists(AppCorrGeometries.getInstance().getCurrentTarget()));
-        */        
+           */     
+        
+        //Beginning of interpolation, show wait dialog
+        this.openWaitingDialog();
         //at instant
         if (selectedTime.equals(AppStrings.AT_INSTANT_METHOD_STRING)){
             duringPeriod = false;
@@ -394,6 +403,8 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
                 result = interpolation.interpolationDuringPeriodMesh(selectedInstant, endTime, numSamples, morphingMethod, triangulationMethod, cw, threshold);
             }
         }
+        //end of interpolation, close wait dialog
+        this.closeWaitingDialog();
         if (result == null || result.length == 0){
             //an error happened during interpolation, cancel and inform user
             JOptionPane.showMessageDialog(null, "It was not possible to apply the interpolation method. \nCheck input parameters and try again.",
@@ -484,6 +495,7 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
                     pList[0] = (Polygon) reader.read(wktsSourceTarget[0]);//source
                     pList[1] = (Polygon) reader.read(wktGeometryInterpolated[0]);//interpolation result
                     pList[2] = (Polygon) reader.read(wktsSourceTarget[1]);//target
+                   
                     MorphingGeometryViewerFrame mframe = new MorphingGeometryViewerFrame(isPolygon, morphingMethod, periods, pList);
                     openMorphingGeometryFrame(mframe);
                 } catch (ParseException ex) {
@@ -528,6 +540,21 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
                 frame.setVisible(true);
             }
         });
+    }
+    
+    private void openWaitingDialog(){
+        modalDialog = new JDialog();
+        JLabel label = new JLabel("Please wait.\nPerforming interpolation. \nThis process can take a while depending on the complexity of the geometries.");
+        modalDialog.setLocationRelativeTo(this);
+        modalDialog.setTitle("Please Wait...");
+        modalDialog.add(label);
+        modalDialog.setSize(new Dimension(400, 200));
+        modalDialog.setVisible(true);
+    }
+    
+    private void closeWaitingDialog(){
+        if (modalDialog != null)
+            modalDialog.dispose();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
