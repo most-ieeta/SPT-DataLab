@@ -411,7 +411,7 @@ public class WKTPanel extends JPanel {
                 }
 
                 if (ctrlPressed && vPressed) {
-                    pasteIntoWKTPanel();
+                    pasteIntoWKTPanel(false);
                     vPressed = false;
                     ctrlPressed = false;
                     e.consume();// Stop the event from propagating.
@@ -437,7 +437,7 @@ public class WKTPanel extends JPanel {
                 }
 
                 if (ctrlPressed && vPressed) {
-                    pasteIntoWKTPanel();
+                    pasteIntoWKTPanel(true);
                     vPressed = false;
                     ctrlPressed = false;
                     e.consume();// Stop the event from propagating.
@@ -536,8 +536,12 @@ public class WKTPanel extends JPanel {
             //get wkt text (original coords) update the lists with that info, transform, and pass the transformed coordinates to the model to draw
             String geo1 = getGeometryTextClean(0);
             String geo2 = getGeometryTextClean(1);
-            if (geo1.length() == 0 || geo2.length() == 0) {
-                JOptionPane.showMessageDialog(null, "You should write a WKT before loading it.");
+            if (geo1.length() == 0) {
+                JOptionPane.showMessageDialog(null, "Please write a valid WKT in the upper panel.");
+                return;
+            }
+            if (geo2.length() == 0) {
+                JOptionPane.showMessageDialog(null, "Please write a valid WKT in the lower panel.");
                 return;
             }
 
@@ -567,14 +571,14 @@ public class WKTPanel extends JPanel {
     }
 
     void aPasteButton_actionPerformed(ActionEvent e) {
-        pasteIntoWKTPanel();
+        pasteIntoWKTPanel(false);
     }
 
     void bPasteButton_actionPerformed(ActionEvent e) {
-        pasteIntoWKTPanel();
+        pasteIntoWKTPanel(true);
     }
 
-    void pasteIntoWKTPanel() {
+    void pasteIntoWKTPanel(boolean isSecondPanel) {
         try {
             String clipboardContents;
             Geometry geom;
@@ -582,7 +586,10 @@ public class WKTPanel extends JPanel {
             clipboardContents = getClipboardContents();
             geom = reader.read(clipboardContents);
             if (!(geom == null)) {
-                this.aTextArea.setText(getClipboardContents());
+                if (!isSecondPanel)
+                    this.aTextArea.setText(getClipboardContents());
+                else
+                    this.bTextArea.setText(getClipboardContents());
             }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "The text you tried to paste is not a valid WKT.");
