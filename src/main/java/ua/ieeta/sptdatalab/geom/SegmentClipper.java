@@ -1,16 +1,20 @@
 package ua.ieeta.sptdatalab.geom;
 
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
 
-/**
- * Clips a segment to a rectangle.
- * Modification is done in-place in the input Coordinates,
- * so do not pass in Coordinates from source Geometries. 
- * 
- * @author mbdavis
- *
- */
+
 public class SegmentClipper {
   
   public static void clip(Coordinate p0, Coordinate p1, Envelope env) {

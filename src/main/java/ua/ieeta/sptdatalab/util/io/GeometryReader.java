@@ -56,38 +56,10 @@ public class GeometryReader {
     //another list with list of coordinates from target geometry as the second element
     public List[] readAndGetPoints() {
 
-        if (this.file.getName().endsWith(".corr")) {
-            return readAndGetPointsCorrFile();
-        } else {
-            return readAndGetPointsWKTFile();
-        }
+        return readAndGetPointsWKTFile();
+        
     }
 
-    public List[] readAndGetPointsCorrFile() {
-        List<Coordinate> coordinatesSource = new ArrayList<>();
-        List<Coordinate> coordinatesTarget = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(this.file))) {
-            for (String line; (line = br.readLine()) != null;) {
-                //System.out.println(line);
-                String[] pointsInLine = line.split("\\s+");
-                if (pointsInLine.length != 4) {
-                    return null;
-                }
-                //first 2 numbers are coordinates for source
-                double x = Double.parseDouble(pointsInLine[0]);
-                double y = Double.parseDouble(pointsInLine[1]);
-                coordinatesSource.add(new Coordinate(x, y));
-
-                //other 2 numbers are coordinates for target
-                x = Double.parseDouble(pointsInLine[2]);
-                y = Double.parseDouble(pointsInLine[3]);
-                coordinatesTarget.add(new Coordinate(x, y));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return new List[]{coordinatesSource, coordinatesTarget};
-    }
 
     public List[] readAndGetPointsWKTFile() {
 
@@ -99,37 +71,6 @@ public class GeometryReader {
         }
     }
 
-    private List<Coordinate> readAndGetGeometryCorrFile(boolean source) {
-        List<Coordinate> coordinatesSource = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(this.file))) {
-
-            double x;
-            double y;
-            for (String line; (line = br.readLine()) != null;) {
-                //System.out.println(line);
-                String[] pointsInLine = line.split("\\s+");
-                if (pointsInLine.length != 4) {
-                    return null;
-                }
-                if (source) {
-                    x = Double.parseDouble(pointsInLine[0]);
-                    y = Double.parseDouble(pointsInLine[1]);
-                } else {
-                    x = Double.parseDouble(pointsInLine[2]);
-                    y = Double.parseDouble(pointsInLine[3]);
-                }
-                //limit decimal place number:
-                x = AppConstants.limitMaxNumberOfDecimalPlaces(x);
-                y = AppConstants.limitMaxNumberOfDecimalPlaces(y);
-                coordinatesSource.add(new Coordinate(x, y));
-            }
-        } catch (IOException ex) {
-            Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //validate coordinates by creating a temporary geometry
-        coordinatesSource = validateCoordinates(coordinatesSource);
-        return coordinatesSource;
-    }
 
     private List<Coordinate> readAndGetGeometryWKTFile(boolean source) throws ParseException {
         List<Coordinate> coordinatesSource = new ArrayList<>();
@@ -163,32 +104,24 @@ public class GeometryReader {
     //reads the coordinates from file and parses the into a list of Coordinates
     public List<Coordinate> readAndGetPointsOfSource() {
 
-        if (this.file.getName().endsWith(".corr")) {
-            return readAndGetGeometryCorrFile(true);
-        } else {
             try {
                 return readAndGetGeometryWKTFile(true);
             } catch (ParseException ex) {
                 Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
-        }
 
     }
 
     //reads the coordinates from file and parses the into a list of Coordinates
     public List<Coordinate> readAndGetPointsOfTarget() {
 
-        if (this.file.getName().endsWith(".corr")) {
-            return readAndGetGeometryCorrFile(false);
-        } else {
             try {
                 return readAndGetGeometryWKTFile(false);
             } catch (ParseException ex) {
                 Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
                 return null;
             }
-        }
 
     }
 
