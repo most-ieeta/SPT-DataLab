@@ -337,6 +337,17 @@ public class WKTPanel extends JPanel {
                         Geometry geom;
                         WKTReader reader = new WKTReader();
                         contents = aTextArea.getText();
+                        if (contents.length() == 0){
+                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                            if (replyEmpty == JOptionPane.YES_OPTION) {
+                                editedWKT = true;
+                                aTextArea.requestFocusInWindow();
+                            } else {
+                                aTextArea.setText(resetWKT);
+                                editedWKT = false;
+                            }
+                            return;
+                        }
                         geom = reader.read(contents);
                         if (!(geom == null)) {
                             loadButton_actionPerformed(null);
@@ -372,8 +383,20 @@ public class WKTPanel extends JPanel {
                     try {
                         String contents;
                         Geometry geom;
+                        
                         WKTReader reader = new WKTReader();
                         contents = bTextArea.getText();
+                        if (contents.length() == 0){
+                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                            if (replyEmpty == JOptionPane.YES_OPTION) {
+                                editedWKT = true;
+                                bTextArea.requestFocusInWindow();
+                            } else {
+                                bTextArea.setText(resetWKT);
+                                editedWKT = false;
+                            }
+                            return;
+                        }
                         geom = reader.read(contents);
                         if (!(geom == null)) {
                             loadButton_actionPerformed(null);
@@ -544,6 +567,7 @@ public class WKTPanel extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please write a valid WKT in the lower panel.");
                 return;
             }
+            
 
             AppCorrGeometries.getInstance().updateGeometriesFromWKTPanel(geo1, geo2);
             String[] wkts = AppCorrGeometries.getInstance().getWKTextFromGeometriesInPanelsScreenCoordinates();
@@ -623,6 +647,7 @@ public class WKTPanel extends JPanel {
         tbModel.getGeometryEditModel().clear(0);
         aTextArea.setText("");
         SPTDataLabBuilderFrame.instance().enableDrawingButtons();
+        aTextArea.requestFocusInWindow();
     }
 
     void bClearButton_actionPerformed(ActionEvent e) {
@@ -630,6 +655,7 @@ public class WKTPanel extends JPanel {
         tbModel2.getGeometryEditModel().clear(0);
         bTextArea.setText("");
         SPTDataLabBuilderFrame.instance().enableDrawingButtons();
+        bTextArea.requestFocusInWindow();
     }
 
     Border focusBorder = BorderFactory.createMatteBorder(0, 2, 0, 0, Color.green);
