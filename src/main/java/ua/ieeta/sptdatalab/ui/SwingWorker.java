@@ -10,6 +10,18 @@
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
+
+
 package ua.ieeta.sptdatalab.ui;
 
 import javax.swing.SwingUtilities;

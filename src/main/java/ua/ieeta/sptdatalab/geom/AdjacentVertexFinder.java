@@ -10,6 +10,16 @@
  * http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
+/* 
+* This file has been modified to be part of SPT Data Lab.
+*
+* This code is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY. You can redistribute it and/or modify
+* as explained in License and Readme.
+* 
+* Redistributions of source code must retain adequate copyright notices,
+* as explained in License and Readme.
+*/
 package ua.ieeta.sptdatalab.geom;
 
 import java.util.*;
@@ -17,13 +27,6 @@ import java.util.*;
 import org.locationtech.jts.geom.*;
 
 
-/**
- * Locates all vertices in a geometry which are adjacent 
- * to a given vertex.
- * 
- * @author mbdavis
- *
- */
 public class AdjacentVertexFinder 
 {
   public static Coordinate[] findVertices(Geometry geom, Coordinate testPt)
