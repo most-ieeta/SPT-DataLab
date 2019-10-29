@@ -620,14 +620,21 @@ public class WKTPanel extends JPanel {
     }
 
     void aClearButton_actionPerformed(ActionEvent e) {
+        clearSourceWKTPanel();
+    }
+
+    void bClearButton_actionPerformed(ActionEvent e) {
+        clearTargetWKTPanel();
+    }
+    
+    public void clearSourceWKTPanel(){
         tbModel.getGeometryEditModel().clear(0);
         aTextArea.setText("");
         SPTDataLabBuilderFrame.instance().enableDrawingButtons();
         aTextArea.requestFocusInWindow();
     }
-
-    void bClearButton_actionPerformed(ActionEvent e) {
-        //tbModel.getGeometryEditModel().clear(1);
+    
+    public void clearTargetWKTPanel(){
         tbModel2.getGeometryEditModel().clear(0);
         bTextArea.setText("");
         SPTDataLabBuilderFrame.instance().enableDrawingButtons();

@@ -19,9 +19,11 @@
 */
 package ua.ieeta.sptdatalab.app;
 
+import java.awt.Dialog;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -543,12 +545,16 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
     }
     
     private void openWaitingDialog(){
-        modalDialog = new JDialog();
-        JLabel label = new JLabel("Please wait.\nPerforming interpolation. \nThis process can take a while depending on the complexity of the geometries.");
+        modalDialog = new JDialog(new JFrame(), "Please wait....", Dialog.ModalityType.APPLICATION_MODAL);
+        JLabel label = new JLabel("Please wait.\n Performing interpolation. \nThis process can take a while depending on the complexity of the geometries.");
         modalDialog.setLocationRelativeTo(this);
-        modalDialog.setTitle("Please Wait...");
+        //modalDialog.setTitle("Please Wait...");
         modalDialog.add(label);
-        modalDialog.setSize(new Dimension(400, 200));
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        modalDialog.setLocation(dim.width/2-modalDialog.getSize().width/2, dim.height/2-modalDialog.getSize().height/2);
+        modalDialog.toFront();
+        modalDialog.requestFocus();
+        modalDialog.setSize(new Dimension(600, 100));
         modalDialog.setVisible(true);
     }
     

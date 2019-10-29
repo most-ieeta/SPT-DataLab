@@ -736,8 +736,10 @@ public class AppCorrGeometries implements PropertyChangeListener{
         List <Coordinate> geometry = this.getCurrentObservation().getGeometryCoordinates(isSource);
         if (geometry.size() <= 3){
             //
-            /*if (isSource)
-                frame.wktPanel.aClearButton_actionPerformed(); //clear wkt text*/
+            if (isSource)
+                frame.wktPanel.clearSourceWKTPanel();//clear wkt text*/
+            else
+                frame.wktPanel.clearTargetWKTPanel();//clear wkt text*/
         }
         int index = -1;
         index = getAlmostEqualPointIndex(geometry, c, AppConstants.COORDINATE_ERROR_MAX);
