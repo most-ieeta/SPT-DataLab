@@ -104,8 +104,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
     TestListPanel testListPanel = new TestListPanel(this);
     GridBagLayout gridBagLayout2 = new GridBagLayout();
     GridLayout gridLayout1 = new GridLayout();
-    ResultWKTPanel resultWKTPanel = new ResultWKTPanel();
-    //
+    
     JTabbedPane tabbedPane = new JTabbedPane();
     MorphingGeometryOptionsPanel morphingPanel = new MorphingGeometryOptionsPanel();
 
@@ -271,8 +270,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
         testCasePanel.setModel(tbModel);
         testCasePanel2.setModel(tbModel2);
         wktPanel.setModel(model, model2);
-        resultWKTPanel.setModel(model);
-
+        
         model.getGeometryEditModel().addGeometryListener(new ua.ieeta.sptdatalab.model.GeometryListener() {
             public void geometryChanged(GeometryEvent e) {
                 model_geometryChanged(e);
@@ -307,10 +305,7 @@ public class SPTDataLabBuilderFrame extends JFrame {
         return testCasePanel2;
     }
 
-    public ResultWKTPanel getResultWKTPanel() {
-        return resultWKTPanel;
-    }
-
+    
     /**
      * File | Exit action performed
      */

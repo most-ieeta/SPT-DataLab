@@ -116,8 +116,7 @@ public class WKTPanel extends JPanel {
     private final ImageIcon copyIcon = new ImageIcon(this.getClass().getResource("Copy.png"));
     private final ImageIcon pasteIcon = new ImageIcon(this.getClass().getResource("Paste.png"));
     private final ImageIcon cutIcon = new ImageIcon(this.getClass().getResource("Delete_small.png"));
-    private final ImageIcon loadIcon = new ImageIcon(this.getClass().getResource("LoadWKTToTest.png"));
-
+    
     protected SPTDataLabBuilderFrame tbFrame;
 
     public WKTPanel(SPTDataLabBuilderFrame tbFrame) {
