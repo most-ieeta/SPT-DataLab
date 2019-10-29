@@ -66,24 +66,13 @@ public class DatasetLoader {
         return AppConstants.CONFIRMATION_STRING;
     }
     
-    public static boolean loadAndSetCoordinatesFiles(){
-        File coordinatesDirectory = promptAndLoadCoordinateFiles();
-        
-        if (coordinatesDirectory != null){
-            AppCorrGeometries.getInstance().setNewCoordinatesDataset(coordinatesDirectory);//load coordinate files to panels
-            saveCoordinatesDirectoryToCache(coordinatesDirectory);
-            return true;
-        }
-        return false;
-    }
-    
     private static File promptAndLoadCoordinateFiles(){
         JFileChooser fileChooser = new JFileChooser(previousDirectory);
         fileChooser.removeChoosableFileFilter(SwingUtil.JAVA_FILE_FILTER);
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("wkt, corr", "corr", "wkt");
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("wkt", "wkt");
         fileChooser.addChoosableFileFilter(filter);
         fileChooser.addChoosableFileFilter(SwingUtil.XML_FILE_FILTER);
-        fileChooser.setDialogTitle("Choose a directory with the coordinate files to open: ");
+        fileChooser.setDialogTitle("Choose a directory with the WKT files to open: ");
         fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooser.setMultiSelectionEnabled(false);
         if (JFileChooser.APPROVE_OPTION == fileChooser.showOpenDialog(null)) {

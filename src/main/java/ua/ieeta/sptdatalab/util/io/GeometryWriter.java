@@ -33,7 +33,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.io.WKTWriter;
 /*
-* Writes to files source and target geometries. Can write to .corr files and .wkt
+* Writes to files source and target geometries. 
 */
 public class GeometryWriter {
     
@@ -49,11 +49,8 @@ public class GeometryWriter {
     
     public boolean writeGeometriesToFile(List<Coordinate> source, List<Coordinate> target) {
 
-        if (this.file.getName().endsWith(".corr")) {
-            return writeToCorrFile(source, target);
-        } else {
-            return writeToWKTFile(source, target);
-        }
+        return writeToWKTFile(source, target);
+        
     }
     
     private boolean writeToWKTFile(List<Coordinate> source, List<Coordinate> target){
@@ -73,35 +70,6 @@ public class GeometryWriter {
             Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }
-    
-    private boolean writeToCorrFile(List<Coordinate> source, List<Coordinate> target){
-        if (source.size() == target.size()){
-            try {
-            //write to file, first line is wkt source, second line is wkt target
-            FileOutputStream fos = new FileOutputStream(this.file);
- 
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
-        
-                for (int i = 0; i < source.size(); i++){
-                    Coordinate sourceCoord = source.get(i);
-                    Coordinate targetCoord = target.get(i);
-                    bw.write(sourceCoord.getX()+" "+sourceCoord.getY()+" "+targetCoord.getX()+" "+targetCoord.getY());
-                    bw.newLine();
-                }
-                //close geometries, by writing the first coordinate again
-                Coordinate sourceCoord = source.get(0);
-                Coordinate targetCoord = target.get(0);
-                bw.write(sourceCoord.getX()+" "+sourceCoord.getY()+" "+targetCoord.getX()+" "+targetCoord.getY());
-                bw.flush();
-                bw.close();
-                return true;
-            } catch (IOException ex) {
-                Logger.getLogger(GeometryReader.class.getName()).log(Level.SEVERE, null, ex);
-                return false;
-            }
-        }
-        return false;
     }
     
     private String coordinateListToWKT(Coordinate[] c){

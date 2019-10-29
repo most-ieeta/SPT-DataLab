@@ -591,14 +591,6 @@ public class SPTDataLabBuilderFrame extends JFrame {
         tbToolBar.drawRectangleButton.setEnabled(false);
     }
         
-    void menuLoadCorrFilesFolder_actionPerformed(ActionEvent e) {
-        boolean success = DatasetLoader.loadAndSetCoordinatesFiles();
-        if (success) {
-            this.reloadBothPanels();
-            this.setToFirstImages();//start with the first images
-        }
-    }
-
     void menuChangeDataSet_actionPerformed(ActionEvent e) {
         String message = DatasetLoader.loadAndSetDataset();
         if (message.equals(AppConstants.CONFIRMATION_STRING)){

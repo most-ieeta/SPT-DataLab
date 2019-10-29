@@ -37,7 +37,6 @@ public class SPTDataLabBuilderMenuBar
   JMenuItem jMenuFileExit = new JMenuItem();
   JMenu jMenuEdit = new JMenu();
   JMenuItem changeDataSet = new JMenuItem();
-  JMenuItem menuLoadCorrFilesFolder = new JMenuItem();
   JMenuItem saveCurrent = new JMenuItem();
   JMenuItem saveCurrentAs = new JMenuItem();
   JMenuItem saveAll = new JMenuItem();
@@ -80,15 +79,6 @@ public class SPTDataLabBuilderMenuBar
         }
       });
     
-    menuLoadCorrFilesFolder.setText("Load coordinate files...");
-    menuLoadCorrFilesFolder.addActionListener(
-      new java.awt.event.ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-          tbFrame.resetZoom();
-          tbFrame.menuLoadCorrFilesFolder_actionPerformed(e);
-        }
-      });
-    
     saveCurrent.setText("Save Current");
     saveCurrentAs.setText("Save Current As...");
     saveCurrentAs.addActionListener(
@@ -115,7 +105,6 @@ public class SPTDataLabBuilderMenuBar
 
 
     jMenuFile.add(this.changeDataSet);
-    jMenuFile.add(this.menuLoadCorrFilesFolder);
     jMenuFile.add(this.saveCurrent);
     jMenuFile.add(this.saveCurrentAs);
     jMenuFile.add(this.saveAll);

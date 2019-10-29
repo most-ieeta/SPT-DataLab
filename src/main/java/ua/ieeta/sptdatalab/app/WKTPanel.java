@@ -323,10 +323,9 @@ public class WKTPanel extends JPanel {
         aTextArea.addFocusListener(new FocusListener() {
 
             public void focusGained(FocusEvent e) {
-                if (!editedWKT) {
+                if (!editedWKT && aTextArea.getText().length() > 0) {
                     resetWKT = aTextArea.getText();
                 }
-
             }
 
             ;
@@ -338,12 +337,12 @@ public class WKTPanel extends JPanel {
                         WKTReader reader = new WKTReader();
                         contents = aTextArea.getText();
                         if (contents.length() == 0){
-                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
                             if (replyEmpty == JOptionPane.YES_OPTION) {
                                 editedWKT = true;
                                 aTextArea.requestFocusInWindow();
                             } else {
-                                aTextArea.setText(resetWKT);
+                                //aTextArea.setText(resetWKT);
                                 editedWKT = false;
                             }
                             return;
@@ -353,12 +352,12 @@ public class WKTPanel extends JPanel {
                             loadButton_actionPerformed(null);
                         }
                     } catch (ParseException ex) {
-                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
                         if (reply == JOptionPane.YES_OPTION) {
                             editedWKT = true;
                             aTextArea.requestFocusInWindow();
                         } else {
-                            aTextArea.setText(resetWKT);
+                            //aTextArea.setText(resetWKT);
                             editedWKT = false;
                         }
 
@@ -371,7 +370,7 @@ public class WKTPanel extends JPanel {
                 bTextArea.addFocusListener(new FocusListener() {
 
             public void focusGained(FocusEvent e) {
-                if (!editedWKT) {
+                if (!editedWKT && bTextArea.getText().length() > 0) {
                     resetWKT = bTextArea.getText();
                 }
 
@@ -387,12 +386,12 @@ public class WKTPanel extends JPanel {
                         WKTReader reader = new WKTReader();
                         contents = bTextArea.getText();
                         if (contents.length() == 0){
-                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                            int replyEmpty = JOptionPane.showConfirmDialog(null, "The WKT panel is empty. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
                             if (replyEmpty == JOptionPane.YES_OPTION) {
                                 editedWKT = true;
                                 bTextArea.requestFocusInWindow();
                             } else {
-                                bTextArea.setText(resetWKT);
+                                //bTextArea.setText(resetWKT);
                                 editedWKT = false;
                             }
                             return;
@@ -402,12 +401,12 @@ public class WKTPanel extends JPanel {
                             loadButton_actionPerformed(null);
                         }
                     } catch (ParseException ex) {
-                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (choosing No will reset the WKT)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
+                        int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
                         if (reply == JOptionPane.YES_OPTION) {
                             editedWKT = true;
                             bTextArea.requestFocusInWindow();
                         } else {
-                            bTextArea.setText(resetWKT);
+                            //bTextArea.setText(resetWKT);
                             editedWKT = false;
                         }
 
