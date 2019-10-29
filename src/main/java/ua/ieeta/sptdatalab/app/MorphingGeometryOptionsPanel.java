@@ -39,6 +39,7 @@ import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.LinearRing;
 import ua.ieeta.sptdatalab.morphing.TriangulationMethod;
 import org.locationtech.jts.geom.MultiPolygon;
@@ -329,7 +330,32 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         // get wkt of the corr geometries in both panels.
         String[] wkts;//first element is source, second is target geometry
         wkts = AppCorrGeometries.getInstance().getOriginalWKTFromGeometriesInPanels();
-                
+        
+        Geometry geom;        
+        WKTReader reader = new WKTReader();
+        try {
+            geom = reader.read(wkts[0]);
+        } catch (ParseException ex) {
+             Logger.getLogger(MorphingGeometryOptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
+             return;
+        }
+        if (!geom.isValid())
+        {    
+            JOptionPane.showMessageDialog(null, "The first geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.YES_NO_OPTION);
+            return;
+        }
+        try {
+            geom = reader.read(wkts[1]);
+        } catch (ParseException ex) {
+             Logger.getLogger(MorphingGeometryOptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
+             return;
+        }
+        if (!geom.isValid())
+        {    
+            JOptionPane.showMessageDialog(null, "The second geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.YES_NO_OPTION);
+            return;
+        }
+        
         String[] result = new String[1];
         
         //get user selections (method and period of observations )
