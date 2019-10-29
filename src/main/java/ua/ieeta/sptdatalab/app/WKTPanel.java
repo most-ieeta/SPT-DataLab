@@ -78,7 +78,7 @@ public class WKTPanel extends JPanel {
     GridBagLayout gridBagLayout1 = new GridBagLayout();
     Box panelButtons = Box.createVerticalBox();
     JPanel panelAB = new JPanel();
-    JButton loadButton = new JButton();
+    
     TitledBorder titledBorder1;
     JLabel bLabel = new JLabel();
     GridBagLayout gridBagLayout2 = new GridBagLayout();
@@ -139,12 +139,6 @@ public class WKTPanel extends JPanel {
         titledBorder1 = new TitledBorder("");
         this.setLayout(gridBagLayout1);
         this.setPreferredSize(new java.awt.Dimension(394, 176));
-
-        loadButton.setPreferredSize(new Dimension(38, 38));
-        loadButton.setMargin(new Insets(8, 8, 8, 8));
-
-        loadButton.setIcon(loadIcon);
-        loadButton.setToolTipText(AppStrings.TIP_WKT_PANEL_LOAD_GEOMETRY);
 
         panelAB.setLayout(gridBagLayout2);
 
@@ -283,8 +277,6 @@ public class WKTPanel extends JPanel {
         bScrollPane.getViewport().add(bTextArea, null);
         aScrollPane.getViewport().add(aTextArea, null);
 
-        panelButtons.add(loadButton);
-
         this.add(
                 panelButtons,
                 new GridBagConstraints(1, 1, 1, 1,
@@ -294,12 +286,6 @@ public class WKTPanel extends JPanel {
                         new Insets(2, 2, 0, 2),
                         0, 0));
 
-        loadButton.addActionListener(
-                new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                loadButton_actionPerformed(e);
-            }
-        });
         aCopyButton.addActionListener(
                 new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -349,7 +335,7 @@ public class WKTPanel extends JPanel {
                         }
                         geom = reader.read(contents);
                         if (!(geom == null)) {
-                            loadButton_actionPerformed(null);
+                            loadGeometries();
                         }
                     } catch (ParseException ex) {
                         int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
@@ -398,7 +384,7 @@ public class WKTPanel extends JPanel {
                         }
                         geom = reader.read(contents);
                         if (!(geom == null)) {
-                            loadButton_actionPerformed(null);
+                            loadGeometries();
                         }
                     } catch (ParseException ex) {
                         int reply = JOptionPane.showConfirmDialog(null, "The text you entered is not a valid WKT. Do you want to continue editing the WKT (when choosing No, the last valid WKT will be considered)?", "Invalid WKT", JOptionPane.YES_NO_OPTION);
@@ -545,15 +531,7 @@ public class WKTPanel extends JPanel {
         return textClean;
     }
 
-    void aTextArea_keyTyped(KeyEvent e) {
-        loadButton.setEnabled(true);
-    }
-
-    void bTextArea_keyTyped(KeyEvent e) {
-        loadButton.setEnabled(true);
-    }
-
-    void loadButton_actionPerformed(ActionEvent e) {
+    void loadGeometries() {
         try {
             //get wkt text (original coords) update the lists with that info, transform, and pass the transformed coordinates to the model to draw
             String geo1 = getGeometryTextClean(0);
@@ -567,7 +545,6 @@ public class WKTPanel extends JPanel {
                 return;
             }
             
-
             AppCorrGeometries.getInstance().updateGeometriesFromWKTPanel(geo1, geo2);
             String[] wkts = AppCorrGeometries.getInstance().getWKTextFromGeometriesInPanelsScreenCoordinates();
             tbModel.loadGeometryText(wkts[0]);//load content of top wkt panel to 1st panel
