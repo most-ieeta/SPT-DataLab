@@ -833,19 +833,6 @@ public class SPTDataLabBuilderFrame extends JFrame {
         }
     }
 
-    private void reportProblemsParsingXmlTestFile(List parsingProblems) {
-        if (parsingProblems.isEmpty()) {
-            return;
-        }
-        for (Iterator i = parsingProblems.iterator(); i.hasNext();) {
-            String problem = (String) i.next();
-            System.out.println(problem);
-        }
-        JOptionPane.showMessageDialog(this, StringUtil.wrap(parsingProblems.size()
-                + " problems occurred parsing the XML test file."
-                + " The first problem was: " + parsingProblems.get(0), 80),
-                "Error", JOptionPane.ERROR_MESSAGE);
-    }
 
     void btnEditVertex_actionPerformed(ActionEvent e) {
         testCasePanel.getGeometryEditPanel().setCurrentTool(EditVertexTool.getInstance());

@@ -28,15 +28,11 @@ import java.beans.PropertyChangeListener;
  */
 public class LegendPanel extends javax.swing.JPanel implements PropertyChangeListener {
 
-    private String sourceImageFile;
-    private String targetImageFile;
     private int numberSourceImageFile;
     private int numberTargetImageFile;
     private final int maxStringSize = 80;//maximum number of chars in text for some labels
     
     public LegendPanel() {
-        sourceImageFile = "";
-        targetImageFile = "";
         numberSourceImageFile = 0;
         numberTargetImageFile = 1;
         AppImage.getInstance().addPropertyChangeListener(this);
@@ -59,13 +55,13 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     }
     
     private void updateFilesInLegend(){
-        sourceImageFile = limitStringSize(AppImage.getInstance().getImageName(numberSourceImageFile, false));
-        targetImageFile = limitStringSize(AppImage.getInstance().getImageName(numberTargetImageFile, false));
         setTextForSource();
         setTextForTarget();
+        setTextForGeometryFile();
     }
     
     private void setTextForSource(){
+        String sourceImageFile = limitStringSize(AppImage.getInstance().getImageName(numberSourceImageFile, false));
         String text = "<html>"
                       + "<font size=+1 color=red>Source</font>";
         text+= "   Image: " + sourceImageFile
@@ -75,6 +71,7 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     }
     
     private void setTextForTarget(){
+        String targetImageFile = limitStringSize(AppImage.getInstance().getImageName(numberTargetImageFile, false));
         String text = "<html>"
                       + "<font size=+1 color=red>Target</font>"
                       + "   Image: " + targetImageFile;
@@ -83,12 +80,23 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         targetLabel.setToolTipText(AppImage.getInstance().getImageName(numberTargetImageFile, true));//show full path on tooltip
     }
     
+    private void setTextForGeometryFile(){
+        String corrFile = AppCorrGeometries.getInstance().getCurrentGeometryFile(false);
+        String text = "<html>"
+                      + "<font size=+1 color=blue>Geometry File: </font>"
+                      + "   " + corrFile;
+        text += "</html>";
+        this.corrFileLabel.setText(text);
+        corrFileLabel.setToolTipText(AppCorrGeometries.getInstance().getCurrentGeometryFile(true));
+    }
+    
     //limite the size of the text shown in the labels
     private String limitStringSize(String str){
         if (str.length() <= maxStringSize)
             return str;
        return "..."+str.substring(str.length() - maxStringSize, str.length());
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,6 +110,7 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
 
         sourceLabel = new javax.swing.JLabel();
         targetLabel = new javax.swing.JLabel();
+        corrFileLabel = new javax.swing.JLabel();
 
         setLayout(new java.awt.GridBagLayout());
 
@@ -124,10 +133,19 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 20);
         add(targetLabel, gridBagConstraints);
+
+        corrFileLabel.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        add(corrFileLabel, gridBagConstraints);
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel corrFileLabel;
     private javax.swing.JLabel sourceLabel;
     private javax.swing.JLabel targetLabel;
     // End of variables declaration//GEN-END:variables

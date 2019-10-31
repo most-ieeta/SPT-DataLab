@@ -80,6 +80,8 @@ public class AppConstants
     
     public final static String IMAGE_RIGHT_PANEL_PROPERTY = "rightPanelImage";
     
+    public final static String GEOMETRY_FILE_CHANGE_PROPERTY = "geometryFile";
+    
     public final static String COORD_LEFT_PANEL_PROPERTY = "leftPanelCoords";
     
     public final static String COORD_RIGHT_PANEL_PROPERTY = "rightPanelCoords";

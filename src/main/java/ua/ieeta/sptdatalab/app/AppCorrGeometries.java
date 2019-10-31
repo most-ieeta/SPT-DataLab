@@ -31,6 +31,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -102,7 +103,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     private int currentObservationNumber;//used to identify current source geometry number and target number (equal to source+1)
     
-    private File corrDir;
+    private File[] geometryFiles;
     
     private static final int IMAGE_HEIGHT = 10;
     
@@ -127,6 +128,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         originalGeometriesNotEdited = new HashMap<>();
         fileObservations = new HashMap<>();
         support = new PropertyChangeSupport(this);
+        geometryFiles = new File[0];
         AppImage.getInstance().addPropertyChangeListener(this);
     }
     
@@ -147,7 +149,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     //Load a new dataset, with new geometries, clear all
     public void setNewCoordinatesDataset(File corrDir){
-        this.corrDir = corrDir;
+        this.geometryFiles = corrDir.listFiles();
         this.currentObservationNumber = 0;
         this.observationsEdited.clear();
         this.geometriesInPanel.clear();
@@ -155,6 +157,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         this.originalGeometriesNotEdited.clear();
         this.isEdited = false;
         loadCoordinatesFiles(corrDir.listFiles());
+        support.firePropertyChange(AppConstants.GEOMETRY_FILE_CHANGE_PROPERTY, 0, 0);//initially, start in first geometry file
     }
     
     /**
@@ -215,6 +218,8 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
         else{//source
             updateAndLoadObservation(true);
+            //update corr file name
+            
             return this.getCurrentSource();
         }
     }
@@ -1183,6 +1188,18 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 return true;
         }
         return false;
+    }
+    
+    public String getCurrentGeometryFile(boolean fullPath){
+        try {
+            if (fullPath)
+                    return this.geometryFiles[this.currentObservationNumber].getCanonicalPath();
+            else
+                return this.geometryFiles[this.currentObservationNumber].getName();
+        } catch (IOException ex) {
+            Logger.getLogger(AppCorrGeometries.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
     
 }
