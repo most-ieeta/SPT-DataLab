@@ -3,7 +3,7 @@
     <groupId>ua.ieeta.sptdatalab</groupId>
     <artifactId>SPTDataLab</artifactId>
     <packaging>jar</packaging>
-    <version>0.9</version>
+    <version>1.0</version>
     <name>SPT_DataLab</name>
     
     <url>https://github.com/most-ieeta/SPT-DataLab</url>
