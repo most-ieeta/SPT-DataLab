@@ -333,28 +333,30 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         String[] wkts;//first element is source, second is target geometry
         wkts = AppCorrGeometries.getInstance().getOriginalWKTFromGeometriesInPanels();
         
-        Geometry geom;        
+        Geometry geom1;        
+        Geometry geom2;        
+        
         WKTReader reader = new WKTReader();
         try {
-            geom = reader.read(wkts[0]);
+            geom1 = reader.read(wkts[0]);
         } catch (ParseException ex) {
              Logger.getLogger(MorphingGeometryOptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
              return;
         }
-        if (!geom.isValid())
+        if (!geom1.isValid())
         {    
-            JOptionPane.showMessageDialog(null, "The first geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.YES_NO_OPTION);
+            JOptionPane.showMessageDialog(null, "The first geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.OK_OPTION);
             return;
         }
         try {
-            geom = reader.read(wkts[1]);
+            geom2 = reader.read(wkts[1]);
         } catch (ParseException ex) {
              Logger.getLogger(MorphingGeometryOptionsPanel.class.getName()).log(Level.SEVERE, null, ex);
              return;
         }
-        if (!geom.isValid())
+        if (!geom2.isValid())
         {    
-            JOptionPane.showMessageDialog(null, "The second geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.YES_NO_OPTION);
+            JOptionPane.showMessageDialog(null, "The second geometry is not valid according to OGC SFS specification. Please correct the geometry.", "Invalid geometry", JOptionPane.OK_OPTION);
             return;
         }
         
@@ -369,13 +371,21 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         
         //obtain user inserted data from combo boxes and other fields
         int triangulationMethod = TriangulationMethod.valueOf(triangulationMethodComboBox.getSelectedItem().toString()).get_value();
-        
+         
         boolean cw = verticeOrientationComboBox.getSelectedItem().toString().equals(AppStrings.CLOCK_WISE_STRING);
         
         double selectedInstant = Double.parseDouble(initialTimeSpinner.getValue().toString());
         double threshold = Double.parseDouble(colinearThresholdSpinner.getValue().toString());
         InterpolationMethodEnum morphingMethod = InterpolationMethodEnum.valueOf(this.methodSelectionComboBox.getSelectedItem().toString());
         int numSamples = -1;
+        
+        
+        if ((morphingMethod == InterpolationMethodEnum.SPTMesh) && (!(geom1.getCoordinates().length == geom2.getCoordinates().length)))
+        {    
+            JOptionPane.showMessageDialog(null, "The SPTMesh method requires the geometries to be compatible, but source and target geometries does not have the same number of points. Please correct the geometries and try again.", "Invalid geometries", JOptionPane.OK_OPTION);
+            return;
+        }
+       
         
         //initiate interpolation facade with parameters common to all diferent interpolation methods
         InterpolationMethodFacade interpolation = new InterpolationMethodFacade(wkts[0], wkts[1], beginTime, endTime);

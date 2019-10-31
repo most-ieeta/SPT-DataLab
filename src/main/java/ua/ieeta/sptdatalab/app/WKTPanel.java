@@ -562,11 +562,10 @@ public class WKTPanel extends JPanel {
     }
 
     void copy(ActionEvent e, int geomIndex) {
-        boolean isFormatted = 0 != (e.getModifiers() & ActionEvent.CTRL_MASK);
-        Geometry g = tbModel.getCurrentCase().getGeometry(geomIndex);
-        if (g != null) {
-            SwingUtil.copyToClipboard(g, isFormatted);
-        }
+        if (geomIndex == 0)
+            SwingUtil.copyToClipboard(aTextArea.getText(), true);
+        else
+            SwingUtil.copyToClipboard(bTextArea.getText(), true);
     }
 
     void aPasteButton_actionPerformed(ActionEvent e) {
@@ -589,6 +588,7 @@ public class WKTPanel extends JPanel {
                     this.aTextArea.setText(getClipboardContents());
                 else
                     this.bTextArea.setText(getClipboardContents());
+                loadGeometries();
             }
         } catch (ParseException ex) {
             JOptionPane.showMessageDialog(null, "The text you tried to paste is not a valid WKT.");
