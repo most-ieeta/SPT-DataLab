@@ -330,10 +330,6 @@ public class TestBuilderModel
     return opName;
   }
   
-  public void copyResult(boolean isFormatted)
-  {
-    SwingUtil.copyToClipboard(currResult, isFormatted);
-  }
 
 
   public static class CaseList {
