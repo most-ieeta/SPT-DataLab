@@ -20,6 +20,10 @@ Instructions on configuration, including how to configure the application to wor
 
 The source code can be found at: https://github.com/most-ieeta/SPT-DataLab.
 
+### Releases
+
+You can download jar files for available releases at: https://github.com/most-ieeta/SPT-DataLab/releases.
+
 ### Example Datasets
 
 Some example datasets are available at: https://github.com/most-ieeta/SPT-DataLab/tree/master/datasets.
