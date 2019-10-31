@@ -76,6 +76,7 @@ public class SPTDataLabBuilderMenuBar
           tbFrame.resetZoom();
           tbFrame.menuChangeDataSet_actionPerformed(e);
           tbFrame.setTextForImageNumberLabels();
+          tbFrame.legendPanel.updateFilesInLegend();
         }
       });
     

@@ -39,7 +39,6 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         AppCorrGeometries.getInstance().addPropertyChangeListener(this);
         initComponents();
         updateFilesInLegend();
-        
        }
     
     public void propertyChange(PropertyChangeEvent evt) {
@@ -54,7 +53,7 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         updateFilesInLegend();
     }
     
-    private void updateFilesInLegend(){
+    public void updateFilesInLegend(){
         setTextForSource();
         setTextForTarget();
         setTextForGeometryFile();
