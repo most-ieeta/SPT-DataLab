@@ -23,6 +23,7 @@ import java.awt.Dialog;
 import java.awt.Dialog.ModalityType;
 import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -35,6 +36,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -580,17 +582,20 @@ public class MorphingGeometryOptionsPanel extends javax.swing.JPanel{
         });
     }
     
+    
     private void openWaitingDialog(){
-        modalDialog = new JDialog(new JFrame(), "Please wait....", Dialog.ModalityType.APPLICATION_MODAL);
-        JLabel label = new JLabel("Please wait.\n Performing interpolation. \nThis process can take a while depending on the complexity of the geometries.");
+        JPanel pan=new JPanel();
+        JLabel label = new JLabel("<html>Please wait.</br> Performing interpolation. </br>This process can take a while depending on the complexity of the geometries.</html>");
+        pan.setLayout(new FlowLayout());
+        pan.add(label);
+        
+        modalDialog = new JDialog(new JFrame(), "Please wait....", Dialog.ModalityType.MODELESS);
         modalDialog.setLocationRelativeTo(this);
         //modalDialog.setTitle("Please Wait...");
-        modalDialog.add(label);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         modalDialog.setLocation(dim.width/2-modalDialog.getSize().width/2, dim.height/2-modalDialog.getSize().height/2);
-        modalDialog.toFront();
-        modalDialog.requestFocus();
-        modalDialog.setSize(new Dimension(600, 100));
+        modalDialog.setSize(new Dimension(400, 0));
+        modalDialog.add(pan);
         modalDialog.setVisible(true);
     }
     

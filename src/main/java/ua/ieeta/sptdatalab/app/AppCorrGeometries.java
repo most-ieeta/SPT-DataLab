@@ -44,6 +44,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.lang3.ArrayUtils;
@@ -768,9 +769,18 @@ public class AppCorrGeometries implements PropertyChangeListener{
     
     // given a list of coordinates removed by the user in one of the geometries in one panel, if they belong
     //to a corr geometry, delete that coordinate from both corr geometries
+    /**
+     * 
+     * @param coords
+     * @param isSecondPanel
+     * @return The geometry resulting after deletion on the other panel in which the user did not delete.
+     * If using geometries with different number of points, returns empty list
+     * Returns null if user tries to delete all points or doesnt leave at least 3 points
+     */
     public Coordinate[] deleteListOfPointsInBothCorrGeometries(List<Coordinate> coords, boolean isSecondPanel){
         List<Coordinate> interactedPanel;
         List<Coordinate> otherPanel;
+        boolean isSameSize = false;
         if (isSecondPanel){
             interactedPanel = this.getCurrentTarget();
             otherPanel = this.getCurrentSource();
@@ -780,18 +790,31 @@ public class AppCorrGeometries implements PropertyChangeListener{
             otherPanel = this.getCurrentTarget();
         }
         
+        if (Math.abs(interactedPanel.size() - coords.size()) <= 3){
+            //User cannot delete all points. User must leave at least 3 points
+            JOptionPane.showMessageDialog(null, "You cannot delete all points of the geometry and must leave at least 3 points. You can clear the geometry using the clear button, next to the wkt panels", "Invalid geometry", JOptionPane.YES_NO_OPTION);
+            return null;
+        }
+        
+        if (interactedPanel.size() == otherPanel.size())
+            isSameSize = true;
+        
         for(Coordinate c : coords){
             int index = getAlmostEqualPointIndex (interactedPanel, c, AppConstants.COORDINATE_ERROR_MAX);
             if (index > -1){
                 //remove, this point was deleted
                 interactedPanel.remove(index);
-                otherPanel.remove(index);
+                if (isSameSize)
+                    otherPanel.remove(index);//unnecessary if sizes are != because we will not use this array...
             }
         }
         //update the geometries in list
         this.setCorrGeometry(interactedPanel, isSecondPanel);
-        this.setCorrGeometry(otherPanel, isSecondPanel);
-        return otherPanel.toArray(new Coordinate[otherPanel.size()]);
+        if (isSameSize){
+            this.setCorrGeometry(otherPanel, !isSecondPanel);
+            return otherPanel.toArray(new Coordinate[otherPanel.size()]);
+        }
+        return new Coordinate[0];
     }
     
     //given a new coordinate for a panel, add that coordinate to the list (between the 2 points)

@@ -20,7 +20,6 @@
 package ua.ieeta.sptdatalab.app;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -32,10 +31,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -44,14 +40,11 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.geotools.geometry.jts.LiteShape;
 import org.locationtech.jts.geom.Coordinate;
-import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import ua.ieeta.sptdatalab.util.GifSequenceWriter;
-import ua.ieeta.sptdatalab.util.ScreenImage;
-import static ua.ieeta.sptdatalab.util.ScreenImage.createImage;
 
 /**
  *
@@ -71,6 +64,7 @@ public class MorphingGeometryPanel extends JPanel{
     private static int callerPanelNGeometries;
     private double stepCounter = 0;
     private int delay;
+    private boolean drawAnimation = false;
     
 
     //for a multipolygon, each polygon in a certain instant
@@ -119,12 +113,15 @@ public class MorphingGeometryPanel extends JPanel{
         timer = new Timer(delay, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                drawAnimation = true;
                 repaint();
             }
         });
         //slight bug on slider if a 2 or more windows restart timer
-        if (morphingGeometryPanels.size() == 1)
+        if (morphingGeometryPanels.size() == 1){
+            drawAnimation = true;
             timer.start();
+        }
         else
             playAllFromGeometry(0);
     }
@@ -200,6 +197,7 @@ public class MorphingGeometryPanel extends JPanel{
         //if animation is running stop it
         pause();
         this.currentGeometryNumber = n;
+        drawAnimation = true;
         repaint();
     }
     
@@ -209,22 +207,24 @@ public class MorphingGeometryPanel extends JPanel{
     }
 
     @Override
-    protected void paintComponent(Graphics g) 
-    {
+    protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D gr = (Graphics2D) g.create();
         gr = drawGeometryFrame(gr, currentGeometryNumber);
         
         //to update the slider in the ui of every interpolation animation windows
         viewerFrame.updateSlider(currentGeometryNumber);
+        gr.dispose();
+        if (!drawAnimation) //could be called because window was resized, for example. In this case, dont animate
+            return;
         incrementGeometryNumber();
         
-        gr.dispose();
         if(currentGeometryNumber >= nGeometries) {
             timer.stop();
             //reset geom number
             currentGeometryNumber = 0;
         }
+        drawAnimation = false;
     }
     
     private Graphics2D drawGeometryFrame(Graphics2D gr, int geoNumber){

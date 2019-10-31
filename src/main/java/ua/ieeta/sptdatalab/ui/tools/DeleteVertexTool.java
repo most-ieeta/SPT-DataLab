@@ -64,9 +64,12 @@ public class DeleteVertexTool extends BoxBandTool {
     GeometryEditPanel editPanel = getClickedPanel();
     Coordinate[] removedCoordsOtherPanel = AppCorrGeometries.getInstance().deleteListOfPointsInBothCorrGeometries(removedCoords, editPanel.isSecondPanel());
     
+    if (removedCoordsOtherPanel == null)
+        return; //user made invalid editions
     //update the geometry in the interacted panel with the removed coords
     editPanel.getGeomModel().setGeometry(edit);
-    
+    if (removedCoordsOtherPanel.length == 0)
+        return; //geometries have no correspondence, therefore the other geometry doesnt need any update visually because it will not be changed
     //draw the other geometry in the other panel with the corresponding coordinates now deleted
     GeometryFactory fact = new GeometryFactory();
     Geometry otherPanelGeomAfterDeletion = fact.createPolygon(removedCoordsOtherPanel);
