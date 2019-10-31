@@ -46,7 +46,7 @@ public class AppImage {
     private int currentImageHeightInPanel2;
     
     private List<Image> images = new ArrayList<>();
-    private List<String> imageNames = new ArrayList<>();
+    private List<File> imageNames = new ArrayList<>();
     
     //stores the index of the image selected in each panel in the list of images 
     //the index of the selected image in panel 1 will always be 1 less than the index of the image in panel2
@@ -86,7 +86,7 @@ public class AppImage {
             try {
                 BufferedImage b = ImageIO.read(file);
                 images.add(b);
-                imageNames.add(file.getCanonicalPath());
+                imageNames.add(file);
             } catch (IOException ex) {
                 Logger.getLogger(AppImage.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -294,9 +294,17 @@ public class AppImage {
         setSelectedImageIndexPanel2(1);
     }
     
-    public String getImageName(int index){
+    public String getImageName(int index, boolean fullPath){
         if (index >= imageNames.size())
             return "";
-        return this.imageNames.get(index);
+        try {
+            if (fullPath)
+                    return this.imageNames.get(index).getCanonicalPath();
+            else
+                return this.imageNames.get(index).getName();
+        } catch (IOException ex) {
+        Logger.getLogger(AppImage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

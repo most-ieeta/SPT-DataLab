@@ -99,7 +99,7 @@ public class AppConstants
     public static final double COORDINATE_ERROR_MAX = 0.005;
     
     //----------- File types accepted for coordinates and images
-    public static final String[] COORDINATE_FILE_TYPES = {"wkt", "corr"};
+    public static final String[] COORDINATE_FILE_TYPES = {"wkt"};
     
     public static final String[] IMAGE_FILE_TYPES = {"png", "jpg", "jpeg", "bpm", "tiff"};
     

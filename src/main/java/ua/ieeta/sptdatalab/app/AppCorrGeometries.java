@@ -743,6 +743,10 @@ public class AppCorrGeometries implements PropertyChangeListener{
                 frame.wktPanel.clearTargetWKTPanel();//clear wkt text*/
         }
         int index = -1;
+        boolean isSameSize = false;
+        if (getCurrentSource().size() == getCurrentTarget().size()){
+            isSameSize = true;
+        }
         index = getAlmostEqualPointIndex(geometry, c, AppConstants.COORDINATE_ERROR_MAX);
         if (index < 0)
             return;
@@ -753,7 +757,7 @@ public class AppCorrGeometries implements PropertyChangeListener{
         }
         this.updateInfoGeometriesOriginalScale(geometry, isSource, false);
         updateInfoGeometries(isSource, true);
-        if (getCurrentSource().size() == getCurrentTarget().size()){
+        if (isSameSize){
             List <Coordinate> geometryOther = this.getCurrentObservation().getGeometryCoordinates(!isSource);
             geometryOther.remove(index);
             if (index == 0){

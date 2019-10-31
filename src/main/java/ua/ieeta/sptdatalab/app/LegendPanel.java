@@ -43,7 +43,8 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         AppCorrGeometries.getInstance().addPropertyChangeListener(this);
         initComponents();
         updateFilesInLegend();
-    }
+        
+       }
     
     public void propertyChange(PropertyChangeEvent evt) {
         switch(evt.getPropertyName()){
@@ -58,8 +59,8 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
     }
     
     private void updateFilesInLegend(){
-        sourceImageFile = limitStringSize(AppImage.getInstance().getImageName(numberSourceImageFile));
-        targetImageFile = limitStringSize(AppImage.getInstance().getImageName(numberTargetImageFile));
+        sourceImageFile = limitStringSize(AppImage.getInstance().getImageName(numberSourceImageFile, false));
+        targetImageFile = limitStringSize(AppImage.getInstance().getImageName(numberTargetImageFile, false));
         setTextForSource();
         setTextForTarget();
     }
@@ -70,6 +71,7 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
         text+= "   Image: " + sourceImageFile
             + "</html>";
         this.sourceLabel.setText(text);
+        sourceLabel.setToolTipText(AppImage.getInstance().getImageName(numberSourceImageFile, true));//show full path on tooltip
     }
     
     private void setTextForTarget(){
@@ -78,6 +80,7 @@ public class LegendPanel extends javax.swing.JPanel implements PropertyChangeLis
                       + "   Image: " + targetImageFile;
         text += "</html>";
         this.targetLabel.setText(text);
+        targetLabel.setToolTipText(AppImage.getInstance().getImageName(numberTargetImageFile, true));//show full path on tooltip
     }
     
     //limite the size of the text shown in the labels
