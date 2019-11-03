@@ -43,7 +43,7 @@ public class Metrics {
     }
     
     public double computeSimilarityMetric(String geo1, String geo2, SimilarityMetricsEnum metric){
-        return m.compare_geometries(geo1, geo2, metric.get_value());
+        return m.compare_geometries(geo1, geo2, metric.get_value(),true);
     }
     public Map<String, Double> computeMetricForMultipleObservations(String[] geo, MetricsEnum metric){
         Map<String, Double> metricsObservations = new HashMap<>();
@@ -54,7 +54,7 @@ public class Metrics {
     public Map<String, Double> computeSimilarityMetricForMultipleObservations(String[] geo1, String geo2, SimilarityMetricsEnum metric){
         Map<String, Double> metricsObservations = new HashMap<>();
         for(int j = 0; j < geo1.length; j++)
-                metricsObservations.put(String.valueOf(j), m.compare_geometries(geo1[j], geo2, metric.get_value()));
+                metricsObservations.put(String.valueOf(j), m.compare_geometries(geo1[j], geo2, metric.get_value(), true));
         return metricsObservations; 
     }
     

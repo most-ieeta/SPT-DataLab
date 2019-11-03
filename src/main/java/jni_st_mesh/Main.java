@@ -165,11 +165,11 @@ public class Main
          */
     public native double compare_geometries
     (
-            String ref_geometry_wkt,	// Reference geometry wkt, i.e. the geometry to compare with
-            String geometry_wkt,		// Geometry wkt
-            int metric					// metric to use for comparison
+        String ref_geometry_wkt, // Reference geometry wkt, i.e. the geometry to compare with
+        String geometry_wkt, // Geometry wkt
+        int metric, // metric to use for comparison
+        boolean align_geometries
     );
-
 
         public Main()
         {
