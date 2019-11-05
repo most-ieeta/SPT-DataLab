@@ -44,14 +44,6 @@ New Videos:
 
 SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZcfrIYemj-VbIfFGzJQim
 
-Setting up and using SPTDataLab from source code: https://drive.google.com/open?id=1zXVf5i3Xe57vj87yqX8kz2HXMpLY9qut
-
-Additional configuration to use the Region Interpolation Methods: https://drive.google.com/open?id=1dWnvkC60HV9Sw3_5t_Wc-7oMdO8YVxOM
-
-Using the latest release of SPTDataLab: https://drive.google.com/open?id=1oG-E3-rBvtQNyVCgLE0lPrwzYOEzcswX
-
-
-
 ## License
 
 It is free software; you can redistribute it and/or modify
