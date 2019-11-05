@@ -35,7 +35,8 @@ Installing SPT Data Lab: https://drive.google.com/file/d/18eHRYa8c3AVx0DcrwLAuU_
 Note:
 You need to manually install the PySpatiotemporalGeom library.
 
-SPT Data Lab Key Features Overview: https://drive.google.com/file/d/1l97tkwmHq0eLaGpSinCjf1A8kvj_WLUj/view?usp=sharing
+SPTDataLab Key Features Overview 1: https://drive.google.com/file/d/1l97tkwmHq0eLaGpSinCjf1A8kvj_WLUj/view?usp=sharing
+SPTDataLab Key Features Overview 2: https://drive.google.com/open?id=1_LvlUqpt6xIZcfrIYemj-VbIfFGzJQim
 
 ## License
 
