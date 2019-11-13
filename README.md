@@ -44,6 +44,13 @@ New Videos:
 
 SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZcfrIYemj-VbIfFGzJQim
 
+## Citation
+
+This software was first presented at SIGSPATIAL '19. To cite this work, please use:
+
+> José Duarte, Bruno Silva, José Moreira, Paulo Dias, Enrico Miranda, and Rogério L. C. Costa. 2019. **Towards a qualitative analysis of interpolation methods for deformable moving regions**. In *Proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL '19)*. ACM, New York, NY, USA, 592-595. DOI: https://doi.org/10.1145/3347146.3359368 
+
+
 ## License
 
 It is free software; you can redistribute it and/or modify
