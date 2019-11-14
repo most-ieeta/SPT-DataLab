@@ -30,18 +30,6 @@ Some example datasets are available at: https://github.com/most-ieeta/SPT-DataLa
 
 ### Videos
 
-Old Videos:
-
-Installing SPT Data Lab: https://drive.google.com/file/d/18eHRYa8c3AVx0DcrwLAuU_ffkWD6e63X/view?usp=sharing
-
-Note:
-
-You need to manually install the PySpatiotemporalGeom library.
-
-SPTDataLab Key Features Overview: https://drive.google.com/file/d/1l97tkwmHq0eLaGpSinCjf1A8kvj_WLUj/view?usp=sharing
-
-New Videos:
-
 SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZcfrIYemj-VbIfFGzJQim
 
 ## Citation
