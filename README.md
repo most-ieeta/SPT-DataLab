@@ -30,12 +30,14 @@ Some example datasets are available at: https://github.com/most-ieeta/SPT-DataLa
 
 ### Videos
 
-Installing SPT Data Lab: https://drive.google.com/file/d/18eHRYa8c3AVx0DcrwLAuU_ffkWD6e63X/view?usp=sharing
+SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZcfrIYemj-VbIfFGzJQim
 
-Note:
-You need to manually install the PySpatiotemporalGeom library.
+## Citation
 
-SPT Data Lab Key Features Overview: https://drive.google.com/file/d/1l97tkwmHq0eLaGpSinCjf1A8kvj_WLUj/view?usp=sharing
+This software was first presented at SIGSPATIAL '19. To cite this work, please use:
+
+> José Duarte, Bruno Silva, José Moreira, Paulo Dias, Enrico Miranda, and Rogério L. C. Costa. 2019. **Towards a qualitative analysis of interpolation methods for deformable moving regions**. In *Proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL '19)*. ACM, New York, NY, USA, 592-595. DOI: https://doi.org/10.1145/3347146.3359368 
+
 
 ## License
 
