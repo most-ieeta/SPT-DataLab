@@ -8,9 +8,9 @@
 * and the Eclipse Distribution License is available at
 *
 * http://www.eclipse.org/org/documents/edl-v10.php.
-*/
+ */
 
-/*
+ /*
 * This file has been modified to be part of SPT Data Lab.
 *
 * This code is distributed "AS IS" in the hope that it will be useful,
@@ -19,8 +19,7 @@
 *
 * Redistributions of source code must retain adequate copyright notices,
 * as explained in License and Readme.
-*/
-
+ */
 package ua.ieeta.sptdatalab.app;
 
 import java.awt.Dimension;
@@ -41,10 +40,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class SPTDataLabBuilderToolBar {
-    
-    
+
     SPTDataLabBuilderFrame tbFrame;
-    
+
     JToolBar jToolBar1 = new JToolBar();
     SpinnerModel sm;
     SpinnerModel sm2;
@@ -60,14 +58,14 @@ public class SPTDataLabBuilderToolBar {
     JButton saveAsButton = new JButton();
     JButton saveAllAsButton = new JButton();
     JButton exchangeButton = new JButton();
-    
+
     JButton oneToOneButton = new JButton();
     JButton zoomToFullExtentButton = new JButton();
     JButton zoomToInputButton = new JButton();
     JButton zoomToInputAButton = new JButton();
     JButton zoomToInputBButton = new JButton();
     JButton zoomToResultButton = new JButton();
-    
+
     JToggleButton drawRectangleButton = new JToggleButton();
     //JToggleButton drawPolygonButton = new JToggleButton();
     JToggleButton zoomButton = new JToggleButton();
@@ -75,7 +73,7 @@ public class SPTDataLabBuilderToolBar {
     JToggleButton panButton = new JToggleButton();
     JToggleButton btnEditVertex = new JToggleButton();
     ButtonGroup toolButtonGroup = new ButtonGroup();
-    
+
     private final ImageIcon leftIcon = new ImageIcon(this.getClass().getResource("Left.png"));
     private final ImageIcon rightIcon = new ImageIcon(this.getClass().getResource("Right.png"));
     private final ImageIcon saveIcon = new ImageIcon(this.getClass().getResource("save_icon.png"));
@@ -94,19 +92,16 @@ public class SPTDataLabBuilderToolBar {
     private final ImageIcon zoomToInputBIcon = new ImageIcon(this.getClass().getResource("ZoomInputB.png"));
     private final ImageIcon moveVertexIcon = new ImageIcon(this.getClass().getResource("MoveVertex.png"));
     private final ImageIcon panIcon = new ImageIcon(this.getClass().getResource("Hand.gif"));
-    
-    
-    public SPTDataLabBuilderToolBar(SPTDataLabBuilderFrame tbFrame)
-    {
+
+    public SPTDataLabBuilderToolBar(SPTDataLabBuilderFrame tbFrame) {
         this.tbFrame = tbFrame;
     }
-    
-    public JToolBar getToolBar()
-    {
+
+    public JToolBar getToolBar() {
         jToolBar1.setFloatable(false);
-        
-        /**--------------------------------------------------
-         * Buttons
+
+        /**
+         * -------------------------------------------------- Buttons
          * --------------------------------------------------
          */
         previousButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -120,34 +115,41 @@ public class SPTDataLabBuilderToolBar {
         previousButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         previousButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        //remove any zoom
-                        tbFrame.resetZoom();
-                        tbFrame.moveToPreviousImage();
-                        updateImageNumbersInFields();
-                    }
-                });
+            public void actionPerformed(ActionEvent e) {
+                //remove any zoom
+                tbFrame.resetZoom();
+                tbFrame.moveToPreviousImage();
+                updateImageNumbersInFields();
+            }
+        });
         //limit the number of the spinners accordingly with the number of images loaded
         //the number in the spinner for the first panel can only go to the penultimate image
-        sm = new SpinnerNumberModel(1, 1, AppImage.getInstance().getTotalNumberOfImages()-1, 1); //default value,lower bound,upper bound,increment by
-        sm2 = new SpinnerNumberModel(1, 1, AppImage.getInstance().getTotalNumberOfImages(), 1); //default value,lower bound,upper bound,increment by
+        if (AppImage.getInstance().getTotalNumberOfImages() > 0) {
+            sm = new SpinnerNumberModel(1, 1, AppImage.getInstance().getTotalNumberOfImages() - 1, 1); //default value,lower bound,upper bound,increment by
+            sm2 = new SpinnerNumberModel(1, 1, AppImage.getInstance().getTotalNumberOfImages(), 1); //default value,lower bound,upper bound,increment by
+        }
+        else
+            {
+            sm = new SpinnerNumberModel(0, 0, 0, 0); //default value,lower bound,upper bound,increment by
+            sm2 = new SpinnerNumberModel(0, 0, 0, 0); //default value,lower bound,upper bound,increment by
+        }    
         panel1ImageNumber = new JSpinner(sm);
         panel1ImageNumber.setFont(new java.awt.Font("SansSerif", 0, 10));
         panel1ImageNumber.setMaximumSize(new Dimension(40, 20));
         panel1ImageNumber.setMinimumSize(new Dimension(40, 20));
         panel1ImageNumber.setPreferredSize(new Dimension(40, 20));
-        
+
         panel1ImageNumber.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if ((int)panel1ImageNumber.getValue() != getNumberOfImagePanel1()){
+                if ((int) panel1ImageNumber.getValue() != getNumberOfImagePanel1()) {
                     tbFrame.movePanel1ToImage((int) panel1ImageNumber.getValue());
                     updateImageNumbersInFields();//this is only called to update the number in the other spinner
                     //recall that the number of the image in the first panel == number imagem in second panel -1
                 }
             }
         });
-        
+
         panel2ImageNumber = new JSpinner(sm2);
         panel2ImageNumber.setFont(new java.awt.Font("SansSerif", 0, 10));
         panel2ImageNumber.setMaximumSize(new Dimension(40, 20));
@@ -156,7 +158,7 @@ public class SPTDataLabBuilderToolBar {
         panel2ImageNumber.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                if ((int)panel2ImageNumber.getValue() != getNumberOfImagePanel2()){
+                if ((int) panel2ImageNumber.getValue() != getNumberOfImagePanel2()) {
                     //the value in the jspinner was changed diretly by the user
                     tbFrame.movePanel2ToImage((int) panel2ImageNumber.getValue());
                     updateImageNumbersInFields();//this is only called to update the number in the other spinner
@@ -164,10 +166,10 @@ public class SPTDataLabBuilderToolBar {
                 }
             }
         });
-        
+
         updateImageNumbersInFields();
         setTextForImageNumberLabels();
-        
+
         nextButton.setMargin(new Insets(0, 0, 0, 0));
         nextButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         nextButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -179,14 +181,13 @@ public class SPTDataLabBuilderToolBar {
         nextButton.setIcon(rightIcon);
         nextButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.resetZoom();
-                        tbFrame.moveToNextImage();
-                        updateImageNumbersInFields();
-                    }
-                });
-        
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.resetZoom();
+                tbFrame.moveToNextImage();
+                updateImageNumbersInFields();
+            }
+        });
+
         saveButton.setMargin(new Insets(0, 0, 0, 0));
         saveButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         saveButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -198,11 +199,11 @@ public class SPTDataLabBuilderToolBar {
         saveButton.setIcon(saveIcon);
         saveButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.saveGeometries();
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.saveGeometries();
+            }
+        });
+
         saveAllButton.setMargin(new Insets(0, 0, 0, 0));
         saveAllButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         saveAllButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -214,11 +215,11 @@ public class SPTDataLabBuilderToolBar {
         saveAllButton.setIcon(saveAllIcon);
         saveAllButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.saveGeometries();
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.saveGeometries();
+            }
+        });
+
         saveAsButton.setMargin(new Insets(0, 0, 0, 0));
         saveAsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         saveAsButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -230,11 +231,11 @@ public class SPTDataLabBuilderToolBar {
         saveAsButton.setIcon(saveAsIcon);
         saveAsButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.saveGeometriesAs();
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.saveGeometriesAs();
+            }
+        });
+
         saveAllAsButton.setMargin(new Insets(0, 0, 0, 0));
         saveAllAsButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         saveAllAsButton.setFont(new java.awt.Font("SansSerif", 0, 10));
@@ -246,11 +247,11 @@ public class SPTDataLabBuilderToolBar {
         saveAllAsButton.setIcon(saveAllAsIcon);
         saveAllAsButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.saveAllGeometriesAs();
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.saveAllGeometriesAs();
+            }
+        });
+
         drawRectangleButton.setMargin(new Insets(0, 0, 0, 0));
         drawRectangleButton.setPreferredSize(new Dimension(30, 30));
         drawRectangleButton.setIcon(drawRectangleIcon);
@@ -264,11 +265,11 @@ public class SPTDataLabBuilderToolBar {
         drawRectangleButton.setMaximumSize(new Dimension(30, 30));
         drawRectangleButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.drawRectangleButton_actionPerformed(e);
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.drawRectangleButton_actionPerformed(e);
+            }
+        });
+
         //drawPolygonButton.setMargin(new Insets(0, 0, 0, 0));
         //drawPolygonButton.setPreferredSize(new Dimension(30, 30));
         //drawPolygonButton.setIcon(drawPolygonIcon);
@@ -287,7 +288,6 @@ public class SPTDataLabBuilderToolBar {
         //                tbFrame.drawPolygonButton_actionPerformed(e);
         //            }
         //        });
-        
         cursorButton.setMargin(new Insets(0, 0, 0, 0));
         cursorButton.setPreferredSize(new Dimension(30, 30));
         cursorButton.setIcon(infoIcon);
@@ -300,18 +300,18 @@ public class SPTDataLabBuilderToolBar {
         cursorButton.setMaximumSize(new Dimension(30, 30));
         cursorButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.infoButton_actionPerformed();
-                    }
-                });
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.infoButton_actionPerformed();
+            }
+        });
         zoomButton.setMaximumSize(new Dimension(30, 30));
         zoomButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomInButton_actionPerformed(e);
-                    }
-                });
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.zoomInButton_actionPerformed(e);
+            }
+        });
         zoomButton.setToolTipText(AppStrings.TIP_ZOOM);
         zoomButton.setHorizontalTextPosition(SwingConstants.CENTER);
         zoomButton.setFont(new java.awt.Font("Serif", 0, 10));
@@ -320,7 +320,7 @@ public class SPTDataLabBuilderToolBar {
         zoomButton.setPreferredSize(new Dimension(30, 30));
         zoomButton.setIcon(zoomIcon);
         zoomButton.setMargin(new Insets(0, 0, 0, 0));
-        
+
         oneToOneButton.setMargin(new Insets(0, 0, 0, 0));
         oneToOneButton.setIcon(zoomOneToOneIcon);
         oneToOneButton.setPreferredSize(new Dimension(30, 30));
@@ -328,16 +328,16 @@ public class SPTDataLabBuilderToolBar {
         oneToOneButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         oneToOneButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.oneToOneButton_actionPerformed(e);
-                    }
-                });
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.oneToOneButton_actionPerformed(e);
+            }
+        });
         oneToOneButton.setFont(new java.awt.Font("SansSerif", 0, 10));
         oneToOneButton.setToolTipText(AppStrings.TIP_ZOOM_RESET);
         oneToOneButton.setHorizontalTextPosition(SwingConstants.CENTER);
         oneToOneButton.setMaximumSize(new Dimension(30, 30));
-        
+
         zoomToInputButton.setMargin(new Insets(0, 0, 0, 0));
         zoomToInputButton.setIcon(zoomToInputIcon);
         zoomToInputButton.setPreferredSize(new Dimension(30, 30));
@@ -349,12 +349,12 @@ public class SPTDataLabBuilderToolBar {
         zoomToInputButton.setToolTipText(AppStrings.TIP_ZOOM_TO_BOTH);
         zoomToInputButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomToInputButton_actionPerformed(e);
-                    }
-                });
-        
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.zoomToInputButton_actionPerformed(e);
+            }
+        });
+
         zoomToInputAButton.setMargin(new Insets(0, 0, 0, 0));
         zoomToInputAButton.setIcon(zoomToInputAIcon);
         zoomToInputAButton.setPreferredSize(new Dimension(30, 30));
@@ -366,12 +366,12 @@ public class SPTDataLabBuilderToolBar {
         zoomToInputAButton.setToolTipText(AppStrings.TIP_ZOOM_TO_SOURCE);
         zoomToInputAButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomToInputA_actionPerformed(e);
-                    }
-                });
-        
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.zoomToInputA_actionPerformed(e);
+            }
+        });
+
         zoomToInputBButton.setMargin(new Insets(0, 0, 0, 0));
         zoomToInputBButton.setIcon(zoomToInputBIcon);
         zoomToInputBButton.setPreferredSize(new Dimension(30, 30));
@@ -383,21 +383,20 @@ public class SPTDataLabBuilderToolBar {
         zoomToInputBButton.setToolTipText(AppStrings.TIP_ZOOM_TO_TARGET);
         zoomToInputBButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.zoomToInputB_actionPerformed(e);
-                    }
-                });
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.zoomToInputB_actionPerformed(e);
+            }
+        });
         zoomToInputButton.setMaximumSize(new Dimension(30, 30));
-        
-        
+
         panButton.addActionListener(
                 new java.awt.event.ActionListener() {
-                    
-                    public void actionPerformed(ActionEvent e) {
-                        tbFrame.panButton_actionPerformed(e);
-                    }
-                });
+
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.panButton_actionPerformed(e);
+            }
+        });
         panButton.setMaximumSize(new Dimension(30, 30));
         panButton.setFont(new java.awt.Font("SansSerif", 0, 10));
         panButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -407,7 +406,7 @@ public class SPTDataLabBuilderToolBar {
         panButton.setIcon(panIcon);
         panButton.setPreferredSize(new Dimension(30, 30));
         panButton.setMargin(new Insets(0, 0, 0, 0));
-        
+
         btnEditVertex.setMaximumSize(new Dimension(30, 30));
         btnEditVertex.setMinimumSize(new Dimension(30, 30));
         btnEditVertex.setToolTipText(AppStrings.TIP_MOVE_VERTEX);
@@ -419,16 +418,15 @@ public class SPTDataLabBuilderToolBar {
                 tbFrame.btnEditVertex_actionPerformed(e);
             }
         });
-        
+
         JToggleButton deleteVertexButton = createToggleButton(AppStrings.TIP_DELETE_VERTEX_COMPONENT,
                 new ImageIcon(this.getClass().getResource("DeleteVertex.png")),
                 new java.awt.event.ActionListener() {
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        tbFrame.actionDeleteVertexButton();
-                    }
-                });
-        
+            public void actionPerformed(ActionEvent e) {
+                tbFrame.actionDeleteVertexButton();
+            }
+        });
+
         toolButtonGroup.add(drawRectangleButton);
         //toolButtonGroup.add(drawPolygonButton);
         toolButtonGroup.add(panButton);
@@ -436,7 +434,7 @@ public class SPTDataLabBuilderToolBar {
         toolButtonGroup.add(btnEditVertex);
         toolButtonGroup.add(deleteVertexButton);
         toolButtonGroup.add(cursorButton);
-        
+
         jToolBar1.add(saveButton, null);
         jToolBar1.add(saveAllButton, null);
         jToolBar1.add(saveAsButton, null);
@@ -448,51 +446,49 @@ public class SPTDataLabBuilderToolBar {
         jToolBar1.add(panel2ImageNumber, null);
         jToolBar1.add(totalImages, null);
         jToolBar1.add(nextButton, null);
-        
+
         jToolBar1.add(Box.createHorizontalStrut(8), null);
-        
+
         jToolBar1.add(Box.createHorizontalStrut(8), null);
         jToolBar1.add(exchangeButton, null);
-        
+
         jToolBar1.add(Box.createHorizontalStrut(8), null);
-        
+
         jToolBar1.add(oneToOneButton, null);
         jToolBar1.add(zoomToInputAButton, null);
         jToolBar1.add(zoomToInputBButton, null);
         jToolBar1.add(zoomToInputButton, null);
         //jToolBar1.add(zoomToResultButton, null);
         //jToolBar1.add(zoomToFullExtentButton, null);
-        
+
         jToolBar1.add(Box.createHorizontalStrut(28), null);
-        
+
         jToolBar1.add(zoomButton, null);
         // remove in favour of using Zoom tool
         //jToolBar1.add(panButton, null);
         jToolBar1.add(cursorButton, null);
-        
+
         jToolBar1.add(Box.createHorizontalStrut(28), null);
-        
+
         jToolBar1.add(drawRectangleButton, null);
         //jToolBar1.add(drawPolygonButton, null);
         jToolBar1.add(btnEditVertex, null);
         jToolBar1.add(deleteVertexButton, null);
-        
+
         //start with previous button deactivated because we begin with the first image and there is no image to go back to
         disablePreviousBtn();
-        
+
         return jToolBar1;
     }
-    
-    public void setFocusGeometry(int index)
-    {
+
+    public void setFocusGeometry(int index) {
         drawRectangleButton.setIcon(index == 0 ? drawRectangleIcon : drawRectangleBIcon);
         //drawPolygonButton.setIcon(index == 0 ? drawPolygonIcon : drawPolygonBIcon);
     }
-    
+
     private static JToggleButton createToggleButton(String toolTipText,
             ImageIcon icon,
-            java.awt.event.ActionListener actionListener)
-    {
+            java.awt.event.ActionListener actionListener) {
         JToggleButton btn = new JToggleButton();
         btn.setMargin(new Insets(0, 0, 0, 0));
         btn.setPreferredSize(new Dimension(30, 30));
@@ -507,71 +503,72 @@ public class SPTDataLabBuilderToolBar {
         btn.addActionListener(actionListener);
         return btn;
     }
-    
-    
-    public boolean isNextBtnActivated(){
+
+    public boolean isNextBtnActivated() {
         return this.nextButton.isEnabled();
     }
-    
-    public boolean isPreviousBtnActivated(){
+
+    public boolean isPreviousBtnActivated() {
         return this.previousButton.isEnabled();
     }
-    
-    public void enableNextBtn(){
+
+    public void enableNextBtn() {
         nextButton.setEnabled(true);
     }
-    
-    public void disableNextBtn(){
+
+    public void disableNextBtn() {
         nextButton.setEnabled(false);
     }
-    
-    public void enablePreviousBtn(){
+
+    public void enablePreviousBtn() {
         previousButton.setEnabled(true);
     }
-    
-    public void disablePreviousBtn(){
+
+    public void disablePreviousBtn() {
         previousButton.setEnabled(false);
     }
-    
-    public int getNumberOfImagePanel1(){
-        return AppImage.getInstance().getCurrentIndexImageForPanel1()+1;
+
+    public int getNumberOfImagePanel1() {
+        return AppImage.getInstance().getCurrentIndexImageForPanel1() + 1;
     }
-    
-    public int getNumberOfImagePanel2(){
-        return AppImage.getInstance().getCurrentIndexImageForPanel2()+1;
+
+    public int getNumberOfImagePanel2() {
+        return AppImage.getInstance().getCurrentIndexImageForPanel2() + 1;
     }
-    
+
     //updates the number of the currently shown images in each text field
-    private void updateImageNumbersInFields(){
+    private void updateImageNumbersInFields() {
         panel1ImageNumber.setValue(getNumberOfImagePanel1());
         panel2ImageNumber.setValue(getNumberOfImagePanel2());
-        
-        if (!isNextBtnActivated() & !(AppImage.getInstance().isLastImageForPanel2()))
-                enableNextBtn();
-        
-        if (!isPreviousBtnActivated() & !(AppImage.getInstance().isFirstImageForPanel1()))
-                enablePreviousBtn();
-        
+
+        if (!isNextBtnActivated() & !(AppImage.getInstance().isLastImageForPanel2())) {
+            enableNextBtn();
+        }
+
+        if (!isPreviousBtnActivated() & !(AppImage.getInstance().isFirstImageForPanel1())) {
+            enablePreviousBtn();
+        }
+
         //check if it is 1st image
-        if (AppImage.getInstance().isFirstImageForPanel1())
+        if (AppImage.getInstance().isFirstImageForPanel1()) {
             disablePreviousBtn();
-        else
-            if (AppImage.getInstance().isLastImageForPanel2())
-                disableNextBtn();
-            
+        } else if (AppImage.getInstance().isLastImageForPanel2()) {
+            disableNextBtn();
+        }
+
     }
-    
-    public void setToFirstImages(){
+
+    public void setToFirstImages() {
         AppImage.getInstance().setToFirstImages();
         updateImageNumbersInFields();
         setTextForImageNumberLabels();
     }
-    
+
     //set the text for the labels next to the spinners with the number of the images in the panel
-    public void setTextForImageNumberLabels(){
+    public void setTextForImageNumberLabels() {
         labelForImageNumberPanel1.setText("  left panel image nº: ");
         labelForImageNumberPanel2.setText(" right panel image nº: ");
-        totalImages.setText(" "+AppImage.getInstance().getTotalNumberOfImages()+" images total  ");
+        totalImages.setText(" " + AppImage.getInstance().getTotalNumberOfImages() + " images total  ");
     }
-    
+
 }

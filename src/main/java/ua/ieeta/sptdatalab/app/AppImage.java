@@ -16,7 +16,7 @@
 * You should have received a copy of the GNU General Public License
 * along with SPT Data Lab; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-*/
+ */
 package ua.ieeta.sptdatalab.app;
 
 import java.awt.Dimension;
@@ -40,49 +40,50 @@ import javax.imageio.ImageIO;
  * Manages and loads images in the dataset for the panels.
  */
 public class AppImage {
+
     private int currentImageWidthInPanel1;
     private int currentImageWidthInPanel2;
     private int currentImageHeightInPanel1;
     private int currentImageHeightInPanel2;
-    
+
     private List<Image> images = new ArrayList<>();
     private List<File> imageNames = new ArrayList<>();
-    
+
     //stores the index of the image selected in each panel in the list of images 
     //the index of the selected image in panel 1 will always be 1 less than the index of the image in panel2
     private int selectedImageIndexPanel1;
     private int selectedImageIndexPanel2;
-    
+
     private static AppImage instance;
-    
+
     private PropertyChangeSupport support = new PropertyChangeSupport(this);
-    
+
     private AppImage() {
         setSelectedImageIndexPanel1(0);
         setSelectedImageIndexPanel2(1);
     }
-    
-    public static AppImage getInstance(){
-        if(instance == null){
+
+    public static AppImage getInstance() {
+        if (instance == null) {
             instance = new AppImage();
         }
         return instance;
     }
-    
+
     public void addPropertyChangeListener(PropertyChangeListener pcl) {
         support.addPropertyChangeListener(pcl);
     }
- 
+
     public void removePropertyChangeListener(PropertyChangeListener pcl) {
         support.removePropertyChangeListener(pcl);
     }
-    
-    public void loadImages(File[] files){
+
+    public void loadImages(File[] files) {
         //sort files first
         images.clear();
         imageNames.clear();
         sortByNumber(files);
-        for (File file : files){
+        for (File file : files) {
             try {
                 BufferedImage b = ImageIO.read(file);
                 images.add(b);
@@ -92,13 +93,14 @@ public class AppImage {
             }
         }
         setSelectedImageIndexPanel1(0);
-        if (images.size() == 1)
+        if (images.size() == 1) {
             setSelectedImageIndexPanel2(0);
-            //if there is only one image, immediately deactivate one
-        else
+        } //if there is only one image, immediately deactivate one
+        else {
             setSelectedImageIndexPanel2(1);
+        }
     }
-    
+
     private void sortByNumber(File[] files) {
         Arrays.sort(files, new Comparator<File>() {
             @Override
@@ -109,136 +111,136 @@ public class AppImage {
             }
 
             private int extractNumber(String name) {
-                if (name.contains("."))
+                if (name.contains(".")) {
                     name = name.split("\\.")[0];
+                }
                 int i = 0;
                 String[] nameSplit = name.split("_");
-                String s = nameSplit[nameSplit.length-1];
+                String s = nameSplit[nameSplit.length - 1];
                 try {
                     return Integer.parseInt(s);
-                } catch(NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     i = 0; // if filename does not match the format
-                           // then default to 0
+                    // then default to 0
                 }
                 return i;
             }
         });
 
-        
     }
-    
+
     //load next Image in the list, unless it is the last image in the list 
     //return true if the image changed is the last one, false otherwise
-    public void loadNextImage(){
-        if(selectedImageIndexPanel1 < images.size()-2){
-            setSelectedImageIndexPanel1(selectedImageIndexPanel1+1);
-            setSelectedImageIndexPanel2(selectedImageIndexPanel2+1);
-        }
-    }
-    
-    //load previous image in the list, unless the image in the first panel is the first one in the list
-    //returns true if the image changed is the first image, false otherwise
-    public void loadPreviousImage(){
-        if(selectedImageIndexPanel1 > 0){
-            setSelectedImageIndexPanel1(selectedImageIndexPanel1-1);
-            setSelectedImageIndexPanel2(selectedImageIndexPanel2-1);
+    public void loadNextImage() {
+        if (selectedImageIndexPanel1 < images.size() - 2) {
+            setSelectedImageIndexPanel1(selectedImageIndexPanel1 + 1);
+            setSelectedImageIndexPanel2(selectedImageIndexPanel2 + 1);
         }
     }
 
-    
-    public Image getCurrentlySelectedImageForPanel(boolean isSecondPanel){
-        if (isSecondPanel){
-            return images.get(selectedImageIndexPanel2);
-        }
-        else{
-            return images.get(selectedImageIndexPanel1);
+    //load previous image in the list, unless the image in the first panel is the first one in the list
+    //returns true if the image changed is the first image, false otherwise
+    public void loadPreviousImage() {
+        if (selectedImageIndexPanel1 > 0) {
+            setSelectedImageIndexPanel1(selectedImageIndexPanel1 - 1);
+            setSelectedImageIndexPanel2(selectedImageIndexPanel2 - 1);
         }
     }
-    
-    public int getTotalNumberOfImages(){
+
+    public Image getCurrentlySelectedImageForPanel(boolean isSecondPanel) {
+        if (images.size() > 0) {
+            if (isSecondPanel) {
+                return images.get(selectedImageIndexPanel2);
+            } else {
+                return images.get(selectedImageIndexPanel1);
+            }
+        }
+        else return null;
+    }
+
+    public int getTotalNumberOfImages() {
         return images.size();
     }
-    
-    public boolean selectImageForPanel1(int i){
+
+    public boolean selectImageForPanel1(int i) {
         i--;//decrease because the index of an image in the list of images == the number of the image in the panel -1
-        if (i <= images.size()-2 && i >= 0){
+        if (i <= images.size() - 2 && i >= 0) {
             //there is a image for both panels
             setSelectedImageIndexPanel1(i);
             //the index of the selected image in panel 2 will always be 1 more than the index of the image in panel 1
-            setSelectedImageIndexPanel2(i+1);
+            setSelectedImageIndexPanel2(i + 1);
             return true;
         }
         return false;
     }
-    
-    public boolean isLastImageForPanel1(){
-        if(images.size() == 1){
-            return this.selectedImageIndexPanel2 == images.size()-1;
+
+    public boolean isLastImageForPanel1() {
+        if (images.size() == 1) {
+            return this.selectedImageIndexPanel2 == images.size() - 1;
         }
-        return this.selectedImageIndexPanel1 == images.size()-2;
+        return this.selectedImageIndexPanel1 == images.size() - 2;
     }
-    
-    public boolean isFirstImageForPanel1(){
+
+    public boolean isFirstImageForPanel1() {
         return this.selectedImageIndexPanel1 == 0;
     }
-    
-    public boolean isFirstImageForPanel2(){
-        if(images.size() == 1){
+
+    public boolean isFirstImageForPanel2() {
+        if (images.size() == 1) {
             return this.selectedImageIndexPanel2 == 0;
         }
         return this.selectedImageIndexPanel2 == 1;
     }
-    
-    public boolean isLastImageForPanel2(){
-        return this.selectedImageIndexPanel2 == images.size()-1;
+
+    public boolean isLastImageForPanel2() {
+        return this.selectedImageIndexPanel2 == images.size() - 1;
     }
-    
-    public boolean selectImageForPanel2(int i){
+
+    public boolean selectImageForPanel2(int i) {
         i--; //decrease because the index of an image in the list of images == the number of the image in the panel -1
-        if (i <= images.size()-1 && i >= 1){
+        if (i <= images.size() - 1 && i >= 1) {
             setSelectedImageIndexPanel2(i);
             //the index of the selected image in panel 1 will always be 1 less than the index of the image in panel2
-            setSelectedImageIndexPanel1(i-1);
+            setSelectedImageIndexPanel1(i - 1);
             return true;
         }
         return false;
     }
-    
-    public int getCurrentIndexImageForPanel1(){
+
+    public int getCurrentIndexImageForPanel1() {
         return selectedImageIndexPanel1;
     }
-    
-    public int getCurrentIndexImageForPanel2(){
+
+    public int getCurrentIndexImageForPanel2() {
         return selectedImageIndexPanel2;
     }
-    
+
     public int getImageOriginalWidth(boolean isSecondPanel) {
         return getCurrentlySelectedImageForPanel(isSecondPanel).getWidth(null);
     }
 
-
     public int getImageOriginalHeight(boolean isSecondPanel) {
         return getCurrentlySelectedImageForPanel(isSecondPanel).getHeight(null);
     }
-    
-     //keeps the 1:1 aspect ration of the image and draws it
-    public void keepAspectRatioAndDrawImage(Graphics2D g, Dimension panelDim, boolean isSecondPanel){
+
+    //keeps the 1:1 aspect ration of the image and draws it
+    public void keepAspectRatioAndDrawImage(Graphics2D g, Dimension panelDim, boolean isSecondPanel) {
         Dimension d = resizeImageDimension(panelDim, isSecondPanel);
         g.drawImage(getCurrentlySelectedImageForPanel(isSecondPanel), 0, 0, d.width, d.height, null);
     }
-    
+
     //resizes a dimension to fit a boundary dimension, while maintaining the aspect ratio
-    public Dimension resizeImageDimension(Dimension windowDimension, boolean isSecondPanel){
+    public Dimension resizeImageDimension(Dimension windowDimension, boolean isSecondPanel) {
         //Dimension windowDimension = new Dimension(panelWidth, panelHeight);
         Image im = getCurrentlySelectedImageForPanel(isSecondPanel);
-        Dimension d = getScaledDimension(new Dimension((int) im.getWidth(null), 
-        (int) im.getHeight(null)), windowDimension );
+        Dimension d = getScaledDimension(new Dimension((int) im.getWidth(null),
+                (int) im.getHeight(null)), windowDimension);
         setImageHeightInPanel((int) Math.round(d.height), isSecondPanel);
         setImageWidthInPanel((int) Math.round(d.width), isSecondPanel);
         //System.out.println("image width: "+d.width +", image height: "+d.height);
         return d;
     }
-      
+
     private Dimension getScaledDimension(Dimension imageSize, Dimension boundary) {
         double widthRatio = boundary.getWidth() / imageSize.getWidth();
         double heightRatio = boundary.getHeight() / imageSize.getHeight();
@@ -248,62 +250,62 @@ public class AppImage {
     }
 
     public int getImageWidthInPanel(boolean isSecondPanel) {
-        if(isSecondPanel){
+        if (isSecondPanel) {
             return currentImageWidthInPanel2;
         }
         return currentImageWidthInPanel1;
     }
 
     public void setImageWidthInPanel(int imageWidthInPanel, boolean isSecondPanel) {
-        if (isSecondPanel){
+        if (isSecondPanel) {
             this.currentImageWidthInPanel2 = imageWidthInPanel;
-        }
-        else{
+        } else {
             this.currentImageWidthInPanel1 = imageWidthInPanel;
         }
     }
 
     public int getImageHeightInPanel(boolean isSecondPanel) {
-        if(isSecondPanel){
+        if (isSecondPanel) {
             return currentImageHeightInPanel2;
         }
         return currentImageHeightInPanel1;
     }
 
     public void setImageHeightInPanel(int imageHeightInPanel, boolean isSecondPanel) {
-        if(isSecondPanel){
+        if (isSecondPanel) {
             this.currentImageHeightInPanel2 = imageHeightInPanel;
-        }
-        else{
+        } else {
             this.currentImageHeightInPanel1 = imageHeightInPanel;
-        }   
+        }
     }
 
-    public void setSelectedImageIndexPanel1(int index){
+    public void setSelectedImageIndexPanel1(int index) {
         support.firePropertyChange(AppConstants.IMAGE_LEFT_PANEL_PROPERTY, selectedImageIndexPanel1, index);
         this.selectedImageIndexPanel1 = index;
     }
-    
-    public void setSelectedImageIndexPanel2(int index){
+
+    public void setSelectedImageIndexPanel2(int index) {
         support.firePropertyChange(AppConstants.IMAGE_RIGHT_PANEL_PROPERTY, selectedImageIndexPanel2, index);
         this.selectedImageIndexPanel2 = index;
     }
-    
-    public void setToFirstImages(){
+
+    public void setToFirstImages() {
         setSelectedImageIndexPanel1(0);
         setSelectedImageIndexPanel2(1);
     }
-    
-    public String getImageName(int index, boolean fullPath){
-        if (index >= imageNames.size())
+
+    public String getImageName(int index, boolean fullPath) {
+        if (index >= imageNames.size()) {
             return "";
+        }
         try {
-            if (fullPath)
-                    return this.imageNames.get(index).getCanonicalPath();
-            else
+            if (fullPath) {
+                return this.imageNames.get(index).getCanonicalPath();
+            } else {
                 return this.imageNames.get(index).getName();
+            }
         } catch (IOException ex) {
-        Logger.getLogger(AppImage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AppImage.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }

@@ -47,7 +47,6 @@ import org.locationtech.jts.util.Assert;
 import ua.ieeta.sptdatalab.test.TestCaseList;
 import ua.ieeta.sptdatalab.test.Testable;
 import ua.ieeta.sptdatalab.app.AppStrings;
-import ua.ieeta.sptdatalab.app.BusyDialog;
 import ua.ieeta.sptdatalab.app.GeometryEditPanel;
 import ua.ieeta.sptdatalab.util.FileUtil;
 import ua.ieeta.sptdatalab.util.StringUtil;
@@ -68,7 +67,6 @@ public class HtmlWriter {
   private GeometryEditPanel geometryEditPanel = new GeometryEditPanel();
   private JFrame frame = new JFrame();
   private File outputDirectory;
-  private BusyDialog busyDialog = null;
 
   public HtmlWriter() {
     geometryEditPanel.setSize(IMAGE_WIDTH, IMAGE_HEIGHT);
@@ -81,9 +79,6 @@ public class HtmlWriter {
     this.showingABwithSpatialFunction = showingABwithSpatialFunction;
   }
 
-  public void setBusyDialog(BusyDialog busyDialog) {
-    this.busyDialog = busyDialog;
-  }
 
   private static class MapAndList {
     public Map map;
@@ -91,9 +86,7 @@ public class HtmlWriter {
   }
 
   public void write(File outputDirectory, TestCaseList testCaseList, PrecisionModel precisionModel) throws IOException {
-    if (busyDialog != null) {
-      busyDialog.setDescription("Saving .html and .gif files");
-    }
+    
     Assert.isTrue(outputDirectory.isDirectory());
     this.outputDirectory = outputDirectory;
     MapAndList runMapAndRuns = runMapAndRuns(testCaseList);
@@ -110,10 +103,7 @@ public class HtmlWriter {
       for (Iterator m = testables.iterator(); m.hasNext(); ) {
         Testable testable = (Testable) m.next();
         caseSkey++;
-        if (busyDialog != null) {
-          busyDialog.setDescription("Saving .html and .gif files: " + caseSkey
-               + " of " + testCaseList.getList().size() + " tests");
-        }
+        
         createHtmlFile("Run" + runSkey + AppStrings.LABEL_TEST_CASE + caseSkey + ".html", html(testable, runSkey, caseSkey));
       }
     }

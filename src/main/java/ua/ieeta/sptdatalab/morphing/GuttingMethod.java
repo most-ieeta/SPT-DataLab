@@ -24,6 +24,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -70,7 +71,7 @@ public class GuttingMethod implements InterpolationMethod{
         Secondointerface.secondo(cmd, resultList, error_code, error_pos, error_message);
         if(error_code.value != 0)
         {
-            JOptionPane.showMessageDialog(null, error_message, "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo1.", JOptionPane.INFORMATION_MESSAGE);
             Secondointerface.terminate();
             return null;
         }
@@ -80,7 +81,7 @@ public class GuttingMethod implements InterpolationMethod{
         String wkt = rlistToWkt(resultList);
         if(wkt == null || error_code.value != 0)
         {
-            JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo2.", JOptionPane.INFORMATION_MESSAGE);
             Secondointerface.terminate();
             return null;
         }
@@ -95,12 +96,12 @@ public class GuttingMethod implements InterpolationMethod{
         double t;
         String cmd;
         String[] wkts = new String[numSamples];
-        System.out.println("Starting interpolation during period using Gutting");
+        System.out.println("Starting interpolation during period using Gutting: " + String.valueOf(beginTimeQuery) + " "  + String.valueOf(endTimeQuery) + " "  + String.valueOf(numSamples) );
         int i = 0;
-        for(double j = 0; j < numSamples; j++)
+        for(double j = 1; j < numSamples; j++)
         {
             //t = (j / (dn - 1)) * db + (de - db);
-            t = (j / (numSamples - 1)) * (endTimeQuery - beginTimeQuery) + beginTimeQuery;
+            t = (j / (numSamples + 1)) * (endTimeQuery - beginTimeQuery) + beginTimeQuery;
             //System.out.println(t);
             //cmd = "open database test; query interpolate2([const region value " + source_rlist_str + "], [const instant value " + db + "], [const region value " + target_rlist_str + "], [const instant value " + de + "]) atinstant [const instant value " + t + "];";
             
@@ -115,25 +116,37 @@ public class GuttingMethod implements InterpolationMethod{
             
             if(error_code.value != 0)
             {
-                JOptionPane.showMessageDialog(null, error_message, "Secondo.", JOptionPane.INFORMATION_MESSAGE);
-                //System.out.println(error_message);
+                JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo3.", JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Command " + cmd);
+                System.out.println("Error " + error_message.toString());
                 Secondointerface.terminate();
                 return null;
             }
             
             wkts[i] = rlistToWkt(resultList);
             
-            if(wkts[i] == null || error_code.value != 0)
+            if(error_code.value != 0)
             {
-                JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo4.", JOptionPane.INFORMATION_MESSAGE);
                 Secondointerface.terminate();
                 return null;
             }
+            
+            //if (wkts[i] == null)
+            //    JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+            
             i++;
         }
         
         cleanDataBase();
         closeDataBase();
+        
+        try {
+            TimeUnit.SECONDS.sleep(10);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(GuttingMethod.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         return wkts;
     }
     
@@ -152,14 +165,17 @@ public class GuttingMethod implements InterpolationMethod{
         
         if(error_code.value != 0)
         {
-            /*if (error_message.toString().contains("Secondo: Identifier already used.")){
+            if (error_message.toString().contains("Identifier already used")){
                 //old object was not deleted 
-                Secondointerface.secondo("let drop "+objectName, resultList, error_code, error_pos, error_message);
+                Secondointerface.secondo("delete "+objectName, resultList, error_code, error_pos, error_message);
                 System.out.println("-->"+error_message);
-            }*/
-            JOptionPane.showMessageDialog(null, error_message, "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+                
+            }
+            else
+                JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo5.", JOptionPane.INFORMATION_MESSAGE);
             //System.out.println(error_message);
             Secondointerface.terminate();
+            System.out.println(createMovingRegionCmd);
         }
     }
     
@@ -173,10 +189,10 @@ public class GuttingMethod implements InterpolationMethod{
         Secondointerface.setPort(port);
         Secondointerface.useBinaryLists(true);
         ok = Secondointerface.connect();
-        
+
         if(!ok)
         {
-            JOptionPane.showMessageDialog(null, "Connection to Secondo Failled.", "Secondo.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Connection to Secondo Failled.", "Secondo6.", JOptionPane.ERROR_MESSAGE);
             //System.err.println("Connection to Secondo Failled.");
             return;
         }
@@ -193,7 +209,7 @@ public class GuttingMethod implements InterpolationMethod{
         
         if(erroCode.value != 0)
         {
-            JOptionPane.showMessageDialog(null, errorMessage, "Secondo.", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, errorMessage.toString(), "Secondo7.", JOptionPane.INFORMATION_MESSAGE);
             //System.out.println(error_message);
             Secondointerface.terminate();
             return;
@@ -217,7 +233,7 @@ public class GuttingMethod implements InterpolationMethod{
     private void closeDataBase(){
         // Disconnect from Secondo
         Secondointerface.terminate();
-        
+        Secondointerface.destroy();
     }
     
     /**
@@ -311,10 +327,19 @@ public class GuttingMethod implements InterpolationMethod{
                 
                 coordinates = new ArrayList<>();
                 
+                if (Cycle==null)
+                    return null;
+                
                 while(!Cycle.isEmpty())
                 {
                     ListExpr P = Cycle.first();
                     Cycle = Cycle.rest();
+                    
+                    if (P==null)
+                        return null;
+                    
+                    if (P.listLength() != 2)
+                        return null;
                     
                     x = readNumeric(P.first());
                     y = readNumeric(P.second());
@@ -364,13 +389,22 @@ public class GuttingMethod implements InterpolationMethod{
     {
         ListExpr a_list;
         
+        if (resultList == null)
+            return null;
+        
         if (resultList.listLength() != 2)
             return null;
         
         if (!resultList.first().symbolValue().equals("iregion"))
             return null;
         
+        if (resultList.second() == null)
+            return null;
+        
         a_list = resultList.second();
+        
+        if (a_list.listLength() < 2)
+            return null;
         
         return ScanValue(a_list.second());
     }

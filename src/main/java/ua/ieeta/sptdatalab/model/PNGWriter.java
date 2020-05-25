@@ -45,12 +45,7 @@ import javax.swing.JFrame;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.util.Assert;
-import ua.ieeta.sptdatalab.test.TestCaseList;
-import ua.ieeta.sptdatalab.test.Testable;
-import ua.ieeta.sptdatalab.app.BusyDialog;
 import ua.ieeta.sptdatalab.app.GeometryEditPanel;
-import ua.ieeta.sptdatalab.util.FileUtil;
-import ua.ieeta.sptdatalab.util.StringUtil;
 
 
 /**

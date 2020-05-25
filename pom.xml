@@ -3,7 +3,7 @@
     <groupId>ua.ieeta.sptdatalab</groupId>
     <artifactId>SPTDataLab</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>2.0</version>
     <name>SPT_DataLab</name>
     
     <url>https://github.com/most-ieeta/SPT-DataLab</url>
@@ -64,6 +64,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>24.1.1-jre</version>
+        </dependency>
+        <dependency>
+            <groupId>com.mathworks.engine</groupId>
+            <artifactId>matlabengine</artifactId>
+            <version>2020a</version>
         </dependency>
     </dependencies>
     

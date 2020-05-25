@@ -1,3 +1,5 @@
 /target/
 /last_dir_cache.txt
 /secondo_config.txt
+*.log
+*.tmp

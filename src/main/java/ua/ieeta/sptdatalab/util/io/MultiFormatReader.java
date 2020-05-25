@@ -24,6 +24,7 @@
 package ua.ieeta.sptdatalab.util.io;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.io.*;
@@ -112,5 +113,5 @@ public class MultiFormatReader
     return IOUtil.readWKTString(trimStr, geomFactory);
   }
   
-  
+   
 }

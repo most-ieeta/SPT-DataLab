@@ -563,6 +563,8 @@ public class SPTDataLabBuilderFrame extends JFrame {
         }
     }
 
+    
+
     TestCaseEdit currentCase() {
         return tbModel.cases().getCurrentCase();
     }
