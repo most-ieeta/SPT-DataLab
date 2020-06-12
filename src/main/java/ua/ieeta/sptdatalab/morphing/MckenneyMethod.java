@@ -85,6 +85,11 @@ public class MckenneyMethod implements InterpolationMethod{
         String sep = System.getProperty("file.separator");
         //call python script
         //parameters for during period are: begin time, end time, source geo, target geo, query time begin, query time end, num samples
+        
+        
+        if (numSamples == 0)
+            return null;
+        
         ProcessBuilder pb = new ProcessBuilder("python","pyspatiotemporalgeom" + sep + "mckenney_final.py", beginTime+"", endTime+"", sourceGeometry, targetGeometry, queryTimeBegin+"", queryTimeEnd+"", numSamples+"");
         String line;
         try {
