@@ -139,10 +139,10 @@ not accessible by the user code.
   /* switch for using binary or textual list format */
   public void useBinaryLists(boolean ubl){
      binaryLists=ubl;
-     if(ubl)
-        Reporter.writeInfo("use binary lists");
-     else
-        Reporter.writeInfo("use textual lists");
+     //if(ubl)
+     //   Reporter.writeInfo("use binary lists");
+     //else
+     //   Reporter.writeInfo("use textual lists");
   }
 
   public boolean initialize( String user, String pswd,
@@ -154,12 +154,12 @@ not accessible by the user code.
 
     if ( !initialized )
     {
-      Reporter.writeInfo( "Initializing the Secondo system ..." );
+      //Reporter.writeInfo( "Initializing the Secondo system ..." );
       // Connect with server, needed host and port
       if ( secHost.length() > 0 && secPort > 0 )
       {
-        Reporter.writeInfo( "SecondoInterface: Connecting with Secondo server '" +
-                            secHost + "' on port " + secPort + " ..." );
+        //Reporter.writeInfo( "SecondoInterface: Connecting with Secondo server '" +
+        //                    secHost + "' on port " + secPort + " ..." );
         try
         {
           serverSocket = new Socket( secHost, secPort );
@@ -205,12 +205,12 @@ not accessible by the user code.
                   line = inSocketStream.readLine();
                   if(line==null){
                      initialized = false;
-										Reporter.writeError("Could not read data from server.");
+		     Reporter.writeError("Could not read data from server.");
                      return false;
                   } 
-                  if ( !line.equals( "</SecondoIntro>" ) ) {
-                     Reporter.writeInfo( line );
-                  }
+                  //if ( !line.equals( "</SecondoIntro>" ) ) {
+                  //   Reporter.writeInfo( line );
+                  //}
                 } while ( !line.equals( "</SecondoIntro>" ) );
                    initialized = true;
               } else if ( line.equals("<SecondoError>") ) {

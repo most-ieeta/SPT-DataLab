@@ -27,8 +27,6 @@ import java.util.logging.Logger;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
-import static ua.ieeta.sptdatalab.app.SPTDataLab.getMethodEnum;
-import ua.ieeta.sptdatalab.model.KeyObservationSelection;
 import ua.ieeta.sptdatalab.util.io.GeometrySimilarityCollectionSummary;
 import ua.ieeta.sptdatalab.util.io.IOUtil;
 
@@ -70,6 +68,7 @@ public class InterpolationMethodEvaluation {
         }
 
         configuration = configuration + " - Method " + methodDescription;
+        int indexFullSet = 0;
 
         try {
 
@@ -89,96 +88,107 @@ public class InterpolationMethodEvaluation {
             while (j < selected.size()) {
 
                 int samples = Integer.valueOf(selected.get(j).getUserData().toString()) - Integer.valueOf(selected.get(i).getUserData().toString()) - 1;
+
                 if (samples > 0) {
+
                     Geometry geom1 = selected.get(i);
                     Geometry geom2 = selected.get(j);
-                    InterpolationMethodFacade interpolation = new InterpolationMethodFacade(geom1.toString(), geom2.toString(), 0.0, 1000.0);
 
                     if (geom1.isValid() && geom2.isValid()) {
 
-                        System.out.println("Dados interpolacao");
-                        System.out.println(selected.get(j).getUserData().toString());
-                        System.out.println(selected.get(i).getUserData().toString());
-                        System.out.println(Integer.valueOf(samples));
+                        InterpolationMethodFacade interpolation = new InterpolationMethodFacade(geom1.toString(), geom2.toString(), 0.0, samples * 2);
 
-                        String[] interpolationsResults = interpolation.interpolationDuringPeriod(0.0, 1000.0, samples, method);
+                        System.out.println("Interpolating from " + selected.get(i).getUserData().toString() + " to " + selected.get(j).getUserData().toString() + " in " + String.valueOf(samples));
+
+                        String[] interpolationsResults = interpolation.interpolationDuringPeriod(0.0, samples * 2, samples, method);
+
+                        if (interpolationsResults == null) {
+                            System.out.println("Null results at " + selected.get(i).getUserData().toString());
+                        } else if (interpolationsResults.length < samples) {
+                            System.out.println("Less results than required at " + selected.get(i).getUserData().toString() + " Number of results: " + String.valueOf(interpolationsResults.length));
+                        }
+
                         if (!(interpolationsResults == null)) {
 
-                            int k = 0;
-                            while (k < samples) {
+                            if (interpolationsResults.length == samples) {
 
-                                System.out.println(String.valueOf("Dados"));
-                                System.out.println(String.valueOf(i));
+                                int k = 0;
 
                                 int sampleId = Integer.valueOf((selected.get(i).getUserData().toString()));
-                                sampleId = sampleId + k + 1;
 
-                                System.out.println(String.valueOf("K"));
-                                System.out.println(String.valueOf(k));
-                                System.out.println(String.valueOf(sampleId));
+                                while (k < samples) {
 
-                                if (interpolationsResults.length >= k + 1) {
+                                    sampleId = sampleId + 1;
 
-                                    if (interpolationsResults[k] != null) {
+                                    WKTReader reader = new WKTReader();
 
-                                        System.out.println(String.valueOf("results"));
-                                        System.out.println(String.valueOf(interpolationsResults[k]));
+                                    Geometry geomResult = null;
+                                    try {
 
-                                        WKTReader reader = new WKTReader();
-
-                                        Geometry geomResult = null;
-                                        try {
+                                        if (interpolationsResults[k] != null) {
                                             geomResult = reader.read(interpolationsResults[k]);
-
-                                        } catch (Exception e) {
-                                            System.out.println("error in parsing k =" + String.valueOf(k));
                                         }
-                                        //if (!geomResult.isValid())
-                                        //    geomResult = JTS.makeValid(geomResult, false);
-                                        //        
-                                        if (!(geomResult == null)) {
 
-                                            boolean found = false;
-                                            int indexFullSet = 0;
+                                    } catch (Exception e) {
+                                        System.out.println("error in parsing id =" + String.valueOf(sampleId));
+                                    }
 
-                                            if (hasIndex) {
-                                                while (indexFullSet <= sampleId && indexFullSet < geometries.size() && (found == false)) {
-                                                    if (Integer.valueOf(geometries.get(indexFullSet).getUserData().toString()) == sampleId) {
-                                                        found = true;
-                                                    } else {
-                                                        indexFullSet++;
-                                                    }
-                                                }
-                                                if (found) {
-                                                    summary.addGeometries(geomResult, geometries.get(indexFullSet));
+                                    //if (!geomResult.isValid()) {
+                                    //    geomResult = GeometryUtil.validateGeometry(geomResult);
+                                    //}
+                                    boolean found = false;
 
-                                                    if ((geomResult.isValid()) && (geometries.get(indexFullSet).isValid())) {
-                                                        listJaccard.add(String.valueOf(sampleId).concat(";").concat(String.valueOf(summary.getJaccardIndex())));
-                                                    } else {
-                                                        listJaccard.add(String.valueOf(sampleId).concat(";"));
-                                                    }
+                                    if (indexFullSet > 0) {
+                                        indexFullSet--;
+                                    }
 
-                                                } else {
-                                                    listJaccard.add(String.valueOf(sampleId).concat(";"));
-                                                }
-
+                                    if (hasIndex) {
+                                        while (indexFullSet <= sampleId && indexFullSet < geometries.size() && (found == false)) {
+                                            if (Integer.valueOf(geometries.get(indexFullSet).getUserData().toString()) == sampleId) {
+                                                found = true;
                                             } else {
-                                                summary.addGeometries(geomResult, geometries.get(sampleId));
+                                                indexFullSet++;
+                                            }
+                                        }
+                                        if (found) {
 
-                                                if ((geomResult.isValid()) && (geometries.get(sampleId).isValid())) {
+                                            summary.addGeometries(geomResult, geometries.get(indexFullSet));
+
+                                            if (!(geomResult == null)) {
+                                                if ((geomResult.isValid()) && (geometries.get(indexFullSet).isValid())) {
                                                     listJaccard.add(String.valueOf(sampleId).concat(";").concat(String.valueOf(summary.getJaccardIndex())));
                                                 } else {
                                                     listJaccard.add(String.valueOf(sampleId).concat(";"));
                                                 }
-
+                                            } else {
+                                                listJaccard.add(String.valueOf(sampleId).concat(";"));
                                             }
 
-                                            list.add(String.valueOf(sampleId).concat(";").concat(interpolationsResults[k]));
+                                        } else {
+                                            indexFullSet = 0;
+                                        }
 
+                                    } else {
+                                        summary.addGeometries(geomResult, geometries.get(sampleId));
+                                        if (!(geomResult == null)) {
+                                            if ((geomResult.isValid()) && (geometries.get(sampleId).isValid())) {
+                                                listJaccard.add(String.valueOf(sampleId).concat(";").concat(String.valueOf(summary.getJaccardIndex())));
+                                            } else {
+                                                listJaccard.add(String.valueOf(sampleId).concat(";"));
+                                            }
+                                        } else {
+                                            listJaccard.add(String.valueOf(sampleId).concat(";"));
                                         }
                                     }
+
+                                    if (!(interpolationsResults[k] == null)) {
+                                        list.add(String.valueOf(sampleId).concat(";").concat(interpolationsResults[k]));
+                                    } else {
+                                        list.add(String.valueOf(sampleId).concat(";"));
+                                    }
+
+                                    k++;
                                 }
-                                k++;
                             }
                         }
 

@@ -32,7 +32,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -307,6 +306,28 @@ public class SPTDataLab {
             case 0:
                 //no arguments provided, start application normally, with UI
 
+                File df = new File(AppConstants.DEFAULT_DIRECTORY_FILE);
+                if (df.exists() && !df.isDirectory()) {
+                    //file exists
+                    File defFile;
+                    try (BufferedReader br = new BufferedReader(new FileReader(df))) {
+                        String dirStr;
+
+                        if ((dirStr = br.readLine()) != null) {
+
+                            defFile = new File(dirStr);
+
+                            //check if directory exist 
+                            if ((defFile.exists() && defFile.isDirectory())) {
+                                AppConstants.DEFAULT_DIRECTORY = dirStr;
+                            }
+
+                        }
+                    } catch (IOException ex) {
+                        Logger.getLogger(SPTDataLab.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+
                 //check if there is a directory with last used directory for images and correlation files
                 //first line of file -> directory with images
                 //second line -> directory with correlation files
@@ -385,7 +406,7 @@ public class SPTDataLab {
         app.initFrame();
     }
 
-private static void startCleanApp() {
+    private static void startCleanApp() {
         //readArgs(args);
         //setLookAndFeel();
         try {

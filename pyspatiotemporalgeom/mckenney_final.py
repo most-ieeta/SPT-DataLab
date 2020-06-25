@@ -524,7 +524,8 @@ quit()
 	Call at() to get a specified number of samples (aka, regions).
 """
 
-n = (n_samples - 1)
+n = (n_samples + 1)
+#n = (n_samples - 1)
 dt = (query_time_end - query_time_begin)
 
 if at_instant:
@@ -539,8 +540,10 @@ if at_instant:
 		quit()
 else:
 	#during period
-	for i in range(0, n_samples):
-		t = (float(i) / n) * dt + query_time_begin
+	#for i in range(0, n_samples):
+    
+    for i in range(0, n_samples):
+		t = (float(i+1) / n) * dt + query_time_begin
 		# Get region at t.
 		region_at = at(cir, t)
 		#region_at = at(complex_cir, t)

@@ -85,14 +85,15 @@ public class IOUtil {
             String line = sc.nextLine();
 
             if (line.contains(";")) {
-                geom = wktreader.read(line.split(";")[1]);
-                geom.setUserData(line.split(";")[0]);
+                String[] data = line.split(";");
+                geom = wktreader.read(data[1]);
+                geom.setUserData(data[0]);
             } else {
                 geom = wktreader.read(line);
             }
             geomList.add(geom);
         }
-        
+
         sc.close();
 
         return geomList;
@@ -101,7 +102,6 @@ public class IOUtil {
 
     public static Geometry readGeometryLine(Scanner sc)
             throws ParseException, IOException {
-
 
         WKTReader wktreader = new WKTReader();
         Geometry geom = null;
@@ -115,33 +115,31 @@ public class IOUtil {
             } else {
                 geom = wktreader.read(line);
             }
-            
+
         }
 
         return geom;
 
     }
 
+    public static Scanner openFileRead(String fileName) throws FileNotFoundException {
 
-
-    public static Scanner openFileRead(String fileName) throws FileNotFoundException{
-    
         File f = new File(fileName);
-        
+
         FileInputStream inputStream = new FileInputStream(f);
-        
+
         Scanner sc = new Scanner(inputStream);
-        
+
         return sc;
-    
+
     }
-    
+
     public static GeometrySimilarityCollectionSummary computeMetrics(String geometriesFileName, String fullFileName, String metricsFileName, String summaryFileName) throws ParseException, IOException {
 
         File f = new File(geometriesFileName);
         File f2 = new File(fullFileName);
         File fw = new File(metricsFileName);
-        
+
         FileInputStream inputStream = new FileInputStream(f);
         FileInputStream inputStream2 = new FileInputStream(f2);
 
@@ -149,7 +147,7 @@ public class IOUtil {
         WKTReader wktr2 = new WKTReader();
 
         FileWriter writer = new FileWriter(fw);
-        
+
         Geometry geom1 = null;
         Geometry geom2 = null;
 
@@ -171,7 +169,7 @@ public class IOUtil {
         int file1Index = 0;
 
         writer.write("Time;Jaccard Index; Jaccard Distance; Approximate Hausdorff Distance; Hausdorff Similarity Measure" + System.lineSeparator());
-        
+
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
 
@@ -212,11 +210,11 @@ public class IOUtil {
                     writer.write(String.valueOf(fullIndex) + ";" + String.valueOf(summary.getJaccardIndex()) + ";" + String.valueOf(summary.getJaccardDistance()) + ";" + String.valueOf(summary.getHausdorffDistance()) + ";" + String.valueOf(summary.getHausdorffSimilarity()) + System.lineSeparator());
 
                 } else {
-                    writer.write(String.valueOf(fullIndex) + ";" + ";" +  ";" +  ";"  + System.lineSeparator());
+                    writer.write(String.valueOf(fullIndex) + ";" + ";" + ";" + ";" + System.lineSeparator());
                 }
 
             } else {
-                writer.write(String.valueOf(fullIndex) + ";" + ";" +  ";" +  ";"  + System.lineSeparator());
+                writer.write(String.valueOf(fullIndex) + ";" + ";" + ";" + ";" + System.lineSeparator());
             }
 
             summary.addGeometries(geom1, geom2);
@@ -231,11 +229,10 @@ public class IOUtil {
 
         sc.close();
         sc2.close();
-        
+
         return summary;
 
     }
-
 
     public static GeometryCollectionSummary makeValid(String inputFileName, String outputFileName, String statisticsFileName)
             throws ParseException, IOException {
@@ -259,12 +256,14 @@ public class IOUtil {
         configuration = configuration + " - Make valid (statistics after make valid) ";
 
         Scanner sc = new Scanner(inputStream);
+        boolean found = false;
+        String index = null;
         while (sc.hasNextLine()) {
             String line = sc.nextLine();
 
             if (line.contains(";")) {
                 geom = wktr.read(line.split(";")[1]);
-                geom.setUserData(line.split(";")[0]);
+                index = line.split(";")[0];
             } else {
                 geom = wktr.read(line);
             }
@@ -272,7 +271,11 @@ public class IOUtil {
             geom = GeometryUtil.validateGeometry(geom);
             summary.addGeometry(geom);
             if (!(geom == null)) {
-                writer.write(geom.toString() + System.lineSeparator());
+                if (!(index == null)) {
+                    writer.write(index + ";" + geom.toString() + System.lineSeparator());
+                } else {
+                    writer.write(geom.toString() + System.lineSeparator());
+                }
             }
         }
 
@@ -364,7 +367,7 @@ public class IOUtil {
         writer.close();
 
         sc.close();
-        
+
         configuration = configuration + " - Elapsed time: " + String.valueOf(System.currentTimeMillis() - start);
 
         summary.setParameterData(configuration);
@@ -415,7 +418,7 @@ public class IOUtil {
         writeSummary(outputFileName, summary.getSummary());
 
         sc.close();
-        
+
         return summary;
 
     }
@@ -538,10 +541,9 @@ public class IOUtil {
     public static void appendLineFile(FileWriter writer, String line)
             throws ParseException, IOException {
 
-            writer.write(line + System.lineSeparator());
-            
-    }
+        writer.write(line + System.lineSeparator());
 
+    }
 
     public static FileWriter openFile(String filename, Boolean append)
             throws ParseException, IOException {
@@ -550,21 +552,20 @@ public class IOUtil {
         FileWriter writer = new FileWriter(file, append);
 
         return writer;
-        
+
     }
-    
+
     public static void closeFile(FileWriter writer)
             throws ParseException, IOException {
 
         writer.close();
-        
+
     }
-    
-    
+
     public static void closeFile(Scanner sc)
             throws ParseException, IOException {
 
         sc.close();
-        
+
     }
 }

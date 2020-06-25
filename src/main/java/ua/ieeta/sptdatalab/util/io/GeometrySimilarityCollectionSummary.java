@@ -57,6 +57,11 @@ public class GeometrySimilarityCollectionSummary {
 
         count++;
 
+        if ((geom1==null)||(geom2==null)) {
+            countEmpty++;
+            return;
+        }
+
         if (geom1.isEmpty()) {
             countEmpty++;
             return;
@@ -66,7 +71,7 @@ public class GeometrySimilarityCollectionSummary {
             countEmpty++;
             return;
         }
-
+        
         if (!(geom1.isValid())) {
             countInvalid++;
             return;

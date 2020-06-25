@@ -31,8 +31,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Box;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 
-import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.locationtech.jts.io.ParseException;
 import ua.ieeta.sptdatalab.geom.GeometryMatching;
@@ -78,6 +90,7 @@ public class SPTDataLabBuilderMenuBar {
     JMenuItem jMenuDBMSDataLoader = new JMenuItem();
     JMenuItem jMenuDBMSDataLoaderContinuous = new JMenuItem();
     JMenuItem jMenuDistanceBasedDataSampling = new JMenuItem();
+    JMenuItem jMenuDistanceBasedDataSamplingIntervals = new JMenuItem();
     JMenuItem jMenuFixedSizeDataSampling = new JMenuItem();
     JMenuItem jMenuEvaluatePySpatioTemporalGeom = new JMenuItem();
     JMenuItem jMenuEvaluateSecondo = new JMenuItem();
@@ -89,8 +102,6 @@ public class SPTDataLabBuilderMenuBar {
     JMenuItem jMenuGeometriesFilter = new JMenuItem();
     JMenuItem jMenuMatchingPairGeometries = new JMenuItem();
     JMenuItem jMenuMatchingSetGeometries = new JMenuItem();
-    
-    JMenuItem jMenuWorkflowConfiguration = new JMenuItem();
 
     JMenuItem jMenuAbout = new JMenuItem();
     JMenuItem jMenuFileExit = new JMenuItem();
@@ -174,11 +185,9 @@ public class SPTDataLabBuilderMenuBar {
                 new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 String imageFileName = "";
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setDialogTitle("Choose the image file: ");
 
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -194,7 +203,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "segmenter", imageFileName);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -215,10 +224,8 @@ public class SPTDataLabBuilderMenuBar {
                 String outputFileName = "";
                 String drawMarkers = " ";
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -268,7 +275,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "draw_wkt", "-i", imageFileName, "-p", geometryFileName, "-o", outputFileName, drawMarkers);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -289,10 +296,8 @@ public class SPTDataLabBuilderMenuBar {
                 try {
                     String fullFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -359,12 +364,10 @@ public class SPTDataLabBuilderMenuBar {
                 new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 String imageFileName = "";
                 JFileChooser jfc = new JFileChooser();
 
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
 
                 jfc.setDialogTitle("Choose the image file: ");
@@ -382,7 +385,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "hsv", imageFileName);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -404,10 +407,8 @@ public class SPTDataLabBuilderMenuBar {
                 String polygonFileName = "";
                 String imageFileExtension;
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -474,7 +475,7 @@ public class SPTDataLabBuilderMenuBar {
                     pb = new ProcessBuilder("cmd", "/C", "auto_segmenter", "-i", "-m", imageFileName, "-f", filterFileName, "-o", outputFileName);
                 }
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -498,10 +499,8 @@ public class SPTDataLabBuilderMenuBar {
                 String polygonFileName = "";
                 String videoFileExtension = "";
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -563,7 +562,7 @@ public class SPTDataLabBuilderMenuBar {
                     pb = new ProcessBuilder("cmd", "/C", "auto_segmenter", "-v", "-m", videoFileName, "-f", filterFileName, "-o", outputFileName);
                 }
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -581,12 +580,10 @@ public class SPTDataLabBuilderMenuBar {
                 new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 String videoFileName = "";
                 JFileChooser jfc = new JFileChooser();
 
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
 
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -603,7 +600,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "frame_extractor", videoFileName);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -619,13 +616,11 @@ public class SPTDataLabBuilderMenuBar {
                 new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 String videoFileName = "";
 
                 JFileChooser jfc = new JFileChooser();
 
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
 
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
@@ -652,7 +647,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "frame_extractor", videoFileName, userInput);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -671,10 +666,8 @@ public class SPTDataLabBuilderMenuBar {
                 String geometryFileName1 = "";
                 String geometryFileName2 = "";
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -699,7 +692,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "simplifier", "-p", geometryFileName1, "-q", geometryFileName2);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -720,10 +713,8 @@ public class SPTDataLabBuilderMenuBar {
                 String geometryFileName1 = "";
                 String geometryFileName2 = "";
 
-                String defaultDirectory = "C:/Temp/ACR/";
-
                 JFileChooser jfc = new JFileChooser();
-                jfc.setCurrentDirectory(new File(defaultDirectory));
+                jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                 jfc.setAcceptAllFileFilterUsed(false);
                 jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -780,7 +771,7 @@ public class SPTDataLabBuilderMenuBar {
 
                 ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "simplifier", "-p", geometryFileName1, "-q", geometryFileName2, "-o", "simplificationOutput.jpg", "-r", userInputPercentage, "-t", userInputTime);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -848,10 +839,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -935,10 +924,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1008,6 +995,86 @@ public class SPTDataLabBuilderMenuBar {
         }
         );
 
+        jMenuDistanceBasedDataSamplingIntervals.setText("Identify distance-based intervals");
+        jMenuDistanceBasedDataSamplingIntervals.addActionListener(
+                new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+
+                try {
+
+                    String geometriesFileName;
+
+                    JFileChooser jfc = new JFileChooser();
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
+                    jfc.setAcceptAllFileFilterUsed(false);
+                    jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+
+                    jfc.setDialogTitle("Choose the geometries file (with WKT): ");
+                    FileNameExtensionFilter filterWKT = new FileNameExtensionFilter("WKT or txt files", "wkt", "txt");
+                    jfc.addChoosableFileFilter(filterWKT);
+
+                    int returnValue = jfc.showOpenDialog(null);
+                    if (returnValue == JFileChooser.APPROVE_OPTION) {
+                        geometriesFileName = jfc.getSelectedFile().getAbsolutePath();
+                    } else {
+                        return;
+                    }
+
+                    String userInputDistance = JOptionPane.showInputDialog("Maximum allowed distance (0--1):");
+                    if (userInputDistance.length() == 0) {
+                        return;
+                    }
+                    Double distance = 0.0;
+                    try {
+                        distance = Double.parseDouble(userInputDistance);
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(null, "Distance must be a value between 0 and 1");
+                        return;
+                    }
+
+                    if (distance < 0 || distance > 1) {
+                        JOptionPane.showMessageDialog(null, "Distance must be a value between 0 and 1");
+                        return;
+                    }
+
+                    jfc.setDialogTitle("Select the file to save selected intervals");
+
+                    String outputGeomFileName = geometriesFileName.replaceFirst("[.][^.]+$", "").concat("DistanceBasedSamplingIntervals").concat(".txt");
+
+                    jfc.setSelectedFile(new File(outputGeomFileName));
+                    if (jfc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+                        File file = jfc.getSelectedFile();
+                        if (!file.getName().contains(".")) {
+                            file = new File(file.getAbsolutePath() + ".txt");
+                        }
+                        outputGeomFileName = file.getPath();
+                    } else {
+                        return;
+                    }
+
+                    KeyObservationSelection keyobs = new KeyObservationSelection();
+                    GeometryCollectionSummary summary;
+
+                    String statisticsFileName = outputGeomFileName.replaceFirst("[.][^.]+$", "").concat("Statistics").concat(".txt");
+
+                    WaitDialog wDialog = new WaitDialog();
+
+                    wDialog.openWaitingDialog(SPTDataLabBuilderFrame.instance(), "Please wait the geometries are read... This may take a long time.");
+
+                    summary = keyobs.distanceBasedObservationIntervals(geometriesFileName, outputGeomFileName, statisticsFileName, distance);
+
+                    wDialog.closeWaitingDialog();
+
+                    JOptionPane.showMessageDialog(null, summary.getHTMLSummary());
+
+                } catch (IOException ex) {
+                    Logger.getLogger(SPTDataLabBuilderMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            }
+        }
+        );
+
         jMenuFixedSizeDataSampling.setText("Select observations at fixed intervals");
         jMenuFixedSizeDataSampling.addActionListener(
                 new java.awt.event.ActionListener() {
@@ -1017,10 +1084,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1125,10 +1190,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1193,7 +1256,7 @@ public class SPTDataLabBuilderMenuBar {
                     wDialog.closeWaitingDialog();
 
                     JOptionPane.showMessageDialog(null, "Script file created containing " + String.valueOf(cont) + " insert commands.");
-                    
+
                 } catch (IOException ex) {
                     Logger.getLogger(SPTDataLabBuilderMenuBar.class
                             .getName()).log(Level.SEVERE, null, ex);
@@ -1210,10 +1273,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1260,10 +1321,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1366,10 +1425,9 @@ public class SPTDataLabBuilderMenuBar {
 
                 try {
                     String geometriesFileName;
-                    String defaultDirectory = "C:/Temp/ACR/";
 
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1425,10 +1483,9 @@ public class SPTDataLabBuilderMenuBar {
 
                 try {
                     String geometriesFileName;
-                    String defaultDirectory = "C:/Temp/ACR/";
 
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1460,7 +1517,7 @@ public class SPTDataLabBuilderMenuBar {
                     wDialog.openWaitingDialog(SPTDataLabBuilderFrame.instance(), "Please wait while geometries are matched... This may take a long time.");
                     GeometryMatching.executeMatching(geometriesFileName, outputFileName);
                     wDialog.closeWaitingDialog();
-                    
+
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(SPTDataLabBuilderMenuBar.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (ParseException ex) {
@@ -1477,10 +1534,8 @@ public class SPTDataLabBuilderMenuBar {
 
                     String geometriesFileName;
 
-                    String defaultDirectory = "C:/Temp/ACR/";
-
                     JFileChooser jfc = new JFileChooser();
-                    jfc.setCurrentDirectory(new File(defaultDirectory));
+                    jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
                     jfc.setAcceptAllFileFilterUsed(false);
                     jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 
@@ -1534,13 +1589,6 @@ public class SPTDataLabBuilderMenuBar {
             }
         });
 
-        jMenuWorkflowConfiguration.setText("Instructions and Configurations");
-        jMenuWorkflowConfiguration.addActionListener(
-                new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
 
         jMenuWorkflow.setText("SPT Data Workflow");
 
@@ -1572,6 +1620,7 @@ public class SPTDataLabBuilderMenuBar {
 
         jMenuDataSelection.setText("Apply sampling strategies over a set of geometries");
         jMenuDataSelection.add(jMenuDistanceBasedDataSampling);
+        jMenuDataSelection.add(jMenuDistanceBasedDataSamplingIntervals);
         jMenuDataSelection.add(jMenuFixedSizeDataSampling);
         jMenuWorkflow.add(jMenuDataSelection);
 
@@ -1591,8 +1640,6 @@ public class SPTDataLabBuilderMenuBar {
         jMenuUtils.add(jMenuMatchingSetGeometries);
 
         jMenuWorkflow.add(jMenuUtils);
-
-        jMenuWorkflow.add(jMenuWorkflowConfiguration);
 
         jMenuHelp.setText("Help");
         jMenuHelp.add(jMenuAbout);
@@ -1634,9 +1681,8 @@ public class SPTDataLabBuilderMenuBar {
         try {
 
             String geometriesFileName;
-            String defaultDirectory = "C:/Temp/ACR/";
             JFileChooser jfc = new JFileChooser();
-            jfc.setCurrentDirectory(new File(defaultDirectory));
+            jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
             jfc.setAcceptAllFileFilterUsed(false);
             jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jfc.setDialogTitle("Choose the geometries file (with WKT): ");
@@ -1650,12 +1696,16 @@ public class SPTDataLabBuilderMenuBar {
             }
             jfc.setDialogTitle("Select the file to save output");
 
-            String outputFileName;
+            String outputFileName = "";
 
             if (method == GeometrySimplifier.SimplificationMethod.TopologyPreserve) {
                 outputFileName = geometriesFileName.replaceFirst("[.][^.]+$", "").concat("SimplifiedDP").concat(".wkt");
             } else {
-                outputFileName = geometriesFileName.replaceFirst("[.][^.]+$", "").concat("SimplifiedVW").concat(".wkt");
+                if (method == GeometrySimplifier.SimplificationMethod.VisvalingamWhyatt) {
+                    outputFileName = geometriesFileName.replaceFirst("[.][^.]+$", "").concat("SimplifiedVW").concat(".wkt");
+                } else if (method == GeometrySimplifier.SimplificationMethod.MatchingAware) {
+                    outputFileName = geometriesFileName.replaceFirst("[.][^.]+$", "").concat("SimplifiedMA").concat(".wkt");
+                }
             }
 
             jfc.setSelectedFile(new File(outputFileName));
@@ -1671,13 +1721,16 @@ public class SPTDataLabBuilderMenuBar {
             }
 
             Double tolerance = 0.0;
-            String userInputPercentage = JOptionPane.showInputDialog("Percentage of points to remove (between 0 and 1):");
-            String userInputTime = JOptionPane.showInputDialog("Time value (between 0 and 1):");
+            String userInputPercentage = "";
+            String userInputTime = "";
 
             if ((method == GeometrySimplifier.SimplificationMethod.TopologyPreserve)
                     || (method == GeometrySimplifier.SimplificationMethod.VisvalingamWhyatt)) {
 
                 String userInputTolerance = JOptionPane.showInputDialog("Tolerance (>=0):");
+                if (userInputTolerance == null)
+                    return;
+                
                 if (userInputTolerance.length() == 0) {
                     return;
                 }
@@ -1694,6 +1747,8 @@ public class SPTDataLabBuilderMenuBar {
 
             } else {
 
+                userInputPercentage = JOptionPane.showInputDialog("Percentage of points to remove (between 0 and 1):");
+
                 float flPercentage;
                 try {
                     flPercentage = Float.parseFloat(userInputPercentage);
@@ -1707,6 +1762,8 @@ public class SPTDataLabBuilderMenuBar {
                     JOptionPane.showMessageDialog(null, "Value must be between 0 and 1!");
                     return;
                 }
+
+                userInputTime = JOptionPane.showInputDialog("Time value (between 0 and 1):");
 
                 float flTime;
                 try {
@@ -1756,10 +1813,8 @@ public class SPTDataLabBuilderMenuBar {
 
         String geometriesFileName;
 
-        String defaultDirectory = "C:/Temp/ACR/";
-
         JFileChooser jfc = new JFileChooser();
-        jfc.setCurrentDirectory(new File(defaultDirectory));
+        jfc.setCurrentDirectory(new File(AppConstants.DEFAULT_DIRECTORY));
         jfc.setAcceptAllFileFilterUsed(false);
         jfc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 

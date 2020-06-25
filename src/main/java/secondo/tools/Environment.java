@@ -12,7 +12,7 @@ public class Environment{
 /** forces more outputs when errors occur **/
 public static boolean DEBUG_MODE = true;
 /** enables the output of time measure at different places **/
-public static boolean MEASURE_TIME = true;
+public static boolean MEASURE_TIME = false;
 /** enables the printing of the memery state before
   * and after some operations 
   **/

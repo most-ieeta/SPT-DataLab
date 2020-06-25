@@ -106,7 +106,7 @@ public class ESInterface extends SecondoInterface implements UpdateInterface{
    */
   public boolean connect() {
     terminate();   // terminate old connection
-    System.out.println("connect with user " + UserName);
+    //System.out.println("connect with user " + UserName);
     return initialize(UserName,PassWd,databasesServerAddress,databasesServerPort);
   }
 
@@ -144,8 +144,8 @@ public class ESInterface extends SecondoInterface implements UpdateInterface{
                         StringBuffer errorMessage){
 
           super.secondo(command,resultList,errorCode,errorPos,errorMessage);
-          if(errorCode.value==81)
-              terminate();
+          //if(errorCode.value==81)
+          //    terminate();
      }
    
 

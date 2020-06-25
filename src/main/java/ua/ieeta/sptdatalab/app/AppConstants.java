@@ -28,8 +28,6 @@ package ua.ieeta.sptdatalab.app;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.swing.ImageIcon;
-
 import org.locationtech.jts.awt.FontGlyphReader;
 import ua.ieeta.sptdatalab.model.GeometryDepiction;
 import ua.ieeta.sptdatalab.ui.ColorUtil;
@@ -98,7 +96,12 @@ public class AppConstants
     //------------ second line: coordinates directory)
     public static final String CACHE_FILE = "last_dir_cache.txt";
     
+    public static final String DEFAULT_DIRECTORY_FILE = "default_directory.txt";
+    public static String DEFAULT_DIRECTORY = "";
+    
     public static final double COORDINATE_ERROR_MAX = 0.005;
+    
+    
     
     //----------- File types accepted for coordinates and images
     public static final String[] COORDINATE_FILE_TYPES = {"wkt"};

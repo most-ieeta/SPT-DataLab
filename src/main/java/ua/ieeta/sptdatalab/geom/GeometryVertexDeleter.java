@@ -22,8 +22,6 @@
 */
 package ua.ieeta.sptdatalab.geom;
 
-import java.util.*;
-
 import org.locationtech.jts.geom.*;
 import org.locationtech.jts.geom.util.*;
 

@@ -24,7 +24,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -58,8 +57,11 @@ public class GuttingMethod implements InterpolationMethod{
     
     @Override
     public String atInstant(double instant){
-        connectAndOpenDatabase();
-        createGeometriesInDB();
+        if (!connectAndOpenDatabase())
+            return null;
+        
+        if (!createGeometriesInDB())
+            return null;
         //System.out.println(instant);
         String cmd = "query " + objectName + " atinstant [const instant value " + instant + "];";
         
@@ -72,7 +74,9 @@ public class GuttingMethod implements InterpolationMethod{
         if(error_code.value != 0)
         {
             JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo1.", JOptionPane.INFORMATION_MESSAGE);
-            Secondointerface.terminate();
+            //Secondointerface.terminate();
+            cleanDataBase();
+            closeDataBase();
             return null;
         }
         
@@ -82,7 +86,9 @@ public class GuttingMethod implements InterpolationMethod{
         if(wkt == null || error_code.value != 0)
         {
             JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo2.", JOptionPane.INFORMATION_MESSAGE);
-            Secondointerface.terminate();
+            //Secondointerface.terminate();
+            cleanDataBase();
+            closeDataBase();
             return null;
         }
         return wkt;
@@ -90,15 +96,18 @@ public class GuttingMethod implements InterpolationMethod{
     
     @Override
     public String[] duringPeriod(double beginTimeQuery, double endTimeQuery, int numSamples){
-        connectAndOpenDatabase();
-        createGeometriesInDB();
+        if (!connectAndOpenDatabase())
+            return null;
+        
+        if (!createGeometriesInDB())
+            return null;
 
         double t;
         String cmd;
         String[] wkts = new String[numSamples];
-        System.out.println("Starting interpolation during period using Gutting: " + String.valueOf(beginTimeQuery) + " "  + String.valueOf(endTimeQuery) + " "  + String.valueOf(numSamples) );
+        //System.out.println("Starting interpolation during period using Gutting: " + String.valueOf(beginTimeQuery) + " "  + String.valueOf(endTimeQuery) + " "  + String.valueOf(numSamples) );
         int i = 0;
-        for(double j = 1; j < numSamples; j++)
+        for(double j = 1; j <= numSamples; j++)
         {
             //t = (j / (dn - 1)) * db + (de - db);
             t = (j / (numSamples + 1)) * (endTimeQuery - beginTimeQuery) + beginTimeQuery;
@@ -116,10 +125,12 @@ public class GuttingMethod implements InterpolationMethod{
             
             if(error_code.value != 0)
             {
-                JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo3.", JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("Command " + cmd);
-                System.out.println("Error " + error_message.toString());
-                Secondointerface.terminate();
+                //JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo3.", JOptionPane.INFORMATION_MESSAGE);
+                //System.out.println("Secondo3. Command " + cmd);
+                System.out.println("Error secondo3 " + error_message.toString()+" "+String.valueOf(error_code.value));
+                cleanDataBase();
+                closeDataBase();
+                //Secondointerface.terminate();
                 return null;
             }
             
@@ -128,7 +139,9 @@ public class GuttingMethod implements InterpolationMethod{
             if(error_code.value != 0)
             {
                 JOptionPane.showMessageDialog(null, "ERR_PARSING_TO_WKT.", "Secondo4.", JOptionPane.INFORMATION_MESSAGE);
-                Secondointerface.terminate();
+                cleanDataBase();
+                closeDataBase();
+                //Secondointerface.terminate();
                 return null;
             }
             
@@ -141,18 +154,18 @@ public class GuttingMethod implements InterpolationMethod{
         cleanDataBase();
         closeDataBase();
         
-        try {
-            TimeUnit.SECONDS.sleep(10);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GuttingMethod.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        //try {
+        //    TimeUnit.MILLISECONDS.sleep(400);
+        //} catch (InterruptedException ex) {
+        //    Logger.getLogger(GuttingMethod.class.getName()).log(Level.SEVERE, null, ex);
+        //}
         
         return wkts;
     }
     
     //given a period of observation, and a source and target geometries, create in the secondo database
     //an object to query and perform interpolation.
-    private void createGeometriesInDB(){
+    private boolean createGeometriesInDB(){
         ListExpr resultList = new ListExpr();
         IntByReference error_code = new IntByReference(0);
         IntByReference error_pos = new IntByReference(0);
@@ -168,21 +181,25 @@ public class GuttingMethod implements InterpolationMethod{
             if (error_message.toString().contains("Identifier already used")){
                 //old object was not deleted 
                 Secondointerface.secondo("delete "+objectName, resultList, error_code, error_pos, error_message);
-                System.out.println("-->"+error_message);
+                //System.out.println("-->"+error_message.toString()+" "+String.valueOf(error_code.value));
                 
+                return createGeometriesInDB();
             }
-            else
-                JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo5.", JOptionPane.INFORMATION_MESSAGE);
-            //System.out.println(error_message);
-            Secondointerface.terminate();
-            System.out.println(createMovingRegionCmd);
+            //else
+            //    JOptionPane.showMessageDialog(null, error_message.toString(), "Secondo5.", JOptionPane.INFORMATION_MESSAGE);
+            System.out.println("error interpolate2 "+error_message+" "+String.valueOf(error_code.value)+" "+String.valueOf(error_pos.value));
+            //Secondointerface.terminate();
+            cleanDataBase();
+            closeDataBase();
+            return false;
         }
+        return true;
     }
     
-    private void connectAndOpenDatabase(){
+    private boolean connectAndOpenDatabase(){
         readDataBaseCredentials(AppConstants.SECONDO_CREDENTIALS_FILENAME);
         if (host == null)
-            return;
+            return false;
         boolean ok;
         // Connection with SECONDO
         Secondointerface.setHostname(host);
@@ -194,10 +211,10 @@ public class GuttingMethod implements InterpolationMethod{
         {
             JOptionPane.showMessageDialog(null, "Connection to Secondo Failled.", "Secondo6.", JOptionPane.ERROR_MESSAGE);
             //System.err.println("Connection to Secondo Failled.");
-            return;
+            return false;
         }
         
-        System.out.println("Connected to Secondo.");
+       // System.out.println("Connected to Secondo.");
         
        ListExpr resultList = new ListExpr();
        IntByReference erroCode = new IntByReference(0);
@@ -210,13 +227,16 @@ public class GuttingMethod implements InterpolationMethod{
         if(erroCode.value != 0)
         {
             JOptionPane.showMessageDialog(null, errorMessage.toString(), "Secondo7.", JOptionPane.INFORMATION_MESSAGE);
-            //System.out.println(error_message);
-            Secondointerface.terminate();
-            return;
+            System.out.println("error secondo7" + errorMessage+" "+String.valueOf(erroCode.value)+" "+String.valueOf(errorPos.value));
+            //Secondointerface.terminate();
+            closeDataBase();
+            return false;
         }
-        else{
-            System.out.println("Database "+databaseName +" opened");
-        }
+        //else{
+        //    System.out.println("Database "+databaseName +" opened");
+        //}
+        
+        return true;
     }
     
     private void cleanDataBase(){
@@ -232,7 +252,8 @@ public class GuttingMethod implements InterpolationMethod{
     
     private void closeDataBase(){
         // Disconnect from Secondo
-        Secondointerface.terminate();
+        if (Secondointerface.isConnected())
+            Secondointerface.terminate();
         Secondointerface.destroy();
     }
     

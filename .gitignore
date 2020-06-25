@@ -1,5 +1,6 @@
 /target/
 /last_dir_cache.txt
 /secondo_config.txt
+/default_directory.txt
 *.log
 *.tmp

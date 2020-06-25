@@ -24,9 +24,7 @@ package ua.ieeta.sptdatalab.geom;
 
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import org.geotools.geometry.jts.JTS;
 import org.locationtech.jts.algorithm.distance.DiscreteHausdorffDistance;
 import org.locationtech.jts.algorithm.match.HausdorffSimilarityMeasure;
 import org.locationtech.jts.geom.*;
@@ -79,6 +77,9 @@ public class GeometryUtil {
     }
 
     public static Double JaccardIndex(Geometry geom1, Geometry geom2) {
+
+        Double jaccard = null;
+
         if (!(geom1.isValid())) {
             return null;
         }
@@ -88,7 +89,11 @@ public class GeometryUtil {
         if (!(geom1.intersects(geom2))) {
             return 0.0;
         } else {
-            return (geom1.intersection(geom2)).getArea() / (geom1.union(geom2)).getArea();
+            try {
+                jaccard = (geom1.intersection(geom2)).getArea() / (geom1.union(geom2)).getArea();
+            } catch (Exception ex) {
+            }
+            return jaccard;
         }
     }
 
@@ -291,7 +296,13 @@ public class GeometryUtil {
         }
 
         double start = 0.001;
-        Geometry newPolygon2 = simp.simplifyVW(geom, start, true);
+        Geometry newPolygon2;
+        try {
+            newPolygon2 = simp.simplifyVW(geom, start, true);
+        } catch (Exception ex) {
+            return newPolygon;
+        }
+        
         if (!(newPolygon2.isEmpty())) {
             if ((newPolygon2.getNumPoints() > numPoints * 0.98) && (newPolygon2.getArea() > area * 0.98)) {
                 return newPolygon2;

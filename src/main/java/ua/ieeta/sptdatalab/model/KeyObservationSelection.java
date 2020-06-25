@@ -34,6 +34,84 @@ import ua.ieeta.sptdatalab.geom.GeometryUtil;
 public class KeyObservationSelection {
 
 
+    public GeometryCollectionSummary distanceBasedObservationIntervals(String inputFileName, String outputFileName, String statisticsFileName, Double limit) throws IOException {
+
+        GeometryCollectionSummary summary = new GeometryCollectionSummary();
+
+        String configuration;
+
+        long start = System.currentTimeMillis();
+
+        configuration = "Input file: " + inputFileName;
+
+        configuration = configuration + " - Select intervals - distance based (statistics after select) - Limit " + String.valueOf(limit);
+
+        try {
+            List<Geometry> listGeom = IOUtil.readWKTList(inputFileName);
+            List<String> listSelected = new ArrayList<>();
+
+            int i = 0;
+            int j = i + 1;
+
+            double jaccard_distance;
+            boolean hasIndex = false;
+
+            if (listGeom.get(i).getUserData() != null) {
+                hasIndex = true;
+            }
+
+            while (j < listGeom.size()) {
+
+                if (listGeom.get(i).isValid() && listGeom.get(j).isValid()) {
+
+                    jaccard_distance = GeometryUtil.JaccardDistance(listGeom.get(i), listGeom.get(j));
+                    if (jaccard_distance > limit) {
+
+                        if (hasIndex) {
+                            listSelected.add(listGeom.get(i).getUserData().toString().concat(";").concat(listGeom.get(j-1).getUserData().toString()));
+                        } else {
+                            listSelected.add(String.valueOf(i).concat(";").concat(String.valueOf(j-1)));
+                        }
+
+                        summary.addGeometry(listGeom.get(i));
+                        if (i != j - 1) {
+                            summary.addGeometry(listGeom.get(j - 1));
+                        }
+                        i = j;
+                    }
+                }
+                j++;
+            }
+
+            if (hasIndex) {
+                 listSelected.add(listGeom.get(i).getUserData().toString().concat(";").concat(listGeom.get(j-1).getUserData().toString()));
+            } else {
+                listSelected.add(String.valueOf(i).concat(";").concat(String.valueOf(j-1)));
+            }
+
+            summary.addGeometry(listGeom.get(i));
+
+            if (i != j - 1) {
+                summary.addGeometry(listGeom.get(j - 1));
+            }
+
+            IOUtil.writeFile(outputFileName, listSelected);
+
+            configuration = configuration + " - Elapsed time: " + String.valueOf(System.currentTimeMillis() - start);
+
+            summary.setParameterData(configuration);
+
+            IOUtil.writeSummary(statisticsFileName, summary.getSummary());
+
+        } catch (ParseException ex) {
+            Logger.getLogger(SQLBuilder.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return summary;
+
+    }
+
+    
     public GeometryCollectionSummary distanceBasedObservationSelection(String inputFileName, String outputFileName, String statisticsFileName, Double limit) throws IOException {
 
         GeometryCollectionSummary summary = new GeometryCollectionSummary();
@@ -91,7 +169,7 @@ public class KeyObservationSelection {
             }
 
             if (hasIndex) {
-                listSelected.add(listGeom.get(i).getUserData().toString().concat(";").concat(listGeom.get(i).toString()));
+                listSelected.add(listGeom.get(i).getUserData().toString().concat(";").concat(listGeom.get(i).toString()));                
             } else {
                 listSelected.add(String.valueOf(i).concat(";").concat(listGeom.get(i).toString()));
             }

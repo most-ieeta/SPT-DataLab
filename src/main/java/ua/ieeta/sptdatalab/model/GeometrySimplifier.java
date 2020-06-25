@@ -25,17 +25,16 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.io.ParseException;
 import org.locationtech.jts.io.WKTReader;
 import org.locationtech.jts.simplify.TopologyPreservingSimplifier;
 import org.locationtech.jts.simplify.VWSimplifier;
+import ua.ieeta.sptdatalab.app.AppConstants;
 import ua.ieeta.sptdatalab.app.SPTDataLabBuilderMenuBar;
 import ua.ieeta.sptdatalab.util.io.GeometrySimilarityCollectionSummary;
 import ua.ieeta.sptdatalab.util.io.IOUtil;
@@ -88,8 +87,8 @@ public class GeometrySimplifier {
 
             summary.addGeometries(geom, geom2);
 
-            IOUtil.appendLineFile(writer, geom2.toString() + System.lineSeparator());
-            IOUtil.appendLineFile(writerSummary, String.valueOf(summary.getJaccardIndex()) + ";" + String.valueOf(summary.getJaccardDistance()) + ";" + String.valueOf(summary.getHausdorffDistance()) + ";" + String.valueOf(summary.getHausdorffSimilarity()) + System.lineSeparator());
+            IOUtil.appendLineFile(writer, geom2.toString());
+            IOUtil.appendLineFile(writerSummary, String.valueOf(summary.getJaccardIndex()) + ";" + String.valueOf(summary.getJaccardDistance()) + ";" + String.valueOf(summary.getHausdorffDistance()) + ";" + String.valueOf(summary.getHausdorffSimilarity()));
         }
 
         configuration = configuration + " - Elapsed time: " + String.valueOf(System.currentTimeMillis() - start);
@@ -168,8 +167,8 @@ public class GeometrySimplifier {
 
             summary.addGeometries(geom, geom2);
 
-            IOUtil.appendLineFile(writer, geom2.toString() + System.lineSeparator());
-            IOUtil.appendLineFile(writerSummary, String.valueOf(summary.getJaccardIndex()) + ";" + String.valueOf(summary.getJaccardDistance()) + ";" + String.valueOf(summary.getHausdorffDistance()) + ";" + String.valueOf(summary.getHausdorffSimilarity()) + System.lineSeparator());
+            IOUtil.appendLineFile(writer, geom2.toString());
+            IOUtil.appendLineFile(writerSummary, String.valueOf(summary.getJaccardIndex()) + ";" + String.valueOf(summary.getJaccardDistance()) + ";" + String.valueOf(summary.getHausdorffDistance()) + ";" + String.valueOf(summary.getHausdorffSimilarity()));
         }
 
         configuration = configuration + " - Elapsed time: " + String.valueOf(System.currentTimeMillis() - start);
@@ -250,8 +249,6 @@ public class GeometrySimplifier {
 
     private GeometrySimilarityCollectionSummary simplifyMatchingAware(String inputFileName, String outputFileName, String statisticsFileName, String statisticsSummaryFileName, String userInputPercentage, String userInputTime) throws FileNotFoundException, IOException, InterruptedException {
 
-        String defaultDirectory = "C:/Temp/ACR/";
-
         try {
 
             Scanner sc = IOUtil.openFileRead(inputFileName);
@@ -274,8 +271,9 @@ public class GeometrySimplifier {
 
             int time = 0;
 
-            String geomFile1 = defaultDirectory + "pol1.tmp";
-            String geomFile2 = defaultDirectory + "pol2.tmp";
+            String geomFile1 = AppConstants.DEFAULT_DIRECTORY + "pol1.tmp";
+            String geomFile2 = AppConstants.DEFAULT_DIRECTORY + "pol2.tmp";
+            String imageFile = AppConstants.DEFAULT_DIRECTORY + "image.tmp";
 
             while ((geomInput1 != null) && (geomInput2 != null)) {
 
@@ -287,9 +285,9 @@ public class GeometrySimplifier {
                 IOUtil.appendLineFile(writer1, geomInput2.toString());
                 IOUtil.closeFile(writer1);
 
-                ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "simplifier", "-p", geomFile1, "-q", geomFile2, "-r", userInputPercentage, "-t", userInputTime);
+                ProcessBuilder pb = new ProcessBuilder("cmd", "/C", "simplifier", "-p", geomFile1, "-q", geomFile2, "-o", imageFile, "-r", userInputPercentage, "-t", userInputTime);
 
-                pb.directory(new File(defaultDirectory));
+                pb.directory(new File(AppConstants.DEFAULT_DIRECTORY));
 
                 try {
                     Process p = pb.start();
@@ -298,10 +296,11 @@ public class GeometrySimplifier {
 
                 } catch (IOException ex) {
                     Logger.getLogger(SPTDataLabBuilderMenuBar.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("erro");
                 }
 
-                Scanner scP1 = IOUtil.openFileRead(defaultDirectory + "p1_mas.wkt");
-                Scanner scP2 = IOUtil.openFileRead(defaultDirectory + "p2_mas.wkt");
+                Scanner scP1 = IOUtil.openFileRead(AppConstants.DEFAULT_DIRECTORY + "p1_mas.wkt");
+                Scanner scP2 = IOUtil.openFileRead(AppConstants.DEFAULT_DIRECTORY + "p2_mas.wkt");
 
                 geom1 = IOUtil.readGeometryLine(scP1);
                 geom2 = IOUtil.readGeometryLine(scP2);
