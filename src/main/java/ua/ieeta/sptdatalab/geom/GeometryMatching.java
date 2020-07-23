@@ -1,18 +1,29 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/* This file is part of SPT Data Lab.
+*
+* Copyright (C) 2019, University of Aveiro,
+* DETI - Departament of Electronic, Telecommunications and Informatics.
+*
+* SPT Data Lab is free software; you can redistribute it and/or modify
+* it under the terms of the GNU General Public License as published by
+* the Free Software Foundation; either version 2 of the License, or
+* (at your option) any later version.
+*
+* SPT Data Lab is distributed "AS IS" in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+* GNU General Public License for more details.
+*
+* You should have received a copy of the GNU General Public License
+* along with SPT Data Lab; if not, write to the Free Software
+* Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+*/
 package ua.ieeta.sptdatalab.geom;
 
 import java.util.concurrent.Future;
 import com.mathworks.engine.*;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
@@ -20,14 +31,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.io.ParseException;
-import ua.ieeta.sptdatalab.app.SPTDataLabBuilderMenuBar;
-import ua.ieeta.sptdatalab.morphing.GuttingMethod;
+import ua.ieeta.sptdatalab.app.AppConstants;
 import ua.ieeta.sptdatalab.util.io.IOUtil;
 
-/**
- *
- * @author Rogerio
- */
+
 public class GeometryMatching {
 
     public static void executePairMatching(String inputFile1, String inputFile2, String outputFile) throws FileNotFoundException, ParseException {
@@ -38,12 +45,12 @@ public class GeometryMatching {
             Geometry geom1 = IOUtil.readGeometryLine(sc);
             IOUtil.closeFile(sc);
 
-            double[][] lista1 = new double[geom1.getCoordinates().length][2];
+            double[][] coordinatesList1 = new double[geom1.getCoordinates().length][2];
 
             int i = 0;
             while (i < geom1.getCoordinates().length) {
-                lista1[i][0] = geom1.getCoordinates()[i].x;
-                lista1[i][1] = geom1.getCoordinates()[i].y;
+                coordinatesList1[i][0] = geom1.getCoordinates()[i].x;
+                coordinatesList1[i][1] = geom1.getCoordinates()[i].y;
                 i++;
             }
 
@@ -51,31 +58,31 @@ public class GeometryMatching {
             geom1 = IOUtil.readGeometryLine(sc);
             IOUtil.closeFile(sc);
 
-            double[][] lista2 = new double[geom1.getCoordinates().length][2];
+            double[][] coordinatesList2 = new double[geom1.getCoordinates().length][2];
 
             i = 0;
             while (i < geom1.getCoordinates().length) {
-                lista2[i][0] = geom1.getCoordinates()[i].x;
-                lista2[i][1] = geom1.getCoordinates()[i].y;
+                coordinatesList2[i][0] = geom1.getCoordinates()[i].x;
+                coordinatesList2[i][1] = geom1.getCoordinates()[i].y;
                 i++;
             }
 
             Future<MatlabEngine> eng = MatlabEngine.startMatlabAsync();
 
             MatlabEngine ml = eng.get();
-            String path = "'C:/Temp/ACR/aco'";
+            String path = AppConstants.DEFAULT_DIRECTORY + "aco";
 
             ml.evalAsync("cd ".concat(path));
 
             // Evaluate the function
             Future<double[][]> st;
-            st = ml.fevalAsync("calc_and_write_correlations", lista1, lista2);
+            st = ml.fevalAsync("calc_and_write_sptdatalab", coordinatesList1, coordinatesList2);
 
             while (!(st.isDone())) {
                 try {
-                    TimeUnit.SECONDS.sleep(1);
+                    TimeUnit.MILLISECONDS.sleep(10);
                 } catch (InterruptedException ex) {
-                    Logger.getLogger(GuttingMethod.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
 
@@ -94,11 +101,7 @@ public class GeometryMatching {
 
             ml.close();
 
-        } catch (ExecutionException ex) {
-            Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ExecutionException | InterruptedException | IOException ex) {
             Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -148,19 +151,19 @@ public class GeometryMatching {
                 Future<MatlabEngine> eng = MatlabEngine.startMatlabAsync();
 
                 MatlabEngine ml = eng.get();
-                String path = "'C:/Temp/ACR/aco'";
+                String path = AppConstants.DEFAULT_DIRECTORY + "aco";
 
                 ml.evalAsync("cd ".concat(path));
 
                 // Evaluate the function
                 Future<double[][]> matchingResultArray;
-                matchingResultArray = ml.fevalAsync("calc_and_write_correlations", coordinatesArrayFirstGeom, coordinatesArraySecondGeom);
+                matchingResultArray = ml.fevalAsync("calc_and_write_sptdatalab", coordinatesArrayFirstGeom, coordinatesArraySecondGeom);
 
                 while (!(matchingResultArray.isDone())) {
                     try {
-                        TimeUnit.MILLISECONDS.sleep(10);
+                        TimeUnit.MILLISECONDS.sleep(5);
                     } catch (InterruptedException ex) {
-                        Logger.getLogger(GuttingMethod.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
 
@@ -194,6 +197,11 @@ public class GeometryMatching {
             }
 
             if (geomInput1 != null) {
+                if (geomInput1.getUserData() != null) {
+                    time = Integer.valueOf(geomInput1.getUserData().toString());
+                } else {
+                    time++;
+                }
                 IOUtil.appendLineFile(writer, String.valueOf(time) + ";" + geomInput1.toString());
             }
 
@@ -205,11 +213,7 @@ public class GeometryMatching {
 
             System.out.println("Elapsed time: " + String.valueOf(System.currentTimeMillis() - start));
 
-        } catch (ExecutionException ex) {
-            Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ExecutionException | InterruptedException | IOException ex) {
             Logger.getLogger(GeometryMatching.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
