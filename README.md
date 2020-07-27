@@ -18,8 +18,6 @@ Some of the additional functionalities in the second release:
 - Evaluation of interpolation algorithms (e.g. Secondo interpolation and PySpatioTemporalGeom) comparison of simulated data with real observations
 - Algorithms to transform invalid geometries into valid ones
 - Additional tools like the creation of statistics for geometries in a file (e.g. number of geometries, avg/max/min area, ...) and removing geometries from a set based on parameters (e.g. area).
-
-
  
 
 ### Installation
@@ -46,13 +44,13 @@ SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZ
 
 ## Citation
 
-This software was first presented at SIGSPATIAL '19. To cite this work, please use:
+This software was first presented at ACM SIGSPATIAL '19 (runner-up demo paper). To cite this work, please use:
 
 > José Duarte, Bruno Silva, José Moreira, Paulo Dias, Enrico Miranda, and Rogério L. C. Costa. 2019. **Towards a qualitative analysis of interpolation methods for deformable moving regions**. In *Proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL '19)*. ACM, New York, NY, USA, 592-595. DOI: https://doi.org/10.1145/3347146.3359368 
 
 The new features from the second version were used in the following work, which you can cite if you use them:
 
-> Rogério Luís de C. Costa, Enrico Miranda, Paulo Dias and José Moreira. 2020. **Evaluating Preprocessing and Interpolation Strategies to Create Moving Regions from Real-World Observations**. In *ACM SIGAPP Applied Computing Review* 20, 2. (June 2020). 
+> Rogério Luís de C. Costa, Enrico Miranda, Paulo Dias and José Moreira. 2020. **Evaluating Preprocessing and Interpolation Strategies to Create Moving Regions from Real-World Observations**. In *ACM SIGAPP Applied Computing Review* 20, 2. (2020), pp 46-58. DOI: https://dl.acm.org/doi/10.1145/3412816.3412820
 
 <sup>1</sup>The matching-aware simplification was proposed in:
 
