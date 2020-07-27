@@ -6,9 +6,21 @@ SPT Data Lab is a tool for the visualization, creation and refinement of Spatio-
 
 Users can use their own files with geometries (e.g. observations of the evolution of a phenomenon) and edit them (refine them) using the GUI interface. The supported region interpolation methods can be used to create moving regions from the data provided by the user and to simulate the continuous evolution of the phenomenon being represented. SPT Data Lab can also be used to compute metrics over the results of the interpolation.
 
-Users can visualize the interpolation and compute metrics, and save the results obtained in a png, csv or wkt representation.
+Users can visualize the interpolation and compute metrics, and save the results obtained in a png, csv or wkt representation. SPT Data Lab provides GUI and command line interfaces.
 
-SPT Data Lab provides a GUI and a command line interfaces. 
+Some of the additional functionalities in the second release:
+
+- Integration with external segmentation tools to create filters, to segment video and images, and to extract frames from videos;
+- New geometry simplification tools, including the simplification of a set of geometries using Douglas-Peucker and Visvalingam-Whyatt algorithms, and the Matching-Aware Simplification<sup>1</sup>
+- Creation of SQL scripts to load geometries into DBMS using the discrete and the continuous models
+- Geometry mathing tools that enable the match of pairs of geometries in batch mode for a set of geometries
+- Selection of geometries from a sequence of observations with distinct timestamps, including the selection of key (distance-based) observations and identification of distance-based intervals<sup>2</sup>, and the selection of observations at fixed intervals
+- Evaluation of interpolation algorithms (e.g. Secondo interpolation and PySpatioTemporalGeom) comparison of simulated data with real observations
+- Algorithms to transform invalid geometries into valid ones
+- Additional tools like the creation of statistics for geometries in a file (e.g. number of geometries, avg/max/min area, ...) and removing geometries from a set based on parameters (e.g. area).
+
+
+ 
 
 ### Installation
 
@@ -37,6 +49,20 @@ SPTDataLab Key Features Overview: https://drive.google.com/open?id=1_LvlUqpt6xIZ
 This software was first presented at SIGSPATIAL '19. To cite this work, please use:
 
 > José Duarte, Bruno Silva, José Moreira, Paulo Dias, Enrico Miranda, and Rogério L. C. Costa. 2019. **Towards a qualitative analysis of interpolation methods for deformable moving regions**. In *Proceedings of the 27th ACM SIGSPATIAL International Conference on Advances in Geographic Information Systems (SIGSPATIAL '19)*. ACM, New York, NY, USA, 592-595. DOI: https://doi.org/10.1145/3347146.3359368 
+
+The new features from the second version were used in the following work, which you can cite if you use them:
+
+> Rogério Luís de C. Costa, Enrico Miranda, Paulo Dias and José Moreira. 2020. **Evaluating Preprocessing and Interpolation Strategies to Create Moving Regions from Real-World Observations**. In *ACM SIGAPP Applied Computing Review* 20, 2. (June 2020). 
+
+<sup>1</sup>The matching-aware simplification was proposed in:
+
+> Enrico Miranda, Rogério Luís de C. Costa, Paulo Dias and José Moreira. 2020. **Matching-Aware Shape Simplification**. In *15th International Conference on Computer Graphics Theory and Applications (GRAPP 2020). pp. 279-286*. DOI: https://doi.org/10.5220/0008969402790286 
+
+<sup>2</sup>Distance-based observation selection was proposed in:
+
+> Rogério Luís C. Costa, Enrico Miranda, Paulo Dias and José Moreira. 2020 **Sampling strategies to create moving regions from real world observations**. In *Proceedings of the 35th ACM/SIGAPP Symposium On Applied Computing (ACM SAC 2020)*. pp. 609-616. DOI: https://doi.org/10.1145/3341105.3374019. 
+
+
 
 
 ## License
