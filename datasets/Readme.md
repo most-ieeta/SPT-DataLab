@@ -1,3 +1,6 @@
+
+** Fire and icebergs folders
+
 The datasets available here contain images of deformable objects in discrete times.
 For every 2 images, there is a file (.corr or .wkt) with pixel coordinates for the object in those 2 images 
 (1st image is source, 2nd is target). 
