@@ -1,5 +1,5 @@
 
-** Fire and icebergs folders
+## Fire and Iceberg folders
 
 The datasets available here contain images of deformable objects in discrete times.
 For every 2 images, there is a file (.corr or .wkt) with pixel coordinates for the object in those 2 images 
@@ -7,11 +7,11 @@ For every 2 images, there is a file (.corr or .wkt) with pixel coordinates for t
 
 The provided datasets are ready to be used by SPTDataLab.
 
--Iceberg: Discrete observation of 2 icebergs in months. Contains a directory with images of all observations, ordered
+- Iceberg: Discrete observation of 2 icebergs in months. Contains a directory with images of all observations, ordered
 from oldest to newest and 3 directories with pixel coordinates of source and target geometries of all observations,
 2 for the longer iceberg in the center (one has .wkt file, another has .corr), another one for the smaller iceberg 
 (.corr files).
--Fire: Discrete observation of fire spreading through vegetation in a controlled environment. 
+- Fire: Discrete observation of fire spreading through vegetation in a controlled environment. 
 Contains a directory with images of all observations and a directory with  with pixel coordinates of source and 
 target geometries of all observations.
 
