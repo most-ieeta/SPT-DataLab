@@ -321,7 +321,7 @@ public class SPTDataLabBuilderMenuBar {
                         return;
                     }
 
-                    jfc.setDialogTitle("Select the file to save interpolated geometries");
+                    jfc.setDialogTitle("Select the file to save summary");
                     String outputFileName = "";
 
                     outputFileName = selectedGeomFileName.replaceFirst("[.][^.]+$", "").concat("Metrics").concat(".txt");
@@ -1446,7 +1446,7 @@ public class SPTDataLabBuilderMenuBar {
                     jfc.setDialogTitle("Choose the file with the second geometry (with WKT): ");
                     returnValue = jfc.showOpenDialog(null);
                     if (returnValue == JFileChooser.APPROVE_OPTION) {
-                        geometriesFileName = jfc.getSelectedFile().getAbsolutePath();
+                        geometriesFileName2 = jfc.getSelectedFile().getAbsolutePath();
                     } else {
                         return;
                     }
